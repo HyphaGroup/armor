@@ -197,7 +197,7 @@
           "recommendation": { "type": "string" },
           "priority": {
             "type": "string",
-            "enum": ["high", "medium", "low"]
+            "enum": ["critical", "high", "medium", "low"]
           },
           "effort": {
             "type": "string",

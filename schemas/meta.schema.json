@@ -77,8 +77,7 @@
           "deep_adversary_profiling",
           "information_operations",
           "opsec_analysis",
-          "incident_response",
-          "technical_deep_dive"
+          "incident_response"
         ]
       },
       "description": "Which modules have been completed"
