@@ -1,0 +1,296 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/technical-deep-dive.schema.json",
+  "title": "Technical Deep-Dive Assessment",
+  "description": "Technical infrastructure and security assessment (MODULE)",
+  "type": "object",
+  "properties": {
+    "module_completed": {
+      "type": "boolean",
+      "description": "Whether this module has been completed"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "infrastructure": {
+      "type": "object",
+      "description": "Infrastructure mapping",
+      "properties": {
+        "systems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "system_id": { "type": "string" },
+              "name": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "endpoint",
+                  "server",
+                  "cloud_service",
+                  "network_device",
+                  "mobile_device",
+                  "iot_device",
+                  "other"
+                ]
+              },
+              "description": { "type": "string" },
+              "owner": { "type": "string" },
+              "criticality": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"]
+              },
+              "managed_by": {
+                "type": "string",
+                "enum": ["internal", "third_party", "hybrid"]
+              },
+              "third_party_name": { "type": "string" },
+              "notes": { "type": "string" }
+            }
+          },
+          "description": "Systems inventory"
+        },
+        "data_flows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "flow_id": { "type": "string" },
+              "description": { "type": "string" },
+              "source": { "type": "string" },
+              "destination": { "type": "string" },
+              "data_types": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "encrypted": { "type": "boolean" },
+              "notes": { "type": "string" }
+            }
+          },
+          "description": "Data flow mapping"
+        },
+        "third_party_services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "service": { "type": "string" },
+              "provider": { "type": "string" },
+              "purpose": { "type": "string" },
+              "data_shared": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "criticality": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"]
+              },
+              "security_reviewed": { "type": "boolean" },
+              "notes": { "type": "string" }
+            }
+          },
+          "description": "Third-party services in use"
+        }
+      }
+    },
+    "technical_assessment": {
+      "type": "object",
+      "description": "Technical security assessment by area",
+      "properties": {
+        "authentication": {
+          "type": "object",
+          "properties": {
+            "current_state": { "type": "string" },
+            "mfa_deployed": { "type": "boolean" },
+            "mfa_coverage": { "type": "string" },
+            "password_policy": { "type": "string" },
+            "gaps": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "encryption": {
+          "type": "object",
+          "properties": {
+            "current_state": { "type": "string" },
+            "data_at_rest": { "type": "boolean" },
+            "data_in_transit": { "type": "boolean" },
+            "email_encryption": { "type": "string" },
+            "gaps": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "patching": {
+          "type": "object",
+          "properties": {
+            "current_state": { "type": "string" },
+            "auto_updates_enabled": { "type": "boolean" },
+            "patch_frequency": { "type": "string" },
+            "gaps": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "backups": {
+          "type": "object",
+          "properties": {
+            "current_state": { "type": "string" },
+            "backup_frequency": { "type": "string" },
+            "backup_tested": { "type": "boolean" },
+            "last_test": { "type": "string", "format": "date" },
+            "offsite_backup": { "type": "boolean" },
+            "gaps": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "monitoring": {
+          "type": "object",
+          "properties": {
+            "current_state": { "type": "string" },
+            "logging_enabled": { "type": "boolean" },
+            "alerts_configured": { "type": "boolean" },
+            "who_monitors": { "type": "string" },
+            "gaps": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "access_control": {
+          "type": "object",
+          "properties": {
+            "current_state": { "type": "string" },
+            "least_privilege": { "type": "boolean" },
+            "access_review_frequency": { "type": "string" },
+            "offboarding_process": { "type": "boolean" },
+            "gaps": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "technical_vulnerabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vulnerability_id": { "type": "string" },
+          "description": { "type": "string" },
+          "area": {
+            "type": "string",
+            "enum": [
+              "authentication",
+              "encryption",
+              "patching",
+              "backups",
+              "monitoring",
+              "access_control",
+              "network",
+              "endpoint",
+              "cloud",
+              "other"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "exploitability": {
+            "type": "string",
+            "enum": ["easy", "moderate", "difficult"]
+          },
+          "remediation": { "type": "string" },
+          "effort": {
+            "type": "string",
+            "enum": ["minimal", "low", "medium", "high", "major"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["identified", "accepted", "remediating", "remediated"]
+          }
+        }
+      },
+      "description": "Identified technical vulnerabilities"
+    },
+    "prioritized_roadmap": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "priority": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "improvement": { "type": "string" },
+          "area": { "type": "string" },
+          "effort": {
+            "type": "string",
+            "enum": ["minimal", "low", "medium", "high", "major"]
+          },
+          "impact": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "target_date": { "type": "string", "format": "date" },
+          "owner": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      },
+      "description": "Prioritized technical improvement roadmap"
+    },
+    "overall_assessment": {
+      "type": "object",
+      "properties": {
+        "authentication_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "encryption_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "patching_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "backup_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "monitoring_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "access_control_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "overall_technical_posture": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "priority_gaps": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}
