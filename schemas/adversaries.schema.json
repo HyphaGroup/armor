@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/adversaries.schema.json",
+  "title": "Adversary Profiles",
+  "description": "Adversary profiles for threat modeling",
+  "type": "object",
+  "required": ["adversaries"],
+  "properties": {
+    "adversaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["adversary_id", "name", "category", "relevance"],
+        "properties": {
+          "adversary_id": {
+            "type": "string",
+            "description": "Unique identifier for this adversary profile"
+          },
+          "name": {
+            "type": "string",
+            "description": "Label for this adversary (can be specific or generic)"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "nation_state",
+              "ideological_opposition",
+              "cybercriminal",
+              "insider",
+              "competitor",
+              "opportunistic",
+              "custom"
+            ],
+            "description": "Adversary category (from templates)"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "Reference to adversary template used as base"
+          },
+          "relevance": {
+            "type": "string",
+            "enum": ["confirmed", "likely", "possible", "unlikely"],
+            "description": "How relevant is this adversary to your organization"
+          },
+          "relevance_rationale": {
+            "type": "string",
+            "description": "Why this adversary is/isn't relevant to you"
+          },
+          "adversary_details": {
+            "type": "object",
+            "description": "Who they are - identity, motivation, resources",
+            "properties": {
+              "description": {
+                "type": "string",
+                "description": "Who is this adversary"
+              },
+              "motivation": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "political_control",
+                    "intelligence_gathering",
+                    "disruption",
+                    "discrediting",
+                    "financial_gain",
+                    "ideological",
+                    "revenge",
+                    "competitive_advantage",
+                    "opportunistic",
+                    "other"
+                  ]
+                },
+                "description": "What motivates them"
+              },
+              "resources": {
+                "type": "string",
+                "enum": ["nation_state", "well_funded", "moderate", "limited", "minimal"],
+                "description": "Resource level"
+              },
+              "persistence": {
+                "type": "string",
+                "enum": ["highly_persistent", "campaign_based", "opportunistic"],
+                "description": "How persistent are they"
+              },
+              "known_history": {
+                "type": "string",
+                "description": "Any known history of targeting similar organizations"
+              }
+            }
+          },
+          "capability": {
+            "type": "object",
+            "description": "What they can do - capabilities and techniques",
+            "properties": {
+              "technical_capability": {
+                "type": "string",
+                "enum": ["advanced", "moderate", "basic", "minimal"],
+                "description": "Technical hacking/cyber capability"
+              },
+              "social_engineering_capability": {
+                "type": "string",
+                "enum": ["advanced", "moderate", "basic", "minimal"],
+                "description": "Social engineering/manipulation capability"
+              },
+              "information_operations_capability": {
+                "type": "string",
+                "enum": ["advanced", "moderate", "basic", "minimal"],
+                "description": "Ability to conduct narrative attacks, disinformation"
+              },
+              "physical_capability": {
+                "type": "string",
+                "enum": ["advanced", "moderate", "basic", "minimal"],
+                "description": "Physical surveillance, intimidation, access"
+              },
+              "legal_capability": {
+                "type": "string",
+                "enum": ["advanced", "moderate", "basic", "minimal"],
+                "description": "Ability to use legal system against you"
+              },
+              "typical_techniques": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Common techniques this adversary uses"
+              },
+              "notes": {
+                "type": "string",
+                "description": "Additional capability notes"
+              }
+            }
+          },
+          "infrastructure": {
+            "type": "object",
+            "description": "What resources they use - infrastructure and tools",
+            "properties": {
+              "infrastructure_types": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "owned_servers",
+                    "compromised_infrastructure",
+                    "commercial_services",
+                    "social_media_accounts",
+                    "fake_organizations",
+                    "proxy_actors",
+                    "legal_entities",
+                    "physical_presence",
+                    "insider_access"
+                  ]
+                },
+                "description": "Types of infrastructure they typically use"
+              },
+              "notes": {
+                "type": "string",
+                "description": "Additional infrastructure notes"
+              }
+            }
+          },
+          "victim_targeting": {
+            "type": "object",
+            "description": "Why you - targeting rationale and objectives",
+            "properties": {
+              "why_target_you": {
+                "type": "string",
+                "description": "Why would this adversary target YOUR organization"
+              },
+              "what_they_want": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "What assets/outcomes they're after"
+              },
+              "targeting_indicators": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Signs that you're being targeted by this adversary"
+              },
+              "stepping_stone_value": {
+                "type": "string",
+                "description": "Are you valuable as access to someone else (partners, beneficiaries, sources)?"
+              }
+            }
+          },
+          "custom_notes": {
+            "type": "string",
+            "description": "Organization-specific notes about this adversary"
+          }
+        }
+      }
+    },
+    "adversary_summary": {
+      "type": "object",
+      "properties": {
+        "primary_adversaries": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of most relevant adversaries"
+        },
+        "overall_threat_level": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"],
+          "description": "Overall adversary threat assessment"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

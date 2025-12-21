@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/assets.schema.json",
+  "title": "Information Assets and Containers",
+  "description": "Critical information assets and where they reside",
+  "type": "object",
+  "required": ["assets"],
+  "properties": {
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["asset_id", "name", "category", "value"],
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "description": "Unique identifier for this asset"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name/label for this asset"
+          },
+          "description": {
+            "type": "string",
+            "description": "What this asset is and why it matters"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "beneficiary_data",
+              "source_data",
+              "donor_supporter_data",
+              "staff_volunteer_data",
+              "financial_data",
+              "strategic_data",
+              "communications",
+              "credentials",
+              "research_unpublished",
+              "operational_data",
+              "reputation",
+              "physical_assets",
+              "other"
+            ],
+            "description": "Asset category"
+          },
+          "value": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"],
+            "description": "How valuable/sensitive is this asset"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Who is responsible for this asset"
+          },
+          "security_requirements": {
+            "type": "object",
+            "properties": {
+              "confidentiality": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"],
+                "description": "How important is keeping this secret"
+              },
+              "integrity": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"],
+                "description": "How important is ensuring this isn't tampered with"
+              },
+              "availability": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"],
+                "description": "How important is continuous access to this"
+              }
+            },
+            "description": "CIA triad requirements"
+          },
+          "primary_requirement": {
+            "type": "string",
+            "enum": ["confidentiality", "integrity", "availability"],
+            "description": "The MOST important security requirement for this asset"
+          },
+          "containers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/container"
+            },
+            "description": "Where this asset lives/is stored"
+          },
+          "who_has_access": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "People/roles with access to this asset"
+          },
+          "retention_notes": {
+            "type": "string",
+            "description": "How long is this kept, when is it deleted"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "container": {
+      "type": "object",
+      "required": ["container_type", "description"],
+      "properties": {
+        "container_type": {
+          "type": "string",
+          "enum": ["technical", "physical", "human"],
+          "description": "Type of container"
+        },
+        "description": {
+          "type": "string",
+          "description": "Specific container (e.g., 'Google Drive', 'Filing cabinet in office', 'Program director's knowledge')"
+        },
+        "location": {
+          "type": "string",
+          "description": "Where is this container (cloud provider, physical address, etc.)"
+        },
+        "access_controls": {
+          "type": "string",
+          "description": "What protections exist on this container"
+        },
+        "third_party": {
+          "type": "boolean",
+          "description": "Is this controlled by a third party"
+        },
+        "third_party_name": {
+          "type": "string",
+          "description": "Name of third party if applicable"
+        }
+      }
+    }
+  }
+}

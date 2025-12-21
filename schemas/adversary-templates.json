@@ -1,0 +1,366 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Adversary Profile Templates",
+  "description": "Pre-built adversary profiles for civil society threat modeling",
+  "version": "1.0.0",
+  "templates": [
+    {
+      "template_id": "nation_state_intelligence",
+      "name": "Nation-State / Intelligence Service",
+      "category": "nation_state",
+      "description": "Government intelligence agencies or state-sponsored actors targeting organizations that threaten state interests",
+      "when_relevant": [
+        "Working on issues that challenge government authority or policy",
+        "Operating in or covering authoritarian countries",
+        "Supporting opposition movements or dissidents",
+        "Investigating government corruption or human rights abuses",
+        "Providing services to vulnerable populations the state targets"
+      ],
+      "adversary_details": {
+        "motivation": ["political_control", "intelligence_gathering", "disruption", "discrediting"],
+        "resources": "nation_state",
+        "persistence": "highly_persistent"
+      },
+      "capability": {
+        "technical_capability": "advanced",
+        "social_engineering_capability": "advanced",
+        "information_operations_capability": "advanced",
+        "physical_capability": "advanced",
+        "legal_capability": "advanced",
+        "typical_techniques": [
+          "Sophisticated phishing and social engineering",
+          "Account takeover and credential theft",
+          "Data breach and surveillance",
+          "Malware and device compromise",
+          "Harassment campaigns",
+          "Narrative attacks and disinformation",
+          "Impersonation of activists or journalists",
+          "Infiltration of organizations",
+          "Document theft and selective leaking",
+          "Legal pressure and regulatory harassment",
+          "Physical surveillance",
+          "Border device searches and seizures"
+        ]
+      },
+      "infrastructure": {
+        "infrastructure_types": [
+          "owned_servers",
+          "compromised_infrastructure",
+          "commercial_services",
+          "social_media_accounts",
+          "proxy_actors",
+          "legal_entities",
+          "physical_presence",
+          "insider_access"
+        ]
+      },
+      "victim_targeting": {
+        "typical_targets": [
+          "Leadership and decision-makers",
+          "Staff with access to sensitive information",
+          "Sources, beneficiaries, or contacts",
+          "Partner organizations as stepping stones"
+        ],
+        "what_they_want": [
+          "Identities of sources, beneficiaries, or network members",
+          "Unpublished research or investigations",
+          "Strategic plans and internal communications",
+          "Access to partner networks",
+          "Disruption of operations",
+          "Discrediting of organization"
+        ],
+        "targeting_indicators": [
+          "Sophisticated phishing tailored to your work",
+          "Attempts to infiltrate staff or volunteer ranks",
+          "Suspicious interview requests or partnership offers",
+          "Device tampering or border searches",
+          "Legal pressure in country of operation",
+          "Coordinated media attacks from state-aligned outlets"
+        ]
+      }
+    },
+    {
+      "template_id": "ideological_opposition",
+      "name": "Ideological Opposition",
+      "category": "ideological_opposition",
+      "description": "Groups or individuals motivated by ideological opposition to your mission, values, or work",
+      "when_relevant": [
+        "Working on politically contentious issues",
+        "Advocating positions that have organized opposition",
+        "High public visibility on divisive topics",
+        "Supporting communities targeted by hate groups"
+      ],
+      "adversary_details": {
+        "motivation": ["ideological", "disruption", "discrediting"],
+        "resources": "moderate",
+        "persistence": "campaign_based"
+      },
+      "capability": {
+        "technical_capability": "basic",
+        "social_engineering_capability": "moderate",
+        "information_operations_capability": "moderate",
+        "physical_capability": "basic",
+        "legal_capability": "basic",
+        "typical_techniques": [
+          "Coordinated harassment campaigns",
+          "Doxing (publishing personal information)",
+          "Flooding social media and comments",
+          "Swarming attacks on individuals",
+          "Narrative attacks and conspiracy theories",
+          "Impersonation and fake accounts",
+          "Mass reporting to trigger platform bans",
+          "Service disruption (DDoS)",
+          "Physical intimidation at events"
+        ]
+      },
+      "infrastructure": {
+        "infrastructure_types": [
+          "social_media_accounts",
+          "commercial_services"
+        ]
+      },
+      "victim_targeting": {
+        "typical_targets": [
+          "Visible staff and spokespeople",
+          "Social media presence",
+          "Events and public activities"
+        ],
+        "what_they_want": [
+          "Personal information on staff for harassment",
+          "Content to twist or weaponize",
+          "Disruption of operations and events",
+          "Damage to reputation",
+          "Silencing of your voice"
+        ],
+        "targeting_indicators": [
+          "Sudden spike in hostile social media engagement",
+          "Coordinated negative reviews or comments",
+          "Doxing of staff members",
+          "Threats linked to your work",
+          "Coverage in opposition media outlets"
+        ]
+      }
+    },
+    {
+      "template_id": "cybercriminal",
+      "name": "Cybercriminal / Financially Motivated",
+      "category": "cybercriminal",
+      "description": "Criminals seeking financial gain through fraud, ransomware, or data theft",
+      "when_relevant": [
+        "All organizations (universal threat)",
+        "Organizations handling financial transactions",
+        "Organizations with valuable data (donor lists, etc.)",
+        "Organizations with limited IT security"
+      ],
+      "adversary_details": {
+        "motivation": ["financial_gain"],
+        "resources": "moderate",
+        "persistence": "opportunistic"
+      },
+      "capability": {
+        "technical_capability": "moderate",
+        "social_engineering_capability": "moderate",
+        "information_operations_capability": "minimal",
+        "physical_capability": "minimal",
+        "legal_capability": "minimal",
+        "typical_techniques": [
+          "Phishing and spear-phishing",
+          "Business email compromise",
+          "Ransomware",
+          "Credential theft and stuffing",
+          "Account takeover",
+          "Invoice and payment fraud"
+        ]
+      },
+      "infrastructure": {
+        "infrastructure_types": [
+          "compromised_infrastructure",
+          "commercial_services"
+        ]
+      },
+      "victim_targeting": {
+        "typical_targets": [
+          "Finance staff and executives",
+          "Staff with system access",
+          "Anyone who clicks links"
+        ],
+        "what_they_want": [
+          "Money via wire fraud or ransomware",
+          "Credentials for account takeover",
+          "Data to sell or extort",
+          "Computing resources for crypto mining"
+        ],
+        "targeting_indicators": [
+          "Phishing emails mentioning invoices, payments, urgent action",
+          "Ransomware demands",
+          "Unusual financial transactions",
+          "Accounts locked or credentials compromised"
+        ]
+      }
+    },
+    {
+      "template_id": "insider_threat",
+      "name": "Insider Threat",
+      "category": "insider",
+      "description": "Current or former staff, volunteers, or contractors who misuse their access",
+      "when_relevant": [
+        "All organizations (universal threat)",
+        "Organizations with high turnover",
+        "Organizations with contentious internal dynamics",
+        "Organizations with highly sensitive data access"
+      ],
+      "adversary_details": {
+        "motivation": ["revenge", "ideological", "financial_gain", "opportunistic"],
+        "resources": "limited",
+        "persistence": "opportunistic"
+      },
+      "capability": {
+        "technical_capability": "varies",
+        "social_engineering_capability": "moderate",
+        "information_operations_capability": "basic",
+        "physical_capability": "moderate",
+        "legal_capability": "minimal",
+        "typical_techniques": [
+          "Data exfiltration and theft",
+          "Unauthorized data access",
+          "Record tampering or deletion",
+          "Credential sharing or abuse",
+          "Sabotage of systems or projects",
+          "Information leaking"
+        ]
+      },
+      "infrastructure": {
+        "infrastructure_types": [
+          "insider_access"
+        ]
+      },
+      "victim_targeting": {
+        "typical_targets": [
+          "Systems they have access to",
+          "Data they can reach",
+          "Colleagues they disagree with"
+        ],
+        "what_they_want": [
+          "Data to leak or sell",
+          "Revenge for perceived wrongs",
+          "Sabotage of projects or systems",
+          "Financial gain"
+        ],
+        "targeting_indicators": [
+          "Unusual data access patterns",
+          "Access outside normal hours",
+          "Large data downloads before departure",
+          "Expressing grievances publicly"
+        ]
+      }
+    },
+    {
+      "template_id": "competitor_opposing_org",
+      "name": "Competitor / Opposing Organization",
+      "category": "competitor",
+      "description": "Organizations competing for funding, influence, or opposing your policy positions",
+      "when_relevant": [
+        "Working in competitive funding environment",
+        "Advocating positions with organized institutional opposition",
+        "High-profile work attracting rival claims"
+      ],
+      "adversary_details": {
+        "motivation": ["competitive_advantage", "ideological", "discrediting"],
+        "resources": "moderate",
+        "persistence": "campaign_based"
+      },
+      "capability": {
+        "technical_capability": "basic",
+        "social_engineering_capability": "moderate",
+        "information_operations_capability": "moderate",
+        "physical_capability": "minimal",
+        "legal_capability": "moderate",
+        "typical_techniques": [
+          "Counter-narratives and competing messaging",
+          "Attacks on credibility and methodology",
+          "Commissioning opposing research",
+          "FOIA requests and legal discovery",
+          "Legal challenges and regulatory complaints",
+          "Donor and funder pressure campaigns"
+        ]
+      },
+      "infrastructure": {
+        "infrastructure_types": [
+          "commercial_services",
+          "legal_entities"
+        ]
+      },
+      "victim_targeting": {
+        "typical_targets": [
+          "Your public research and claims",
+          "Your funding relationships",
+          "Your reputation"
+        ],
+        "what_they_want": [
+          "Information to undermine your credibility",
+          "Competitive advantage for funding",
+          "Policy wins against your position"
+        ],
+        "targeting_indicators": [
+          "FOIA requests about your work",
+          "Challenges to your research methodology",
+          "Counter-campaigns launched",
+          "Donor pressure"
+        ]
+      }
+    },
+    {
+      "template_id": "opportunistic",
+      "name": "Opportunistic / Untargeted",
+      "category": "opportunistic",
+      "description": "Attackers who target vulnerabilities rather than specific organizations",
+      "when_relevant": [
+        "All organizations (universal threat)",
+        "Organizations with outdated systems",
+        "Organizations with weak security practices"
+      ],
+      "adversary_details": {
+        "motivation": ["opportunistic", "financial_gain"],
+        "resources": "limited",
+        "persistence": "opportunistic"
+      },
+      "capability": {
+        "technical_capability": "basic",
+        "social_engineering_capability": "basic",
+        "information_operations_capability": "minimal",
+        "physical_capability": "minimal",
+        "legal_capability": "minimal",
+        "typical_techniques": [
+          "Automated vulnerability scanning",
+          "Credential stuffing attacks",
+          "Mass phishing campaigns",
+          "Exploitation of unpatched systems",
+          "Opportunistic ransomware"
+        ]
+      },
+      "infrastructure": {
+        "infrastructure_types": [
+          "compromised_infrastructure"
+        ]
+      },
+      "victim_targeting": {
+        "typical_targets": [
+          "Exposed vulnerabilities",
+          "Weak credentials",
+          "Unpatched systems"
+        ],
+        "what_they_want": [
+          "Any value they can extract",
+          "Computing resources",
+          "Credentials for resale",
+          "Data for resale"
+        ],
+        "targeting_indicators": [
+          "Automated attack patterns",
+          "Generic phishing",
+          "Exploitation of known vulnerabilities"
+        ]
+      }
+    }
+  ]
+}

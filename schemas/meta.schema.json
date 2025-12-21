@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/meta.schema.json",
+  "title": "Threat Model Profile Metadata",
+  "description": "Organization identification and profile versioning",
+  "type": "object",
+  "required": ["profile_id", "organization", "created_at", "schema_version"],
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this threat model profile"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Version of the threat model schema"
+    },
+    "organization": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Organization name"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "advocacy",
+            "human_rights",
+            "journalism",
+            "legal_aid",
+            "humanitarian",
+            "research",
+            "community_organizing",
+            "labor",
+            "environmental",
+            "electoral",
+            "other"
+          ],
+          "description": "Primary organization type"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["individual", "small", "medium", "large"],
+          "description": "Organization size (individual, small <10, medium 10-50, large 50+)"
+        },
+        "operating_regions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Geographic regions where organization operates"
+        },
+        "sensitive_contexts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Sensitive political/social contexts (e.g., 'opposition to authoritarian government', 'controversial domestic issue')"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Profile creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "completed_modules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "core",
+          "deep_adversary_profiling",
+          "information_operations",
+          "opsec_analysis",
+          "incident_response",
+          "technical_deep_dive"
+        ]
+      },
+      "description": "Which modules have been completed"
+    },
+    "facilitator": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "organization": { "type": "string" },
+        "contact": { "type": "string" }
+      },
+      "description": "Who facilitated the threat modeling session(s)"
+    },
+    "review_schedule": {
+      "type": "object",
+      "properties": {
+        "next_review": {
+          "type": "string",
+          "format": "date",
+          "description": "Next scheduled review date"
+        },
+        "review_frequency": {
+          "type": "string",
+          "enum": ["monthly", "quarterly", "biannual", "annual"],
+          "description": "How often to review and update"
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "General notes about this profile"
+    }
+  }
+}

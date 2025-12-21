@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/threats.schema.json",
+  "title": "Threat Mapping",
+  "description": "Threat mapping for security assessment",
+  "type": "object",
+  "required": ["threats"],
+  "properties": {
+    "threats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["threat_id", "name", "category", "likelihood"],
+        "properties": {
+          "threat_id": {
+            "type": "string",
+            "description": "Unique identifier for this threat"
+          },
+          "name": {
+            "type": "string",
+            "description": "Short name for this threat"
+          },
+          "description": {
+            "type": "string",
+            "description": "What this threat involves"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "account_phishing",
+              "account_takeover",
+              "account_unauthorized_access",
+              "account_insider_misuse",
+              "data_breach",
+              "data_tampering",
+              "data_loss",
+              "data_surveillance",
+              "disruption_service",
+              "disruption_infrastructure",
+              "info_narrative_attack",
+              "info_impersonation",
+              "info_harassment",
+              "info_amplification",
+              "info_platform_manipulation",
+              "info_document_leak",
+              "physical_intrusion",
+              "physical_surveillance",
+              "physical_intimidation",
+              "operational_human_error",
+              "operational_technical_failure",
+              "operational_natural_disaster",
+              "operational_third_party",
+              "legal_regulatory",
+              "other"
+            ],
+            "description": "Threat category"
+          },
+          "subcategory": {
+            "type": "string",
+            "description": "More specific threat type if applicable"
+          },
+          "likelihood": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "How likely is this threat to materialize"
+          },
+          "likelihood_rationale": {
+            "type": "string",
+            "description": "Why this likelihood rating"
+          },
+          "relevant_adversaries": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Adversary IDs that might use this threat"
+          },
+          "targeted_assets": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Asset IDs this threat could affect"
+          },
+          "example_scenarios": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Concrete examples of how this threat might manifest"
+          },
+          "indicators": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Signs that this threat is occurring"
+          }
+        }
+      }
+    },
+    "threat_summary": {
+      "type": "object",
+      "description": "Summary of threat coverage by domain",
+      "properties": {
+        "account_access_threats": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "primary_concerns": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        },
+        "data_information_threats": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "primary_concerns": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        },
+        "disruption_threats": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "primary_concerns": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        },
+        "information_reputation_threats": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "primary_concerns": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        },
+        "physical_threats": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "primary_concerns": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        },
+        "operational_threats": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "primary_concerns": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

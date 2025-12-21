@@ -1,0 +1,259 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/response-capability.schema.json",
+  "title": "Incident Response Capability",
+  "description": "Incident response readiness assessment (MODULE)",
+  "type": "object",
+  "properties": {
+    "module_completed": {
+      "type": "boolean",
+      "description": "Whether this module has been completed"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "preparation": {
+      "type": "object",
+      "description": "Preparation - readiness before incidents occur",
+      "properties": {
+        "incident_response_plan": {
+          "type": "object",
+          "properties": {
+            "exists": { "type": "boolean" },
+            "last_updated": { "type": "string", "format": "date" },
+            "covers_technical_incidents": { "type": "boolean" },
+            "covers_information_operations": { "type": "boolean" },
+            "covers_physical_incidents": { "type": "boolean" },
+            "location": { "type": "string" },
+            "notes": { "type": "string" }
+          }
+        },
+        "incident_definition": {
+          "type": "object",
+          "properties": {
+            "defined": { "type": "boolean" },
+            "definition": { "type": "string" },
+            "examples": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "description": "What constitutes an incident for this org"
+        },
+        "response_team": {
+          "type": "object",
+          "properties": {
+            "defined": { "type": "boolean" },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "role": { "type": "string" },
+                  "name": { "type": "string" },
+                  "contact": { "type": "string" },
+                  "backup": { "type": "string" }
+                }
+              }
+            },
+            "decision_authority": { "type": "string" }
+          }
+        },
+        "contact_lists": {
+          "type": "object",
+          "properties": {
+            "internal_contacts": { "type": "boolean" },
+            "legal_counsel": { "type": "boolean" },
+            "it_support": { "type": "boolean" },
+            "platform_contacts": { "type": "boolean" },
+            "peer_organizations": { "type": "boolean" },
+            "law_enforcement": { "type": "boolean" },
+            "media_pr": { "type": "boolean" },
+            "digital_security_support": { "type": "boolean" },
+            "last_verified": { "type": "string", "format": "date" },
+            "notes": { "type": "string" }
+          }
+        },
+        "communication_channels": {
+          "type": "object",
+          "properties": {
+            "primary_channel": { "type": "string" },
+            "backup_channel": { "type": "string" },
+            "secure_channel": { "type": "string" },
+            "notes": { "type": "string" }
+          }
+        },
+        "training": {
+          "type": "object",
+          "properties": {
+            "staff_trained": { "type": "boolean" },
+            "last_training": { "type": "string", "format": "date" },
+            "tabletop_conducted": { "type": "boolean" },
+            "last_tabletop": { "type": "string", "format": "date" },
+            "notes": { "type": "string" }
+          }
+        },
+        "documentation_templates": {
+          "type": "object",
+          "properties": {
+            "incident_log_template": { "type": "boolean" },
+            "communication_templates": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "detection": {
+      "type": "object",
+      "description": "Detection - identifying and analyzing incidents",
+      "properties": {
+        "monitoring_capabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "email_security",
+                  "endpoint_protection",
+                  "network_monitoring",
+                  "account_alerts",
+                  "social_media_monitoring",
+                  "news_monitoring",
+                  "domain_monitoring",
+                  "data_breach_monitoring",
+                  "other"
+                ]
+              },
+              "tool_or_method": { "type": "string" },
+              "who_monitors": { "type": "string" },
+              "notes": { "type": "string" }
+            }
+          }
+        },
+        "reporting_channels": {
+          "type": "object",
+          "properties": {
+            "staff_know_how_to_report": { "type": "boolean" },
+            "reporting_method": { "type": "string" },
+            "notes": { "type": "string" }
+          }
+        },
+        "detection_gaps": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Known gaps in detection capability"
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "description": "Response - containment, eradication, and recovery",
+      "properties": {
+        "containment_capabilities": {
+          "type": "object",
+          "properties": {
+            "can_isolate_systems": { "type": "boolean" },
+            "can_revoke_access": { "type": "boolean" },
+            "can_block_accounts": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "backup_recovery": {
+          "type": "object",
+          "properties": {
+            "backups_exist": { "type": "boolean" },
+            "backup_frequency": { "type": "string" },
+            "backup_tested": { "type": "boolean" },
+            "last_test": { "type": "string", "format": "date" },
+            "recovery_time_estimate": { "type": "string" },
+            "notes": { "type": "string" }
+          }
+        },
+        "external_support": {
+          "type": "object",
+          "properties": {
+            "it_support_available": { "type": "boolean" },
+            "digital_security_support": { "type": "boolean" },
+            "legal_support_available": { "type": "boolean" },
+            "pr_support_available": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "post_incident": {
+      "type": "object",
+      "description": "Post-incident - learning and improvement",
+      "properties": {
+        "review_process": {
+          "type": "object",
+          "properties": {
+            "defined": { "type": "boolean" },
+            "description": { "type": "string" }
+          }
+        },
+        "lessons_learned_process": {
+          "type": "boolean"
+        },
+        "threat_model_update_trigger": {
+          "type": "boolean",
+          "description": "Does incident trigger threat model review"
+        }
+      }
+    },
+    "incident_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "incident_id": { "type": "string" },
+          "date": { "type": "string", "format": "date" },
+          "type": { "type": "string" },
+          "summary": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "lessons_learned": { "type": "string" },
+          "changes_made": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "description": "Historical incidents for learning"
+    },
+    "readiness_assessment": {
+      "type": "object",
+      "properties": {
+        "preparation_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "detection_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "response_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "recovery_score": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "overall_readiness": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "priority_gaps": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

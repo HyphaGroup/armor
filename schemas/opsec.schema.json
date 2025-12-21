@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/opsec.schema.json",
+  "title": "OPSEC Analysis",
+  "description": "Operational security assessment - what adversaries can learn about you (MODULE)",
+  "type": "object",
+  "properties": {
+    "module_completed": {
+      "type": "boolean",
+      "description": "Whether this module has been completed"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "public_exposure": {
+      "type": "object",
+      "description": "What's publicly available about the organization",
+      "properties": {
+        "website_exposure": {
+          "type": "object",
+          "properties": {
+            "staff_listed": { "type": "boolean" },
+            "staff_contact_info": { "type": "boolean" },
+            "office_address": { "type": "boolean" },
+            "partner_list": { "type": "boolean" },
+            "donor_list": { "type": "boolean" },
+            "program_details": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "social_media_exposure": {
+          "type": "object",
+          "properties": {
+            "org_accounts": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "List of org social media accounts"
+            },
+            "staff_accounts_linked": { "type": "boolean" },
+            "location_sharing": { "type": "boolean" },
+            "activity_patterns_visible": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "regulatory_filings": {
+          "type": "object",
+          "properties": {
+            "990_public": { "type": "boolean" },
+            "corporate_registration": { "type": "boolean" },
+            "other_filings": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "media_coverage": {
+          "type": "object",
+          "properties": {
+            "staff_quoted_by_name": { "type": "boolean" },
+            "activities_covered": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "operational_patterns": {
+      "type": "object",
+      "description": "Predictable patterns adversaries could exploit",
+      "properties": {
+        "regular_meetings": {
+          "type": "object",
+          "properties": {
+            "exist": { "type": "boolean" },
+            "publicly_known": { "type": "boolean" },
+            "location_fixed": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "travel_patterns": {
+          "type": "object",
+          "properties": {
+            "regular_travel": { "type": "boolean" },
+            "announced_in_advance": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "communication_patterns": {
+          "type": "object",
+          "properties": {
+            "primary_channels": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "patterns_predictable": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "financial_patterns": {
+          "type": "object",
+          "properties": {
+            "funding_cycles_known": { "type": "boolean" },
+            "donor_relationships_public": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "trust_relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "relationship": {
+            "type": "string",
+            "description": "Description of the trust relationship"
+          },
+          "exploitable": {
+            "type": "boolean",
+            "description": "Could this be exploited by adversaries"
+          },
+          "exploitation_scenario": {
+            "type": "string",
+            "description": "How could it be exploited"
+          },
+          "mitigation": {
+            "type": "string",
+            "description": "What could reduce this risk"
+          }
+        }
+      },
+      "description": "Trust relationships that could be exploited"
+    },
+    "digital_footprint": {
+      "type": "object",
+      "properties": {
+        "domain_registration": {
+          "type": "object",
+          "properties": {
+            "whois_private": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "email_infrastructure": {
+          "type": "object",
+          "properties": {
+            "provider_visible": { "type": "boolean" },
+            "mx_records_reveal": { "type": "string" }
+          }
+        },
+        "third_party_services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "service": { "type": "string" },
+              "reveals": { "type": "string" }
+            }
+          }
+        },
+        "data_broker_presence": {
+          "type": "object",
+          "properties": {
+            "assessed": { "type": "boolean" },
+            "findings": { "type": "string" }
+          }
+        }
+      }
+    },
+    "opsec_vulnerabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vulnerability_id": { "type": "string" },
+          "description": { "type": "string" },
+          "what_adversary_learns": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "remediation": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["identified", "accepted", "remediating", "remediated"]
+          }
+        }
+      },
+      "description": "Identified OPSEC vulnerabilities"
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "recommendation": { "type": "string" },
+          "priority": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          },
+          "effort": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          }
+        }
+      }
+    }
+  }
+}
