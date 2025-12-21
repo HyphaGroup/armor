@@ -206,17 +206,62 @@ Problem-based navigation:
 
 ## Cross-Cutting Themes Across Guides
 
-| Theme | SIAB | EFF SSD | Holistic | DFAK | FLD | CPJ | SAFETAG |
-|-------|------|---------|----------|------|-----|-----|---------|
-| Threat modeling | ✓ | ✓✓ | ✓ | | ✓ | ✓ | ✓ |
-| Well-being/stress | | | ✓✓ | ✓ | ✓✓ | ✓ | |
-| Tool guidance | ✓✓ | ✓✓ | | | | ✓ | |
-| Organizational | | | ✓✓ | | ✓ | ✓ | ✓✓ |
-| Emergency response | | | | ✓✓ | | | |
-| Physical security | ✓ | ✓ | ✓ | | ✓✓ | ✓✓ | |
-| Info ops/narrative | | | | | | | |
-| Context analysis | | | ✓✓ | | ✓ | ✓ | ✓ |
-| Adversary profiling | | ✓ | ✓ | | ✓ | | ✓ |
+| Theme | SIAB | EFF SSD | Holistic | DFAK | FLD | CPJ | SAFETAG | GenBest |
+|-------|------|---------|----------|------|-----|-----|---------|---------|
+| Threat modeling | ✓ | ✓✓ | ✓ | | ✓ | ✓ | ✓ | ✓ |
+| Well-being/stress | | | ✓✓ | ✓ | ✓✓ | ✓ | | |
+| Tool guidance | ✓✓ | ✓✓ | | | | ✓ | | ✓✓ |
+| Organizational | | | ✓✓ | | ✓ | ✓ | ✓✓ | ✓✓ |
+| Emergency response | | | | ✓✓ | | | | |
+| Physical security | ✓ | ✓ | ✓ | | ✓✓ | ✓✓ | | |
+| Info ops/narrative | | | | | | | | |
+| Context analysis | | | ✓✓ | | ✓ | ✓ | ✓ | |
+| Adversary profiling | | ✓ | ✓ | | ✓ | | ✓ | |
+| Personal safety/anti-dox | | | | | | | | ✓✓ |
+| Specific tool configs | ✓ | ✓ | | | | ✓ | | ✓✓ |
+| Self-assessment checklist | | | | | ✓ | | ✓ | ✓✓ |
+
+---
+
+---
+
+## 8. General Best Digital Security Practices (Organizational Policy Template)
+**Source:** Practitioner-developed organizational security policy
+**Focus:** Actionable security requirements for organizations
+
+### Structure
+- **Immediate Actions**: Delete old accounts, 2FA, no PII exposure
+- **Tools & Services**: Specific platform recommendations (encouraged/discouraged)
+- **Email Security**: Requirements and rationale
+- **Google Workspace**: Detailed configuration requirements
+- **Signal**: Configuration and usage requirements
+- **Zoom**: Security settings requirements
+- **Hardware & Devices**: Desktop, laptop, mobile recommendations
+- **Social Media**: Privacy recommendations
+- **Personal Safety**: Individual protection measures
+- **Getting Help**: Support resources
+- **Checklist**: Self-assessment tool
+
+### Key Approach
+- Very prescriptive (specific tools, settings, requirements)
+- Operational policy format (requirements vs. recommendations)
+- Platform-specific guidance (what to use, what to avoid)
+- Includes rationale for each recommendation
+- Ends with actionable checklist
+
+### Notable Elements
+- **Encouraged/Discouraged technology lists**: Clear guidance (use Signal, not Slack/SMS)
+- **Specific configuration requirements**: Exact settings for Zoom, Signal, Google Workspace
+- **Personal safety section**: Unique coverage of doxxing prevention, credit freezes, family code words
+- **Self-assessment checklist**: Practical verification tool
+- **Security rationale**: Explains "why" for each recommendation
+- **Data broker removal services**: Addresses proactive privacy protection
+
+### Unique Contributions
+- Most operational/prescriptive of all guides reviewed
+- Specific tool configuration guidance
+- Personal safety beyond digital (credit freezes, family verification)
+- "Discouraged technologies" framing (clearer than just "use X")
 
 ---
 

@@ -41,6 +41,12 @@ Comparative analysis of civil society security guides and recommendations for re
 
 ---
 
+6. **Self-Assessment Checklist**
+   - The "General Best Practices" guide ends with a practical checklist
+   - Our methodology could benefit from similar verification tools
+
+---
+
 ## Gaps and Potential Refinements
 
 ### 1. WELL-BEING AND STRESS INTEGRATION (High Priority)
@@ -135,6 +141,46 @@ Security Indicators to Monitor:
 - Include device preparation for border crossing
 - Address journalist/activist-specific border risks
 
+### 8. PERSONAL SAFETY / ANTI-DOXXING (Medium Priority)
+**Gap:** The "General Best Practices" guide has strong personal safety section that goes beyond digital.
+
+**Recommendation:**
+- Add personal safety considerations to OPSEC module or as separate section
+- Include doxxing prevention (data broker removal, credit freezes)
+- Family safety measures (code words, transitioning family to secure comms)
+- Monitoring for personal exposure (Google Alerts, PimEyes checks)
+
+**Specific additions:**
+```
+Personal Safety Measures:
+- Data broker removal services
+- Credit freeze with all major bureaus
+- Family "code word" for identity verification
+- Google Alerts for personal identifiers
+- Regular "Have I Been Pwned" checks
+- Social media privacy audit
+```
+
+### 9. TOOL CONFIGURATION SPECIFICITY (Lower Priority)
+**Gap:** General Best Practices provides specific tool configuration requirements (Signal settings, Zoom security, etc.). Our methodology is tool-agnostic.
+
+**Assessment:** This is likely intentional - our methodology is meant to be durable while tools change. However:
+
+**Recommendation:**
+- Consider a companion "Implementation Checklist" document
+- Could be a Level 3 guide: "Technical Implementation Checklist"
+- Specific settings for common platforms (Signal, Zoom, Google Workspace)
+- Updated more frequently than methodology
+
+### 10. DISCOURAGED TECHNOLOGIES FRAMING (Lower Priority)
+**Gap:** General Best Practices explicitly lists what NOT to use, not just what to use.
+
+**Recommendation:**
+- In Technical Deep-Dive module, consider adding:
+  - "Discouraged" category for tools/practices
+  - Clear alternatives for each discouraged item
+  - Rationale for each (helps with buy-in)
+
 ---
 
 ## Elements We Have That Others Lack
@@ -180,11 +226,17 @@ Our methodology has innovations that external guides don't:
    - Data minimization for travel
    - Border crossing scenarios
 
+6. **Add Personal Safety section to OPSEC module**
+   - Anti-doxxing measures (data broker removal, credit freezes)
+   - Family safety protocols
+   - Personal exposure monitoring
+
 ### Future Consideration
 
-6. **Physical Security module** (for high-risk contexts)
-7. **Well-Being module** (integrate holistic security approach)
-8. **Context Analysis expansion** (political/legal environment assessment)
+7. **Physical Security module** (for high-risk contexts)
+8. **Well-Being module** (integrate holistic security approach)
+9. **Context Analysis expansion** (political/legal environment assessment)
+10. **Technical Implementation Checklist** (Level 3 guide with specific tool configs)
 
 ---
 
@@ -232,9 +284,16 @@ Consider adding a resources section pointing to:
 ## Conclusion
 
 Our methodology is comprehensive and in many ways more structured than existing guides. The main gaps are:
-1. **Well-being integration** (biggest gap)
-2. **Support network / allies mapping**
-3. **Active incident triage** (vs. just preparedness)
-4. **Security indicators** (early warning)
+1. **Well-being integration** (biggest gap - from Holistic Security, FLD)
+2. **Support network / allies mapping** (from EFF SSD)
+3. **Active incident triage** (from Digital First Aid Kit)
+4. **Security indicators / early warning** (from Holistic Security)
+5. **Personal safety / anti-doxxing** (from General Best Practices)
 
 These can be addressed with targeted additions without restructuring the core methodology. The modular architecture makes this straightforward.
+
+### Note on Tool-Specificity
+
+The "General Best Practices" guide is notably more prescriptive about specific tools and configurations. Our methodology intentionally stays tool-agnostic for durability, but we could consider:
+- A companion "Implementation Checklist" at Level 3
+- Linking to external tool guides (Security in a Box, EFF SSD) rather than duplicating
