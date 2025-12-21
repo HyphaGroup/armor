@@ -1,73 +1,151 @@
-# Civil Society Threat Modeling Methodology
+# Threat Modeling Methodology
 
-A structured approach for civil society organizations to identify, assess, and address security threats across digital, physical, and information domains.
+Detailed instructions for conducting civil society threat modeling. This document describes *what* to do at each step, regardless of delivery format (workshop, self-guided, agent-assisted).
 
-## Purpose
-
-Civil society organizations—human rights groups, journalists, advocacy organizations, legal aid providers—face sophisticated threats from well-resourced adversaries while operating with limited security budgets and capacity. This methodology provides:
-
-- A systematic way to understand your specific threat landscape
-- Prioritization based on mission impact, not generic risk scores
-- Actionable outputs that match your resource constraints
-- A foundation for ongoing security improvement
-
-*This methodology draws on established security frameworks (OCTAVE, Diamond Model, STRIDE, DISARM, NIST 800-61) but presents them as a unified approach without requiring practitioners to learn those frameworks.*
+For conceptual background, see `framework.md`. For format-specific guidance, see the implementation guides.
 
 ---
 
-## Core Concepts
+## Overview
 
-### Mission-First Security
+### Structure
 
-Security exists to protect your mission. This methodology starts with understanding what you're trying to achieve and what would constitute mission failure, then works backward to identify what needs protection and from whom.
+**Core Components** (required, ~3 hours total):
+1. Mission & Impact Framework (30 min)
+2. Asset Identification (45 min)
+3. Adversary Profiling (30 min)
+4. Threat Mapping (45 min)
+5. Risk Assessment (45 min)
+6. Mitigation Planning (included in closing)
 
-### The Threat Modeling Chain
+**Modules** (as needed, 45-60 min each):
+- Deep Adversary Profiling
+- Information Operations
+- OPSEC Analysis
+- Incident Response
+- Technical Deep-Dive
 
-```
-MISSION → ASSETS → ADVERSARIES → THREATS → RISKS → MITIGATIONS
-   ↓         ↓          ↓            ↓         ↓          ↓
- Why you   What to    Who might   What they  Which      What to
- exist     protect    target you  could do   matter     do about it
-```
+### Prerequisites
 
-Each element informs the next:
-- Your **mission** determines which **assets** are critical
-- Your **assets** and mission attract specific **adversaries**
-- Your **adversaries** have particular **threats** they can deploy
-- **Threats** against **assets** create **risks**
-- **Risks** are addressed through **mitigations**
-
-### Adversary-Informed Defense
-
-Rather than defending against all possible threats equally, this methodology identifies your likely adversaries first, then focuses defensive resources on the threats those adversaries actually use.
+Before starting, gather:
+- Organization's mission statement
+- List of key programs/activities
+- Overview of IT systems and data storage (diagram if available)
+- Any recent security incidents or concerns
+- Known adversaries or threat actors
 
 ---
 
-## Methodology Components
+## Core Component 1: Mission & Impact Framework
 
-### 1. Mission & Impact Framework
+### Purpose
+Establish context for all security decisions by defining what matters most to THIS organization.
 
-**Purpose:** Establish the context for all security decisions.
+### Inputs
+- Mission statement
+- Knowledge of organizational priorities
 
-**Key elements:**
-- **Mission statement**: What you're trying to achieve
-- **Core activities**: Programs and work that fulfill the mission
-- **Impact areas**: Categories of harm (safety, mission, reputation, financial, legal, partners)
-- **Impact thresholds**: What HIGH/MEDIUM/LOW impact means for your organization
+### Process
 
-**Why it matters:** A threat that would be minor for one organization could be catastrophic for another. Defining your impact areas and thresholds ensures risk scoring reflects YOUR priorities, not generic benchmarks.
+**Step 1: Capture Mission Statement**
 
-### 2. Asset Identification
+Document the organization's mission in their own words:
+- What are you trying to achieve?
+- Who depends on you achieving it?
+- What would mission failure look like?
 
-**Purpose:** Identify what needs protection.
+**Step 2: Define Impact Areas**
 
-**Key elements:**
-- **Information assets**: Data, documents, communications, credentials
-- **Containers**: Where assets live (technical systems, physical locations, people's knowledge)
-- **Security requirements**: Confidentiality, integrity, availability needs
-- **Value**: How critical each asset is to mission
+Assess and rank these impact areas by organizational priority (1=highest, 6=lowest):
 
-**Asset value mapping for risk scoring:**
+| Impact Area | Description |
+|-------------|-------------|
+| Safety & Security | Physical safety of staff, volunteers, beneficiaries, sources |
+| Mission Delivery | Ability to deliver core programs and services |
+| Trust & Reputation | Stakeholder confidence, public perception, credibility |
+| Financial Resources | Funding, operational costs, fines |
+| Legal & Compliance | Regulatory requirements, legal exposure |
+| Partner Relations | Relationships with donors, allies, coalitions |
+
+**Step 3: Define Impact Thresholds**
+
+For the top 3 priority impact areas, define what HIGH/MEDIUM/LOW impact means:
+
+| Impact Area | HIGH | MEDIUM | LOW |
+|-------------|------|--------|-----|
+| [Area 1] | | | |
+| [Area 2] | | | |
+| [Area 3] | | | |
+
+*Example for Safety:*
+- HIGH: Physical harm to staff or beneficiaries
+- MEDIUM: Credible threats requiring security changes
+- LOW: General increase in hostile attention
+
+### Outputs
+- Mission statement captured
+- Impact areas ranked 1-6
+- Impact thresholds defined for top 3 areas
+
+### Schema Reference
+`mission.schema.json`
+
+---
+
+## Core Component 2: Asset Identification
+
+### Purpose
+Identify what needs protection—focusing on information assets and where they live.
+
+### Inputs
+- Mission context from Component 1
+- Knowledge of organizational data and systems
+
+### Process
+
+**Step 1: Brainstorm Information Assets**
+
+Work through each category, identifying specific assets:
+
+| Category | Guiding Questions |
+|----------|-------------------|
+| Beneficiary/Client Data | Who do you serve? What do you know about them? |
+| Source Data | Do you have confidential sources? Whistleblowers? |
+| Donor/Supporter Data | Who funds you? What do you know about them? |
+| Staff/Volunteer Data | Personal information, HR records, contact details |
+| Financial Data | Banking, transactions, budgets, payroll |
+| Strategic Data | Plans, unpublished research, internal decisions |
+| Communications | Emails, messages, meeting notes, call records |
+| Credentials | Passwords, keys, access tokens |
+| Operational Data | Schedules, locations, travel plans |
+
+For each asset identified, document:
+- What it is
+- Why it matters (what harm if compromised?)
+
+**Step 2: Map Containers**
+
+For each critical asset, identify where it lives:
+
+| Container Type | Examples |
+|----------------|----------|
+| Technical | Cloud services, databases, devices, email systems |
+| Physical | Filing cabinets, printed documents, office locations |
+| Human | People who know the information, have access |
+
+Note third-party services that hold critical data.
+
+**Step 3: Assign Value and Requirements**
+
+For each asset:
+
+| Field | Options | Notes |
+|-------|---------|-------|
+| Value | Critical / High / Medium / Low | How damaging if compromised? |
+| Risk Score Value | 3 / 2 / 2 / 1 | Numeric mapping for scoring |
+| Primary Requirement | Confidentiality / Integrity / Availability | What matters most? |
+
+**Value Mapping:**
 | Value | Risk Score | Meaning |
 |-------|------------|---------|
 | Critical | 3 | Loss would severely impact mission or cause serious harm |
@@ -75,453 +153,818 @@ Rather than defending against all possible threats equally, this methodology ide
 | Medium | 2 | Loss would cause moderate disruption |
 | Low | 1 | Loss would be inconvenient but manageable |
 
-**Why it matters:** You can't protect everything equally. Asset identification focuses attention on what actually matters—often information about people (beneficiaries, sources, staff) rather than generic "data." Asset values established here carry forward into risk scoring (Session 5).
+### Outputs
+- Asset inventory with descriptions
+- Container mapping for critical assets
+- Value ratings (used in Risk Assessment)
+- Primary security requirements
 
-### 3. Adversary Profiling
+### Schema Reference
+`assets.schema.json`
 
-**Purpose:** Understand who might target you and why.
+---
 
-**Key elements:**
-- **Identity**: Who they are (category or specific actor)
-- **Motivation**: Why they'd target you
-- **Capability**: What they can do (technical, social, physical, legal, information operations)
-- **Infrastructure**: Resources they use
-- **Targeting rationale**: Why YOU specifically
+## Core Component 3: Adversary Profiling
 
-**Adversary categories:**
-| Category | Typical Motivation |
-|----------|-------------------|
-| Nation-State / Intelligence | Political control, surveillance, disruption |
-| Ideological Opposition | Discrediting, silencing, harassment |
-| Cybercriminal | Financial gain |
-| Insider | Revenge, ideology, financial |
-| Competitor / Opposing Org | Competitive advantage, policy wins |
-| Opportunistic | Whatever value can be extracted |
+### Purpose
+Identify who might target you and why.
 
-**Why it matters:** Different adversaries use different techniques. A nation-state and an ideological opposition group both might target you, but they'll do it differently. Understanding your adversaries focuses defense on relevant threats.
+### Inputs
+- Mission context from Component 1
+- Asset inventory from Component 2
 
-### 4. Threat Mapping
+### Process
 
-**Purpose:** Identify specific threats relevant to your situation.
+**Step 1: Assess Adversary Categories**
 
-**Threat categories:**
+Review each category and assess relevance:
 
-| Domain | Threats |
-|--------|---------|
-| **Account & Access** | Phishing, account takeover, unauthorized access, insider misuse |
-| **Data & Information** | Data breach, tampering, loss, surveillance |
-| **Disruption** | Service disruption, infrastructure attacks |
-| **Information & Reputation** | Narrative attacks, impersonation, harassment, amplification, platform manipulation, document leaks |
-| **Physical** | Intrusion, surveillance, intimidation |
-| **Operational** | Human error, technical failure, natural disaster, third-party failure |
+| Category | Relevance Indicators | Universal? |
+|----------|---------------------|------------|
+| Nation-State / Intelligence | Work challenges government authority, operates in/covers authoritarian contexts, supports opposition/dissidents | No |
+| Ideological Opposition | Politically contentious issues, high visibility on divisive topics | No |
+| Cybercriminal | Has money, data, or systems worth stealing | Yes |
+| Insider Threat | Has staff/volunteers with access to sensitive information | Yes |
+| Competitor / Opposing Org | Competitive funding environment, institutional opposition | No |
+| Opportunistic | Has internet-connected systems | Yes |
 
-**Threat likelihood mapping for risk scoring:**
+For each relevant category, assess: **Confirmed / Likely / Possible / Unlikely**
+
+**Step 2: Customize Adversary Profiles**
+
+For each relevant adversary, document:
+
+| Field | Description |
+|-------|-------------|
+| Name/Label | Specific or generic identifier |
+| Category | From the list above |
+| Why You? | Why would they target YOUR organization? |
+| What They Want | Information? Disruption? Discrediting? |
+| Relevance | Confirmed / Likely / Possible |
+| Relevance Rationale | Evidence for this assessment |
+
+**Step 3: Select Primary Adversaries**
+
+Identify 2-4 adversaries to focus on for threat mapping. Selection criteria:
+- Confirmed or Likely relevance
+- Higher capability
+- History of targeting similar organizations
+
+### Outputs
+- Adversary categories assessed
+- Relevant adversaries profiled
+- Primary adversaries selected (2-4)
+
+### Schema Reference
+`adversaries.schema.json`, `adversary-templates.json`
+
+---
+
+## Core Component 4: Threat Mapping
+
+### Purpose
+Map specific threats based on your adversaries and assets.
+
+### Inputs
+- Asset inventory from Component 2
+- Adversary profiles from Component 3
+
+### Process
+
+**Step 1: Assess Threat Categories**
+
+For each threat category, assess relevance and provide examples:
+
+**Account & Access Threats:**
+| Threat | Description |
+|--------|-------------|
+| Phishing & Social Engineering | Deceptive messages to steal credentials or information |
+| Account Takeover | Unauthorized access to accounts |
+| Unauthorized Access | Breaking into systems |
+| Insider Misuse | Staff/volunteers abusing their access |
+
+**Data & Information Threats:**
+| Threat | Description |
+|--------|-------------|
+| Data Breach | Unauthorized access to sensitive data |
+| Data Tampering | Unauthorized modification of data |
+| Data Loss | Accidental or malicious destruction |
+| Surveillance | Monitoring of communications or activities |
+
+**Disruption Threats:**
+| Threat | Description |
+|--------|-------------|
+| Service Disruption | DDoS, system outages |
+| Infrastructure Attack | Targeting core systems |
+
+**Information & Reputation Threats:**
+| Threat | Description |
+|--------|-------------|
+| Narrative Attacks | False claims, conspiracy theories, distorted facts |
+| Impersonation | Fake accounts, personas posing as org/staff |
+| Harassment | Coordinated pile-ons, threats, doxing |
+| Amplification | Bot networks, coordinated inauthentic behavior |
+| Platform Manipulation | Mass reporting, SEO attacks |
+| Document Leaks | Theft and release of internal documents |
+
+**Physical Threats:**
+| Threat | Description |
+|--------|-------------|
+| Physical Intrusion | Unauthorized facility access |
+| Physical Surveillance | Being watched, followed |
+| Intimidation & Violence | Threats, harassment, attacks |
+
+**Operational Threats (non-adversarial):**
+| Threat | Description |
+|--------|-------------|
+| Human Error | Mistakes, accidents |
+| Technical Failure | System crashes, data corruption |
+| Natural Disaster | Fire, flood, earthquake |
+| Third-Party Failure | Vendor/partner failures |
+
+**Step 2: Link Threats to Adversaries and Assets**
+
+For each relevant threat, document:
+- Which adversaries might use this threat
+- Which assets it could affect
+- Concrete example of how it might manifest
+
+**Step 3: Assign Likelihood**
+
+For each relevant threat:
+
 | Likelihood | Risk Score | Meaning |
 |------------|------------|---------|
 | High (Expected/Active) | 3 | Threat is active or expected within the year |
 | Medium (Possible) | 2 | Threat could occur, some indicators exist |
 | Low (Unlikely) | 1 | Threat is possible but no current indicators |
 
-**Why it matters:** Civil society faces threats across multiple domains—not just "cyber." Information operations (narrative attacks, harassment) and physical threats are often as significant as technical attacks. This methodology covers all domains. Threat likelihood assessed here carries forward into risk scoring (Session 5).
+### Outputs
+- Relevant threats identified with examples
+- Threats linked to adversaries and assets
+- Likelihood ratings (used in Risk Assessment)
 
-### 5. Risk Assessment
+### Schema Reference
+`threats.schema.json`
 
-**Purpose:** Prioritize which threats to address.
+---
 
-**Risk formula:**
-```
-RISK = ASSET VALUE × THREAT LIKELIHOOD × VULNERABILITY
-```
+## Core Component 5: Risk Assessment
 
-Each factor captures something distinct:
-- **Asset Value**: How critical is what's at risk? (from asset identification)
-- **Threat Likelihood**: How likely is this threat to be attempted? (from adversary capability and intent)
-- **Vulnerability**: How exposed are we? (from control gaps and weaknesses)
+### Purpose
+Combine assets, adversaries, and threats into prioritized risk scenarios.
 
-**Risk scenario format:**
-> "There is a risk that [adversary] could [threat action] affecting [asset], which would impact [mission area]."
+### Inputs
+- Assets with values from Component 2
+- Threats with likelihood from Component 4
 
-**Scoring:**
+### Process
 
-| Factor | 1 | 2 | 3 | Source |
-|--------|---|---|---|--------|
-| **Asset Value** | Low | Medium or High | Critical | From Session 2 (Asset Identification) |
-| **Likelihood** | Unlikely | Possible | Expected/Active | From Session 4 (Threat Mapping) |
-| **Vulnerability** | Well-protected | Some gaps | Exposed | Assessed in Session 5 |
+**Step 1: Generate Risk Scenarios**
 
-- **Risk Score** (1-27): Asset Value × Likelihood × Vulnerability
-- **Priority Bands**: Critical (18-27), High (10-17), Moderate (4-9), Low (1-3)
+Create 8-12 risk scenarios using this format:
 
-**Vulnerability assessment guide:**
+> "There is a risk that **[adversary]** could **[threat action]** affecting **[asset]**, which would impact **[impact area]**."
+
+*Examples:*
+- "There is a risk that nation-state actors could conduct phishing attacks affecting staff email accounts, which would impact beneficiary safety."
+- "There is a risk that ideological opposition could launch coordinated harassment affecting visible staff members, which would impact mission delivery and staff wellbeing."
+
+**Scenario Validation Questions:**
+- Is it specific and clear?
+- Can we identify the cause?
+- Is the impact tangible?
+- Is it within our scope?
+- Is it actionable?
+
+**Step 2: Assess Vulnerability**
+
+For each scenario, assess current exposure:
+
+| Field | Description |
+|-------|-------------|
+| Existing Controls | What protections currently exist? |
+| Control Gaps | What's missing or insufficient? |
+| Vulnerability Score | 1-3 rating |
+
+**Vulnerability Scoring:**
 | Score | Level | Indicators |
 |-------|-------|------------|
 | 1 | Well-protected | Strong controls exist, regularly tested, few gaps |
 | 2 | Some gaps | Partial controls, known weaknesses, or untested |
 | 3 | Exposed | Minimal controls, significant gaps, or no protection |
 
-**Why it matters:** Three-factor scoring distinguishes between risks that are serious because of asset value vs. likelihood vs. exposure. This helps prioritize action—vulnerability is the factor you can most directly change through mitigation.
+**Step 3: Calculate Risk Scores**
 
-### 6. Mitigation Planning
+For each scenario:
 
-**Purpose:** Turn risks into actions.
+| Factor | Score | Source |
+|--------|-------|--------|
+| Asset Value | 1-3 | From Component 2 |
+| Likelihood | 1-3 | From Component 4 |
+| Vulnerability | 1-3 | From Step 2 |
+| **Risk Score** | 1-27 | Asset Value × Likelihood × Vulnerability |
 
-**Key elements:**
-- **Mitigation type**: Technical control, policy, training, etc.
-- **Priority**: Based on risk score
-- **Effort/Cost**: Resource requirements
-- **Owner**: Who's responsible
-- **Timeline**: When it will be done
-- **Success criteria**: How you know it's working
+**Priority Bands:**
+| Score | Priority | Action |
+|-------|----------|--------|
+| 18-27 | Critical | Immediate action required |
+| 10-17 | High | Near-term action needed |
+| 4-9 | Moderate | Plan and address |
+| 1-3 | Low | Monitor, accept, or defer |
 
-**Why it matters:** Threat modeling without action is just worry. Mitigation planning ensures findings become improvements.
+**Step 4: Identify Priority Risks**
 
----
+Select top 5 risks for immediate focus. Note which factor is driving each:
+- High asset value → Protect the asset
+- High likelihood → Address the adversary/threat
+- High vulnerability → Fix the gaps (most actionable)
 
-## Modular Structure
+### Outputs
+- Risk scenarios documented
+- Vulnerability assessed for each
+- Risk scores calculated
+- Top 5 priority risks identified
 
-The methodology uses a modular structure to balance thoroughness with practicality.
-
-### Core (Required)
-
-Every organization completes the core:
-
-| Session | Purpose | Time |
-|---------|---------|------|
-| Mission & Impact | Establish context | 30 min |
-| Asset Identification | Identify what to protect | 45 min |
-| Adversary Selection | Identify who might target you | 30 min |
-| Threat Mapping | Map relevant threats | 45 min |
-| Risk Prioritization | Assess vulnerability, score, prioritize | 45 min |
-| Closing & Next Steps | Identify quick wins, plan modules, assign follow-up | 15 min |
-
-**Total core time:** ~3.5 hours (210 min)
-
-### Modules (As Needed)
-
-Modules provide depth in specific areas based on organizational context:
-
-| Module | When to Use | Time |
-|--------|-------------|------|
-| **Deep Adversary Profiling** | Confirmed targeted threats, need to anticipate behavior | 45 min |
-| **Information Operations** | Facing narrative attacks, harassment, public-facing work | 45 min |
-| **OPSEC Analysis** | Protecting sensitive sources/beneficiaries, hostile environment | 45 min |
-| **Incident Response** | History of incidents, high-risk environment | 45 min |
-| **Technical Deep-Dive** | Complex infrastructure, specific technical concerns | 60 min |
-
-**Module selection:** Based on what emerges from the core session and organizational context.
+### Schema Reference
+`risks.schema.json`
 
 ---
 
-## Module Descriptions
+## Core Component 6: Mitigation Planning
 
-### Module: Deep Adversary Profiling
+### Purpose
+Turn risks into actionable improvements.
 
-**Purpose:** Develop detailed understanding of specific adversaries to anticipate their behavior and prioritize defenses.
+### Inputs
+- Priority risks from Component 5
 
-**When to use:**
-- You have confirmed or strongly suspected targeted threats
+### Process
+
+**Step 1: Identify Mitigations**
+
+For each priority risk, identify potential mitigations:
+
+| Mitigation Type | Examples |
+|-----------------|----------|
+| Technical Control | MFA, encryption, access controls, monitoring |
+| Policy/Procedure | Security policies, incident response plans, access reviews |
+| Training/Awareness | Phishing training, security awareness, incident reporting |
+| Physical Control | Locks, cameras, secure disposal |
+| Organizational | Role changes, separation of duties, vendor management |
+
+**Step 2: Assess Feasibility**
+
+For each mitigation:
+
+| Field | Options |
+|-------|---------|
+| Priority | Critical / High / Medium / Low |
+| Effort | Minimal / Low / Medium / High / Major |
+| Cost | None / Low / Medium / High |
+| Owner | Who is responsible? |
+
+**Step 3: Plan Timeline**
+
+| Timeframe | Description |
+|-----------|-------------|
+| Immediate (30 days) | Quick wins, critical fixes |
+| Short-term (90 days) | Planned improvements |
+| Long-term (6-12 months) | Major initiatives |
+
+**Step 4: Define Success Criteria**
+
+For each mitigation:
+- How will you know it's implemented?
+- How will you know it's working?
+
+### Outputs
+- Mitigation plans for priority risks
+- Owners and timelines assigned
+- Quick wins identified
+- Success criteria defined
+
+### Schema Reference
+`mitigations.schema.json`
+
+---
+
+## Closing: Next Steps
+
+After completing the core components:
+
+**1. Identify Quick Wins**
+What can be done in the next 1-2 weeks?
+
+**2. Recommend Modules**
+Based on what emerged, which modules are relevant?
+
+| Module | Recommend If... |
+|--------|-----------------|
+| Deep Adversary Profiling | Confirmed targeted threats, nation-state actors |
+| Information Operations | Narrative attacks, harassment, public-facing work |
+| OPSEC Analysis | Sensitive sources/beneficiaries, hostile environment |
+| Incident Response | History of incidents, high-risk environment |
+| Technical Deep-Dive | Complex infrastructure, specific technical concerns |
+
+**3. Schedule Follow-Up**
+- When will modules be completed?
+- Who compiles the threat model profile?
+- When is the first review?
+
+---
+
+## Module: Deep Adversary Profiling
+
+### Purpose
+Develop detailed understanding of specific adversaries to anticipate their behavior.
+
+### When to Use
+- Confirmed or strongly suspected targeted threats
 - A specific adversary has targeted similar organizations
-- You need to anticipate adversary behavior, not just react
-- Core adversary selection identified nation-state or persistent threat actors
+- Need to anticipate adversary behavior, not just react
+- Core identified nation-state or persistent threat actors
 
-**Key elements:**
+### Process
 
-The module examines each relevant adversary through four interconnected lenses:
+**Step 1: Select Adversaries**
+Choose 1-3 high-relevance adversaries from the core session.
 
-| Element | Key Questions |
-|---------|---------------|
-| **Adversary Identity** | Who are they? What's their organizational structure? What motivates them? How persistent are they? What's their history? |
-| **Capability** | What technical, social, physical, and legal capabilities do they have? What techniques do they typically use? What's their sophistication level? |
-| **Infrastructure** | What resources do they use? Own servers or compromised infrastructure? Social media accounts? Front organizations? Physical presence? |
-| **Targeting Rationale** | Why would they target YOU specifically? What do they want from you? Are you a primary target or stepping stone to others? |
+**Step 2: Analyze Adversary Identity**
 
-**Process:**
-1. For each high-relevance adversary from the core session, work through all four elements
-2. Research known campaigns against similar organizations
-3. Identify the specific techniques this adversary uses
-4. Document targeting indicators—how would you know if they're targeting you?
-5. Map adversary capabilities to your specific assets and vulnerabilities
+| Element | Questions |
+|---------|-----------|
+| Specific Identification | Who specifically? (if known) |
+| Organizational Structure | How are they organized? |
+| Primary Motivation | What drives them? |
+| Objectives | What are they trying to achieve? |
+| Resources | What level of resources? |
+| Persistence | One-time or ongoing threat? |
+| History | What's their track record with similar orgs? |
 
-**Output:** Detailed adversary profiles that inform defensive priorities and help recognize targeting when it occurs.
+**Step 3: Analyze Capabilities**
 
-**Why it matters:** Generic security advice treats all threats equally. Deep adversary profiling lets you focus on the specific techniques YOUR adversaries actually use, making limited security resources more effective.
+| Domain | Level (Advanced/Moderate/Basic/Minimal) | Known Techniques |
+|--------|----------------------------------------|------------------|
+| Technical | | |
+| Social Engineering | | |
+| Information Operations | | |
+| Physical | | |
+| Legal | | |
+
+**Step 4: Analyze Infrastructure**
+
+| Type | Details |
+|------|---------|
+| Technical Infrastructure | Owned servers? Compromised? Commercial? |
+| Social Infrastructure | Fake accounts? Front orgs? Proxy actors? |
+| Physical Presence | On the ground capability? |
+| Known Indicators | Domains, accounts, patterns to monitor |
+
+**Step 5: Analyze Targeting**
+
+| Question | Analysis |
+|----------|----------|
+| Why you specifically? | |
+| What do they want from you? | |
+| Your value as stepping stone? | Access to sources, partners, beneficiaries? |
+| Primary targets within org? | Who/what would they target first? |
+| Likely attack vectors? | Based on capabilities |
+| Targeting indicators? | How would you know you're being targeted? |
+
+**Step 6: Anticipate Scenarios**
+
+For each adversary, document 2-3 anticipated attack scenarios:
+- Scenario description
+- Likelihood
+- Primary technique
+- Indicators to watch
+
+### Outputs
+- Detailed adversary profiles
+- Anticipated attack scenarios
+- Targeting indicators to monitor
+- Defensive priorities per adversary
+
+### Schema Reference
+`deep-adversary-profiling.schema.json`
 
 ---
 
-### Module: Information Operations
+## Module: Information Operations
 
-**Purpose:** Assess exposure to and build resilience against narrative attacks, harassment campaigns, and reputation threats.
+### Purpose
+Assess exposure to and build resilience against narrative attacks, harassment, and reputation threats.
 
-**When to use:**
-- You do public-facing work (advocacy, journalism, research)
-- You've experienced or anticipate coordinated online attacks
+### When to Use
+- Public-facing work (advocacy, journalism, research)
+- Experienced or anticipate coordinated online attacks
 - Staff have been targeted with harassment
-- Your work is politically contentious or opposes powerful interests
-- You need to protect organizational reputation as a strategic asset
+- Work is politically contentious
+- Reputation is a strategic asset
 
-**Key elements:**
+### Process
 
-| Threat Category | What It Involves |
-|-----------------|------------------|
-| **Narrative Attacks** | False claims about funding, motives, foreign connections; conspiracy theories; distorted facts; fake research countering your work |
-| **Impersonation** | Fake accounts using your name/brand; personas posing as supporters, journalists, or researchers; infiltration of your networks |
-| **Harassment** | Coordinated pile-ons; identity-based attacks on staff; doxing (publishing private information); threats and intimidation |
-| **Amplification** | Bot networks; coordinated inauthentic behavior; flooding your channels; swarming attacks on individuals |
-| **Platform Manipulation** | Mass reporting to trigger account suspension; SEO attacks; algorithm gaming to suppress your content |
-| **Document Operations** | Theft and selective leaking of internal documents; altered documents presented as leaks |
+**Step 1: Assess Exposure**
 
-**Process:**
-1. Assess current exposure: How visible is your organization? What's your attack surface?
-2. Review past incidents: Have you experienced any of these attacks?
-3. Map adversary capability: Which of your adversaries use information operations?
-4. Identify vulnerable staff: Who is most exposed or likely to be targeted?
-5. Evaluate monitoring capabilities: Can you detect when attacks are happening?
-6. Assess response readiness: Do you have processes for responding to narrative attacks?
+| Factor | Assessment |
+|--------|------------|
+| Public visibility | High / Medium / Low |
+| Social media presence | Platforms, followers, engagement |
+| Media coverage | Frequency, visibility |
+| Contentious positions | What attracts opposition? |
+| Known opposition | Who actively opposes your work? |
 
-**Indicators to monitor:**
-- Sudden spikes in hostile engagement
-- Coordinated messaging with similar language/timing
-- New accounts with limited history engaging with your content
-- Content appearing on opposition media outlets
-- Staff receiving unusual interview requests or partnership offers
+**Step 2: Assess Staff Exposure**
 
-**Output:** Information operations risk assessment, monitoring recommendations, and response protocols.
+For public-facing staff:
+- Visibility level
+- Personal social media presence
+- Previous harassment experience
+- Identity factors that may increase targeting
 
-**Why it matters:** For many civil society organizations, reputation attacks and harassment are more common than technical intrusions. Information operations can silence voices, burn out staff, and undermine mission effectiveness without ever touching your computer systems.
+**Step 3: Assess Threat Categories**
+
+For each category, assess relevance, current evidence, and vulnerability:
+
+| Category | What to Assess |
+|----------|----------------|
+| Narrative Attacks | False claims currently circulating? Anticipated narratives? |
+| Impersonation | Known fake accounts? Brand monitoring in place? |
+| Harassment | Harassment history? At-risk individuals? Support available? |
+| Doxing | Staff personal info exposure level? |
+| Amplification | Bot activity observed? Coordinated behavior? |
+| Platform Manipulation | Mass reporting experienced? Platform contacts? |
+| Document Operations | Leak risk? Sensitive document exposure? |
+
+**Step 4: Assess Monitoring Capability**
+
+| Type | In Place? | Tool/Method | Who Monitors? |
+|------|-----------|-------------|---------------|
+| Social media mentions | | | |
+| News/media mentions | | | |
+| Staff name monitoring | | | |
+| Domain monitoring | | | |
+| Hashtag monitoring | | | |
+
+**Step 5: Assess Response Capability**
+
+| Element | In Place? |
+|---------|-----------|
+| Response decision framework (when to respond vs. ignore) | |
+| Pre-drafted responses | |
+| Designated spokesperson | |
+| Platform reporting knowledge | |
+| Documentation process | |
+| Legal support | |
+| PR/comms support | |
+| Staff harassment support protocol | |
+| Mental health resources | |
+
+### Outputs
+- Info ops exposure assessment
+- Threat category vulnerability ratings
+- Monitoring gaps
+- Response capability gaps
+- Priority recommendations
+
+### Schema Reference
+`information-operations.schema.json`
 
 ---
 
-### Module: OPSEC Analysis
+## Module: OPSEC Analysis
 
-**Purpose:** Identify what adversaries can learn about you through observation, and reduce exploitable information exposure.
+### Purpose
+Identify what adversaries can learn about you through observation.
 
-**When to use:**
-- You protect sensitive sources or beneficiaries whose exposure could cause harm
-- You operate in hostile environments (authoritarian contexts, conflict zones)
-- You investigate powerful actors who might counter-investigate you
+### When to Use
+- Protecting sensitive sources or beneficiaries
+- Operating in hostile environments
+- Investigating powerful actors
 - Staff travel to high-risk locations
-- Your work requires operational secrecy
+- Work requires operational secrecy
 
-**Key elements:**
+### Process
 
-| Analysis Area | What to Examine |
-|---------------|-----------------|
-| **Public Exposure** | What's on your website (staff, addresses, partners, donors)? Social media presence? Regulatory filings? Media coverage? |
-| **Operational Patterns** | Predictable meetings, travel, communication patterns? Funding cycles visible? Regular activities that could be anticipated? |
-| **Digital Footprint** | Domain registration (WHOIS private?)? Email infrastructure visible? Third-party services revealing information? |
-| **Trust Relationships** | Which relationships could be exploited through impersonation? Where does trust create vulnerability? |
-| **Human Sources** | How are sources/beneficiaries contacted? What trails exist? How is their information protected? |
+**Step 1: Audit Public Exposure**
 
-**Process:**
-1. Map what an adversary could learn through open-source research
-2. Identify operational patterns that could be predicted or exploited
-3. Assess digital footprint and what it reveals
-4. Examine trust relationships for exploitation potential
-5. For each finding, assess: What could an adversary do with this information?
-6. Prioritize OPSEC vulnerabilities by severity and addressability
+| Source | What's Public? | Concern Level |
+|--------|----------------|---------------|
+| Website (staff, addresses, partners, donors) | | |
+| Social media accounts | | |
+| Regulatory filings (990s, registrations) | | |
+| Media coverage | | |
 
-**OPSEC Thinking:**
-For each piece of information you expose, ask:
+**Step 2: Audit Digital Footprint**
+
+| Element | Assessment | What It Reveals |
+|---------|------------|-----------------|
+| Domain WHOIS | Private/Public | |
+| Email infrastructure | | |
+| Third-party services | | |
+| Data broker presence | | |
+
+**Step 3: Identify Operational Patterns**
+
+| Pattern | Predictable? | Publicly Known? | Exploitable? |
+|---------|--------------|-----------------|--------------|
+| Regular meetings | | | |
+| Travel patterns | | | |
+| Communication patterns | | | |
+| Funding cycles | | | |
+| Event schedules | | | |
+
+**Step 4: Assess Trust Relationships**
+
+For key relationships:
+- Could it be exploited through impersonation?
+- How might an adversary exploit this trust?
+- What mitigation is possible?
+
+**Step 5: Assess Source/Beneficiary Protection** (if applicable)
+
+| Element | Assessment |
+|---------|------------|
+| Initial contact methods | |
+| Ongoing communication security | |
+| Data trails that could identify sources | |
+| Data minimization practices | |
+| Information protection measures | |
+
+**Step 6: Apply OPSEC Thinking**
+
+For each finding, ask:
 - Does an adversary want this information?
 - Can they collect it?
 - What can they do with it?
 - What's the potential harm?
 - Can we reduce exposure without harming mission?
 
-**Output:** OPSEC vulnerability assessment with prioritized recommendations for reducing exploitable exposure.
+### Outputs
+- Public exposure audit
+- Digital footprint assessment
+- Operational patterns identified
+- OPSEC vulnerabilities prioritized
+- Remediation recommendations
 
-**Why it matters:** Adversaries don't just attack—they first gather information. OPSEC analysis helps you see yourself as an adversary sees you, identifying what you're revealing that could enable targeting, social engineering, or physical threats.
+### Schema Reference
+`opsec.schema.json`
 
 ---
 
-### Module: Incident Response
+## Module: Incident Response
 
-**Purpose:** Assess and build capability to detect, respond to, and recover from security incidents.
+### Purpose
+Assess and build capability to detect, respond to, and recover from security incidents.
 
-**When to use:**
-- You've experienced security incidents and want to improve response
-- You operate in a high-risk environment where incidents are likely
-- You have limited incident response experience and need to build basic capability
-- You want to establish response protocols before they're needed
+### When to Use
+- History of security incidents
+- High-risk environment where incidents are likely
+- Limited current response capability
+- Want to establish protocols before needed
 
-**Key elements:**
+### Process
 
-The module assesses capability across four phases:
+**Step 1: Define "Incident"**
 
-| Phase | Key Questions |
-|-------|---------------|
-| **Preparation** | Is there an incident response plan? Are roles defined? Are contact lists current? Has staff been trained? Have you done tabletop exercises? |
-| **Detection** | What monitoring exists? Would you know if something was happening? Do staff know what to report and how? What are the gaps? |
-| **Response** | Can you contain incidents (isolate systems, revoke access)? Do backups exist and work? Is external support available (IT, legal, digital security)? |
-| **Recovery & Learning** | Is there a post-incident review process? Do lessons lead to improvements? Does an incident trigger threat model updates? |
+Document what constitutes a security incident for this organization:
+- Definition
+- Examples that would trigger response
+- Examples that would not
 
-**Incident types to consider:**
-- Account compromise (email, social media, systems)
-- Device compromise (malware, theft, seizure)
-- Data breach (unauthorized access, exfiltration)
-- Ransomware
-- Information operations (narrative attacks, impersonation)
-- Physical incidents (office intrusion, surveillance, intimidation)
-- Insider incidents
+**Step 2: Assess Preparation**
 
-**Process:**
-1. Define what constitutes an "incident" for your organization
-2. Assess current capability in each phase
-3. Review past incidents and how they were handled
-4. Identify gaps and priorities for improvement
-5. Develop or update incident response plan
-6. Identify external resources and support contacts
+| Element | In Place? | Notes |
+|---------|-----------|-------|
+| Incident response plan documented | | |
+| Response team defined | | |
+| Roles and decision authority clear | | |
+| Contact lists (internal) | | |
+| Contact lists (legal, IT, security) | | |
+| Contact lists (platform, peer orgs) | | |
+| Communication channels defined | | |
+| Secure backup channel | | |
+| Staff trained on reporting | | |
+| Tabletop exercises conducted | | |
+| Documentation templates ready | | |
 
-**Minimum viable incident response:**
-- A definition of what's an incident
+**Step 3: Assess Detection**
+
+| Monitoring Type | In Place? | Tool/Method | Who Monitors? |
+|-----------------|-----------|-------------|---------------|
+| Email security | | | |
+| Account login alerts | | | |
+| Endpoint protection | | | |
+| Social media | | | |
+| News/mentions | | | |
+| Domain monitoring | | | |
+| Data breach monitoring | | | |
+
+- Do staff know what to report?
+- Do staff know how to report?
+
+**Step 4: Assess Response Capability**
+
+| Capability | In Place? |
+|------------|-----------|
+| Can isolate compromised systems | |
+| Can revoke/reset credentials quickly | |
+| Can block accounts/access | |
+| Backups exist | |
+| Backups tested | |
+| IT support available | |
+| Digital security support available | |
+| Legal support available | |
+| PR/comms support available | |
+
+**Step 5: Assess Post-Incident Process**
+
+| Element | In Place? |
+|---------|-----------|
+| Post-incident review process | |
+| Lessons learned documentation | |
+| Threat model update trigger | |
+
+**Step 6: Review Incident History**
+
+Document past incidents:
+- Date, type, summary
+- How it was handled
+- Lessons learned
+
+### Minimum Viable Incident Response
+- Incident definition exists
 - Someone responsible for coordinating response
-- A contact list (internal, IT support, legal, digital security help)
-- A secure communication channel for incident discussion
+- Contact list (internal + key external)
+- Secure communication channel
 - Basic documentation template
 - Post-incident review process
 
-**Output:** Incident response capability assessment, gap analysis, and improvement roadmap.
+### Outputs
+- Incident definition
+- Preparation gaps
+- Detection gaps
+- Response capability gaps
+- Contact lists verified/created
+- Priority improvements with owners
 
-**Why it matters:** Incidents will happen. The difference between a manageable incident and a catastrophe often comes down to preparation and response capability. This module builds readiness before it's tested.
-
----
-
-### Module: Technical Deep-Dive
-
-**Purpose:** Conduct detailed assessment of technical infrastructure, security controls, and technical vulnerabilities.
-
-**When to use:**
-- You have complex IT infrastructure requiring detailed assessment
-- You're preparing for a technical security audit
-- Specific technical concerns emerged from the core session
-- You want to assess specific control areas (authentication, encryption, backups, etc.)
-- You have technical staff who can implement findings
-
-**Key elements:**
-
-| Assessment Area | What to Examine |
-|-----------------|-----------------|
-| **Infrastructure Mapping** | Systems inventory, data flows, access controls, third-party services, cloud vs. on-premise |
-| **Authentication** | MFA deployment and coverage, password policies, credential management, SSO |
-| **Encryption** | Data at rest, data in transit, email encryption, device encryption |
-| **Patching** | Update policies, auto-update status, vulnerability management |
-| **Backups** | Backup frequency, testing, offsite/offline copies, recovery time |
-| **Monitoring** | Logging, alerting, who monitors, detection capabilities |
-| **Access Control** | Least privilege, access reviews, offboarding processes |
-
-**Process:**
-1. Map technical infrastructure—what systems, services, and data flows exist?
-2. For each assessment area, document current state
-3. Identify gaps between current state and appropriate security level
-4. Prioritize technical vulnerabilities by severity and exploitability
-5. Develop prioritized technical improvement roadmap
-6. Assign ownership and timelines
-
-**Quick assessment questions:**
-- Is MFA enabled on all critical accounts?
-- Are devices encrypted?
-- Are systems set to auto-update?
-- When were backups last tested?
-- Who has admin access, and is it necessary?
-- What happens to access when someone leaves?
-
-**Output:** Technical vulnerability assessment, prioritized improvement roadmap with effort estimates.
-
-**Why it matters:** Technical controls are the foundation of digital security. This module provides detailed assessment for organizations with the capacity to implement technical improvements, ensuring the basics are covered before advanced measures.
+### Schema Reference
+`response-capability.schema.json`
 
 ---
 
-## Outputs
+## Module: Technical Deep-Dive
 
-### Threat Model Profile
+### Purpose
+Detailed assessment of technical infrastructure and security controls.
 
-The methodology produces a structured **threat model profile** containing:
+### When to Use
+- Complex IT infrastructure
+- Preparing for security audit
+- Specific technical concerns from core session
+- Technical staff available to implement findings
 
-```
-profile/
-├── meta                    # Organization metadata, versioning
-├── mission                 # Mission & impact framework  
-├── assets                  # Asset inventory with values
-├── adversaries             # Adversary profiles
-├── threats                 # Threat mapping with likelihood
-├── risks                   # Risk register with scores
-├── mitigations             # Mitigation plans
-│
-└── modules/ (as completed)
-    ├── deep-adversary-profiling    # Detailed adversary analysis
-    ├── information-operations      # Info ops assessment
-    ├── opsec                       # OPSEC vulnerability assessment
-    ├── incident-response           # Response capability assessment
-    └── technical-deep-dive         # Technical assessment
-```
+### Process
 
-### Structured Data
+**Step 1: Map Infrastructure**
 
-All outputs conform to JSON schemas enabling:
-- **Structured capture**: Consistent data format across engagements
-- **Platform integration**: Foundation for interactive tools
-- **Agent-assisted processing**: LLM extraction from transcripts/notes
-- **Cross-organization analysis**: Anonymized pattern identification
+**Systems Inventory:**
+| System/Service | Type | Owner | Criticality | Managed By |
+|----------------|------|-------|-------------|------------|
+| | Endpoint/Server/Cloud/Mobile | | Critical/High/Med/Low | Internal/Third-party |
 
-See `/schemas/` for detailed schema definitions.
+**Third-Party Services:**
+| Service | Provider | Purpose | Data Shared | Security Reviewed? |
+|---------|----------|---------|-------------|-------------------|
+
+**Data Flows:**
+| Data Type | Source | Destination | Encrypted? |
+|-----------|--------|-------------|------------|
+
+**Step 2: Assess Authentication**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| MFA enabled on critical accounts? | | |
+| MFA coverage (% of accounts) | | |
+| Password manager in use? | | |
+| Password policy exists? | | |
+| SSO implemented? | | |
+
+**Step 3: Assess Encryption**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Device encryption (laptops)? | | |
+| Device encryption (mobile)? | | |
+| Data at rest encrypted? | | |
+| Data in transit encrypted? | | |
+| Email encryption available? | | |
+
+**Step 4: Assess Patching**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Auto-updates enabled (endpoints)? | | |
+| Server/infrastructure patching? | | |
+| Patch timeline for critical vulns? | | |
+
+**Step 5: Assess Backups**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Critical data backed up? | | |
+| Backup frequency | | |
+| Backups tested? | | |
+| Offsite/offline backup? | | |
+| Recovery time estimate | | |
+
+**Step 6: Assess Monitoring**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Logging enabled? | | |
+| Alerts configured? | | |
+| Who monitors? | | |
+| Log retention | | |
+
+**Step 7: Assess Access Control**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Least privilege implemented? | | |
+| Access reviews conducted? | | |
+| Offboarding process defined? | | |
+| Admin access limited? | | |
+
+**Quick Assessment Checklist:**
+- [ ] Is MFA enabled on all critical accounts?
+- [ ] Are all devices encrypted?
+- [ ] Are systems set to auto-update?
+- [ ] When were backups last tested?
+- [ ] Who has admin access, and is it necessary?
+- [ ] What happens to access when someone leaves?
+
+**Step 8: Summarize Vulnerabilities**
+
+| Vulnerability | Area | Severity | Exploitability | Remediation |
+|---------------|------|----------|----------------|-------------|
+
+**Step 9: Create Prioritized Roadmap**
+
+| Priority | Improvement | Area | Effort | Impact | Owner | Target |
+|----------|-------------|------|--------|--------|-------|--------|
+
+**Step 10: Overall Assessment**
+
+| Area | Score (Strong/Adequate/Weak/None) |
+|------|-----------------------------------|
+| Authentication | |
+| Encryption | |
+| Patching | |
+| Backups | |
+| Monitoring | |
+| Access Control | |
+| **Overall** | |
+
+### Outputs
+- Infrastructure inventory
+- Technical assessment by area
+- Vulnerabilities identified and prioritized
+- Improvement roadmap with owners
+- Overall technical posture rating
+
+### Schema Reference
+`technical-deep-dive.schema.json`
 
 ---
 
-## Lifecycle
+## Documentation Outputs
 
-Threat modeling is not a one-time event.
+After completing threat modeling, compile:
 
-### Initial Assessment
-Complete core + relevant modules to establish baseline.
-
-### Ongoing Maintenance
-- **Monthly**: Review high-priority mitigations
-- **Quarterly**: Check for emerging threats, update adversary relevance
-- **Annually**: Full threat model refresh
-
-### Triggered Reviews
-Update after:
-- Significant security incidents
-- Major organizational changes (new programs, new regions)
-- Changes in operating environment
-- New adversary activity against similar organizations
+| Output | Contents |
+|--------|----------|
+| **Threat Model Profile** | Structured JSON data conforming to schemas |
+| **Executive Summary** | 1-2 page overview for leadership |
+| **Risk Register** | Prioritized list of risks with scores |
+| **Action Plan** | Mitigations with owners, timelines, success criteria |
+| **Quick Wins** | Immediate actions (next 30 days) |
 
 ---
 
-## Implementation Paths
+## Review Cadence
 
-### Facilitated Workshop
-Run the methodology as a structured workshop with an external facilitator. Best for initial assessment or annual refresh.
+| Frequency | Activity |
+|-----------|----------|
+| Weekly (first month) | Quick wins progress check |
+| Monthly | High-priority mitigation review |
+| Quarterly | Emerging threats, adversary relevance check |
+| Annually | Full threat model refresh |
 
-### Self-Guided
-Organization works through the methodology independently using the workshop guide. Best for organizations with some security capacity.
-
-### Agent-Assisted
-Use AI assistance to process transcripts, notes, or conversations into structured threat model profiles. Best for rapid assessments or ongoing updates.
-
-### Platform (Future)
-Interactive web platform for building and maintaining threat model profiles. Enables ongoing updates, incident tracking, and peer comparison.
-
----
-
-## Principles
-
-### Accessibility
-- Plain language over jargon
-- Mission impact over technical metrics
-- Actionable outputs over comprehensive documentation
-
-### Proportionality
-- Match defensive investment to actual threat
-- Accept some risks rather than trying to eliminate all
-- Focus on high-impact, achievable mitigations
-
-### Adaptability
-- Modular structure fits different needs
-- Scales from individual practitioners to large organizations
-- Works across different civil society contexts
-
-### Sustainability
-- Outputs that can be maintained over time
-- Clear ownership of risks and mitigations
-- Integration with existing organizational processes
+**Triggered Reviews:**
+- After significant security incidents
+- After major organizational changes
+- After changes in operating environment
+- After new adversary activity against similar orgs
