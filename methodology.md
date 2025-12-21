@@ -185,6 +185,225 @@ Modules provide depth in specific areas based on organizational context:
 
 ---
 
+## Module Descriptions
+
+### Module: Deep Adversary Profiling
+
+**Purpose:** Develop detailed understanding of specific adversaries to anticipate their behavior and prioritize defenses.
+
+**When to use:**
+- You have confirmed or strongly suspected targeted threats
+- A specific adversary has targeted similar organizations
+- You need to anticipate adversary behavior, not just react
+- Core adversary selection identified nation-state or persistent threat actors
+
+**Key elements:**
+
+The module examines each relevant adversary through four interconnected lenses:
+
+| Element | Key Questions |
+|---------|---------------|
+| **Adversary Identity** | Who are they? What's their organizational structure? What motivates them? How persistent are they? What's their history? |
+| **Capability** | What technical, social, physical, and legal capabilities do they have? What techniques do they typically use? What's their sophistication level? |
+| **Infrastructure** | What resources do they use? Own servers or compromised infrastructure? Social media accounts? Front organizations? Physical presence? |
+| **Targeting Rationale** | Why would they target YOU specifically? What do they want from you? Are you a primary target or stepping stone to others? |
+
+**Process:**
+1. For each high-relevance adversary from the core session, work through all four elements
+2. Research known campaigns against similar organizations
+3. Identify the specific techniques this adversary uses
+4. Document targeting indicators—how would you know if they're targeting you?
+5. Map adversary capabilities to your specific assets and vulnerabilities
+
+**Output:** Detailed adversary profiles that inform defensive priorities and help recognize targeting when it occurs.
+
+**Why it matters:** Generic security advice treats all threats equally. Deep adversary profiling lets you focus on the specific techniques YOUR adversaries actually use, making limited security resources more effective.
+
+---
+
+### Module: Information Operations
+
+**Purpose:** Assess exposure to and build resilience against narrative attacks, harassment campaigns, and reputation threats.
+
+**When to use:**
+- You do public-facing work (advocacy, journalism, research)
+- You've experienced or anticipate coordinated online attacks
+- Staff have been targeted with harassment
+- Your work is politically contentious or opposes powerful interests
+- You need to protect organizational reputation as a strategic asset
+
+**Key elements:**
+
+| Threat Category | What It Involves |
+|-----------------|------------------|
+| **Narrative Attacks** | False claims about funding, motives, foreign connections; conspiracy theories; distorted facts; fake research countering your work |
+| **Impersonation** | Fake accounts using your name/brand; personas posing as supporters, journalists, or researchers; infiltration of your networks |
+| **Harassment** | Coordinated pile-ons; identity-based attacks on staff; doxing (publishing private information); threats and intimidation |
+| **Amplification** | Bot networks; coordinated inauthentic behavior; flooding your channels; swarming attacks on individuals |
+| **Platform Manipulation** | Mass reporting to trigger account suspension; SEO attacks; algorithm gaming to suppress your content |
+| **Document Operations** | Theft and selective leaking of internal documents; altered documents presented as leaks |
+
+**Process:**
+1. Assess current exposure: How visible is your organization? What's your attack surface?
+2. Review past incidents: Have you experienced any of these attacks?
+3. Map adversary capability: Which of your adversaries use information operations?
+4. Identify vulnerable staff: Who is most exposed or likely to be targeted?
+5. Evaluate monitoring capabilities: Can you detect when attacks are happening?
+6. Assess response readiness: Do you have processes for responding to narrative attacks?
+
+**Indicators to monitor:**
+- Sudden spikes in hostile engagement
+- Coordinated messaging with similar language/timing
+- New accounts with limited history engaging with your content
+- Content appearing on opposition media outlets
+- Staff receiving unusual interview requests or partnership offers
+
+**Output:** Information operations risk assessment, monitoring recommendations, and response protocols.
+
+**Why it matters:** For many civil society organizations, reputation attacks and harassment are more common than technical intrusions. Information operations can silence voices, burn out staff, and undermine mission effectiveness without ever touching your computer systems.
+
+---
+
+### Module: OPSEC Analysis
+
+**Purpose:** Identify what adversaries can learn about you through observation, and reduce exploitable information exposure.
+
+**When to use:**
+- You protect sensitive sources or beneficiaries whose exposure could cause harm
+- You operate in hostile environments (authoritarian contexts, conflict zones)
+- You investigate powerful actors who might counter-investigate you
+- Staff travel to high-risk locations
+- Your work requires operational secrecy
+
+**Key elements:**
+
+| Analysis Area | What to Examine |
+|---------------|-----------------|
+| **Public Exposure** | What's on your website (staff, addresses, partners, donors)? Social media presence? Regulatory filings? Media coverage? |
+| **Operational Patterns** | Predictable meetings, travel, communication patterns? Funding cycles visible? Regular activities that could be anticipated? |
+| **Digital Footprint** | Domain registration (WHOIS private?)? Email infrastructure visible? Third-party services revealing information? |
+| **Trust Relationships** | Which relationships could be exploited through impersonation? Where does trust create vulnerability? |
+| **Human Sources** | How are sources/beneficiaries contacted? What trails exist? How is their information protected? |
+
+**Process:**
+1. Map what an adversary could learn through open-source research
+2. Identify operational patterns that could be predicted or exploited
+3. Assess digital footprint and what it reveals
+4. Examine trust relationships for exploitation potential
+5. For each finding, assess: What could an adversary do with this information?
+6. Prioritize OPSEC vulnerabilities by severity and addressability
+
+**OPSEC Thinking:**
+For each piece of information you expose, ask:
+- Does an adversary want this information?
+- Can they collect it?
+- What can they do with it?
+- What's the potential harm?
+- Can we reduce exposure without harming mission?
+
+**Output:** OPSEC vulnerability assessment with prioritized recommendations for reducing exploitable exposure.
+
+**Why it matters:** Adversaries don't just attack—they first gather information. OPSEC analysis helps you see yourself as an adversary sees you, identifying what you're revealing that could enable targeting, social engineering, or physical threats.
+
+---
+
+### Module: Incident Response
+
+**Purpose:** Assess and build capability to detect, respond to, and recover from security incidents.
+
+**When to use:**
+- You've experienced security incidents and want to improve response
+- You operate in a high-risk environment where incidents are likely
+- You have limited incident response experience and need to build basic capability
+- You want to establish response protocols before they're needed
+
+**Key elements:**
+
+The module assesses capability across four phases:
+
+| Phase | Key Questions |
+|-------|---------------|
+| **Preparation** | Is there an incident response plan? Are roles defined? Are contact lists current? Has staff been trained? Have you done tabletop exercises? |
+| **Detection** | What monitoring exists? Would you know if something was happening? Do staff know what to report and how? What are the gaps? |
+| **Response** | Can you contain incidents (isolate systems, revoke access)? Do backups exist and work? Is external support available (IT, legal, digital security)? |
+| **Recovery & Learning** | Is there a post-incident review process? Do lessons lead to improvements? Does an incident trigger threat model updates? |
+
+**Incident types to consider:**
+- Account compromise (email, social media, systems)
+- Device compromise (malware, theft, seizure)
+- Data breach (unauthorized access, exfiltration)
+- Ransomware
+- Information operations (narrative attacks, impersonation)
+- Physical incidents (office intrusion, surveillance, intimidation)
+- Insider incidents
+
+**Process:**
+1. Define what constitutes an "incident" for your organization
+2. Assess current capability in each phase
+3. Review past incidents and how they were handled
+4. Identify gaps and priorities for improvement
+5. Develop or update incident response plan
+6. Identify external resources and support contacts
+
+**Minimum viable incident response:**
+- A definition of what's an incident
+- Someone responsible for coordinating response
+- A contact list (internal, IT support, legal, digital security help)
+- A secure communication channel for incident discussion
+- Basic documentation template
+- Post-incident review process
+
+**Output:** Incident response capability assessment, gap analysis, and improvement roadmap.
+
+**Why it matters:** Incidents will happen. The difference between a manageable incident and a catastrophe often comes down to preparation and response capability. This module builds readiness before it's tested.
+
+---
+
+### Module: Technical Deep-Dive
+
+**Purpose:** Conduct detailed assessment of technical infrastructure, security controls, and technical vulnerabilities.
+
+**When to use:**
+- You have complex IT infrastructure requiring detailed assessment
+- You're preparing for a technical security audit
+- Specific technical concerns emerged from the core session
+- You want to assess specific control areas (authentication, encryption, backups, etc.)
+- You have technical staff who can implement findings
+
+**Key elements:**
+
+| Assessment Area | What to Examine |
+|-----------------|-----------------|
+| **Infrastructure Mapping** | Systems inventory, data flows, access controls, third-party services, cloud vs. on-premise |
+| **Authentication** | MFA deployment and coverage, password policies, credential management, SSO |
+| **Encryption** | Data at rest, data in transit, email encryption, device encryption |
+| **Patching** | Update policies, auto-update status, vulnerability management |
+| **Backups** | Backup frequency, testing, offsite/offline copies, recovery time |
+| **Monitoring** | Logging, alerting, who monitors, detection capabilities |
+| **Access Control** | Least privilege, access reviews, offboarding processes |
+
+**Process:**
+1. Map technical infrastructure—what systems, services, and data flows exist?
+2. For each assessment area, document current state
+3. Identify gaps between current state and appropriate security level
+4. Prioritize technical vulnerabilities by severity and exploitability
+5. Develop prioritized technical improvement roadmap
+6. Assign ownership and timelines
+
+**Quick assessment questions:**
+- Is MFA enabled on all critical accounts?
+- Are devices encrypted?
+- Are systems set to auto-update?
+- When were backups last tested?
+- Who has admin access, and is it necessary?
+- What happens to access when someone leaves?
+
+**Output:** Technical vulnerability assessment, prioritized improvement roadmap with effort estimates.
+
+**Why it matters:** Technical controls are the foundation of digital security. This module provides detailed assessment for organizations with the capacity to implement technical improvements, ensuring the basics are covered before advanced measures.
+
+---
+
 ## Outputs
 
 ### Threat Model Profile
