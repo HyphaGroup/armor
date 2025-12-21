@@ -1,0 +1,359 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/deep-adversary-profiling.schema.json",
+  "title": "Deep Adversary Profiling",
+  "description": "Detailed adversary analysis using Diamond Model approach (MODULE)",
+  "type": "object",
+  "properties": {
+    "module_completed": {
+      "type": "boolean",
+      "description": "Whether this module has been completed"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "detailed_profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["adversary_id", "name"],
+        "properties": {
+          "adversary_id": {
+            "type": "string",
+            "description": "Reference to adversary from core adversaries.schema"
+          },
+          "name": {
+            "type": "string",
+            "description": "Adversary name/label"
+          },
+          "identity": {
+            "type": "object",
+            "description": "Who they are - detailed identity analysis",
+            "properties": {
+              "specific_identification": {
+                "type": "string",
+                "description": "Specific actor identification if known (e.g., 'APT28', 'Unit 8200', 'specific troll farm')"
+              },
+              "organizational_structure": {
+                "type": "string",
+                "description": "How they're organized (government agency, loose network, contractor, etc.)"
+              },
+              "primary_motivation": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "political_control",
+                    "intelligence_gathering",
+                    "disruption",
+                    "discrediting",
+                    "financial_gain",
+                    "ideological",
+                    "revenge",
+                    "competitive_advantage",
+                    "opportunistic"
+                  ]
+                }
+              },
+              "objectives": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Specific objectives they pursue"
+              },
+              "resources": {
+                "type": "string",
+                "enum": ["nation_state", "well_funded", "moderate", "limited", "minimal"]
+              },
+              "persistence_level": {
+                "type": "string",
+                "enum": ["highly_persistent", "campaign_based", "opportunistic"]
+              },
+              "risk_tolerance": {
+                "type": "string",
+                "enum": ["high", "medium", "low"],
+                "description": "Willingness to take risks / be exposed"
+              },
+              "historical_behavior": {
+                "type": "string",
+                "description": "Known history and patterns of behavior"
+              },
+              "similar_targets": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Other organizations they've targeted"
+              }
+            }
+          },
+          "capability": {
+            "type": "object",
+            "description": "What they can do - capabilities analysis",
+            "properties": {
+              "technical": {
+                "type": "object",
+                "properties": {
+                  "level": {
+                    "type": "string",
+                    "enum": ["advanced", "moderate", "basic", "minimal"]
+                  },
+                  "known_tools": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Specific tools/malware known to use"
+                  },
+                  "techniques": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Specific technical techniques"
+                  },
+                  "notes": { "type": "string" }
+                }
+              },
+              "social_engineering": {
+                "type": "object",
+                "properties": {
+                  "level": {
+                    "type": "string",
+                    "enum": ["advanced", "moderate", "basic", "minimal"]
+                  },
+                  "techniques": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Phishing, pretexting, impersonation methods"
+                  },
+                  "notes": { "type": "string" }
+                }
+              },
+              "information_operations": {
+                "type": "object",
+                "properties": {
+                  "level": {
+                    "type": "string",
+                    "enum": ["advanced", "moderate", "basic", "minimal"]
+                  },
+                  "techniques": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Narrative attacks, harassment, amplification methods"
+                  },
+                  "notes": { "type": "string" }
+                }
+              },
+              "physical": {
+                "type": "object",
+                "properties": {
+                  "level": {
+                    "type": "string",
+                    "enum": ["advanced", "moderate", "basic", "minimal"]
+                  },
+                  "techniques": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Surveillance, intimidation, physical access methods"
+                  },
+                  "notes": { "type": "string" }
+                }
+              },
+              "legal": {
+                "type": "object",
+                "properties": {
+                  "level": {
+                    "type": "string",
+                    "enum": ["advanced", "moderate", "basic", "minimal"]
+                  },
+                  "techniques": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Legal harassment, regulatory pressure methods"
+                  },
+                  "notes": { "type": "string" }
+                }
+              },
+              "overall_sophistication": {
+                "type": "string",
+                "enum": ["advanced", "moderate", "basic"],
+                "description": "Overall capability assessment"
+              }
+            }
+          },
+          "infrastructure": {
+            "type": "object",
+            "description": "What resources they use",
+            "properties": {
+              "infrastructure_types": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "owned_servers",
+                    "compromised_infrastructure",
+                    "commercial_services",
+                    "social_media_accounts",
+                    "fake_organizations",
+                    "proxy_actors",
+                    "legal_entities",
+                    "physical_presence",
+                    "insider_access"
+                  ]
+                }
+              },
+              "known_indicators": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "indicator_type": {
+                      "type": "string",
+                      "enum": ["domain", "ip", "email", "social_account", "phone", "other"]
+                    },
+                    "value": { "type": "string" },
+                    "notes": { "type": "string" }
+                  }
+                },
+                "description": "Known infrastructure indicators (for monitoring)"
+              },
+              "operational_patterns": {
+                "type": "string",
+                "description": "How they typically operate (timing, staging, etc.)"
+              },
+              "notes": { "type": "string" }
+            }
+          },
+          "targeting": {
+            "type": "object",
+            "description": "Why you - targeting analysis",
+            "properties": {
+              "why_target_you": {
+                "type": "string",
+                "description": "Specific reasons they would target YOUR organization"
+              },
+              "what_they_want": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Specific assets, outcomes, or effects they're after"
+              },
+              "your_value_to_them": {
+                "type": "string",
+                "description": "Your value as a target (information, disruption, stepping stone)"
+              },
+              "stepping_stone_value": {
+                "type": "string",
+                "description": "Your value for accessing others (partners, sources, beneficiaries)"
+              },
+              "likely_targets_within_org": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Who/what within your org they'd target first"
+              },
+              "likely_attack_vectors": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Most likely methods they'd use against you"
+              },
+              "targeting_indicators": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Signs that you're being targeted by this adversary"
+              }
+            }
+          },
+          "anticipated_scenarios": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "scenario": {
+                  "type": "string",
+                  "description": "Anticipated attack scenario"
+                },
+                "likelihood": {
+                  "type": "string",
+                  "enum": ["high", "medium", "low"]
+                },
+                "primary_technique": { "type": "string" },
+                "target_assets": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "indicators_to_watch": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            },
+            "description": "Anticipated attack scenarios from this adversary"
+          },
+          "defensive_priorities": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Priority defensive measures for this adversary"
+          },
+          "intelligence_sources": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Where to get more information about this adversary"
+          },
+          "last_updated": {
+            "type": "string",
+            "format": "date"
+          },
+          "confidence_level": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "Confidence in this analysis"
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "cross_adversary_analysis": {
+      "type": "object",
+      "properties": {
+        "common_techniques": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Techniques used by multiple adversaries (priority defenses)"
+        },
+        "unique_threats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "adversary_id": { "type": "string" },
+              "unique_technique": { "type": "string" }
+            }
+          },
+          "description": "Techniques unique to specific adversaries"
+        },
+        "priority_monitoring": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Priority indicators to monitor across all adversaries"
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "recommendation": { "type": "string" },
+          "addresses_adversaries": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Which adversary IDs this addresses"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "type": {
+            "type": "string",
+            "enum": ["detection", "prevention", "response", "monitoring"]
+          }
+        }
+      }
+    }
+  }
+}

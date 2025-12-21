@@ -1,0 +1,423 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.threatmodel.civil/information-operations.schema.json",
+  "title": "Information Operations Assessment",
+  "description": "Assessment of information operation threats and resilience (MODULE)",
+  "type": "object",
+  "properties": {
+    "module_completed": {
+      "type": "boolean",
+      "description": "Whether this module has been completed"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "exposure_assessment": {
+      "type": "object",
+      "description": "Current exposure to information operations",
+      "properties": {
+        "public_profile": {
+          "type": "object",
+          "properties": {
+            "visibility_level": {
+              "type": "string",
+              "enum": ["high", "medium", "low"],
+              "description": "Overall public visibility"
+            },
+            "media_presence": {
+              "type": "string",
+              "description": "Media coverage and public profile description"
+            },
+            "social_media_footprint": {
+              "type": "object",
+              "properties": {
+                "platforms": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "total_followers": { "type": "string" },
+                "engagement_level": {
+                  "type": "string",
+                  "enum": ["high", "medium", "low"]
+                }
+              }
+            },
+            "contentious_positions": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Positions that attract opposition"
+            },
+            "known_opposition": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Known groups/actors opposed to your work"
+            }
+          }
+        },
+        "staff_exposure": {
+          "type": "object",
+          "properties": {
+            "public_facing_staff": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "role": { "type": "string" },
+                  "visibility_level": {
+                    "type": "string",
+                    "enum": ["high", "medium", "low"]
+                  },
+                  "personal_social_media": { "type": "boolean" },
+                  "harassment_history": { "type": "boolean" },
+                  "notes": { "type": "string" }
+                }
+              }
+            },
+            "identity_factors": {
+              "type": "string",
+              "description": "Identity factors that may increase targeting risk (without listing individuals)"
+            }
+          }
+        },
+        "attack_surface": {
+          "type": "object",
+          "properties": {
+            "official_channels": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Official social media, website, etc."
+            },
+            "comment_sections_open": { "type": "boolean" },
+            "dm_open": { "type": "boolean" },
+            "public_events": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "incident_history": {
+      "type": "object",
+      "description": "Past information operation incidents",
+      "properties": {
+        "has_experienced_attacks": { "type": "boolean" },
+        "incidents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "incident_id": { "type": "string" },
+              "date": { "type": "string", "format": "date" },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "narrative_attack",
+                  "impersonation",
+                  "harassment",
+                  "doxing",
+                  "amplification",
+                  "platform_manipulation",
+                  "document_leak",
+                  "multiple"
+                ]
+              },
+              "description": { "type": "string" },
+              "severity": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"]
+              },
+              "suspected_source": { "type": "string" },
+              "response_taken": { "type": "string" },
+              "lessons_learned": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "threat_assessment": {
+      "type": "object",
+      "description": "Assessment of specific info ops threat categories",
+      "properties": {
+        "narrative_attacks": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "current_narratives": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "False narratives currently circulating about you"
+            },
+            "anticipated_narratives": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "False narratives likely to be used"
+            },
+            "vulnerability_assessment": {
+              "type": "string",
+              "enum": ["high", "medium", "low"]
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "impersonation": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "known_impersonation": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Known fake accounts/sites impersonating you"
+            },
+            "vulnerability_assessment": {
+              "type": "string",
+              "enum": ["high", "medium", "low"]
+            },
+            "brand_monitoring_in_place": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "harassment": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "harassment_history": { "type": "boolean" },
+            "at_risk_individuals": {
+              "type": "integer",
+              "description": "Number of staff at elevated risk"
+            },
+            "vulnerability_assessment": {
+              "type": "string",
+              "enum": ["high", "medium", "low"]
+            },
+            "support_resources_available": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "doxing": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "personal_info_exposure": {
+              "type": "string",
+              "enum": ["high", "medium", "low"],
+              "description": "How much staff personal info is publicly available"
+            },
+            "vulnerability_assessment": {
+              "type": "string",
+              "enum": ["high", "medium", "low"]
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "amplification": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "bot_activity_observed": { "type": "boolean" },
+            "coordinated_behavior_observed": { "type": "boolean" },
+            "vulnerability_assessment": {
+              "type": "string",
+              "enum": ["high", "medium", "low"]
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "platform_manipulation": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "mass_reporting_experienced": { "type": "boolean" },
+            "seo_attacks_observed": { "type": "boolean" },
+            "vulnerability_assessment": {
+              "type": "string",
+              "enum": ["high", "medium", "low"]
+            },
+            "platform_contacts_established": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "document_operations": {
+          "type": "object",
+          "properties": {
+            "relevant": { "type": "boolean" },
+            "leak_risk_assessment": {
+              "type": "string",
+              "enum": ["high", "medium", "low"]
+            },
+            "sensitive_documents_exposure": { "type": "string" },
+            "vulnerability_assessment": {
+              "type": "string",
+              "enum": ["high", "medium", "low"]
+            },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "monitoring_capability": {
+      "type": "object",
+      "description": "Capability to detect info ops attacks",
+      "properties": {
+        "current_monitoring": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "social_media_mentions",
+                  "news_mentions",
+                  "domain_monitoring",
+                  "hashtag_monitoring",
+                  "staff_name_monitoring",
+                  "image_monitoring",
+                  "other"
+                ]
+              },
+              "tool_or_method": { "type": "string" },
+              "frequency": { "type": "string" },
+              "who_monitors": { "type": "string" }
+            }
+          }
+        },
+        "monitoring_gaps": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "recommended_monitoring": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "response_capability": {
+      "type": "object",
+      "description": "Capability to respond to info ops attacks",
+      "properties": {
+        "response_plan_exists": { "type": "boolean" },
+        "decision_framework": {
+          "type": "object",
+          "properties": {
+            "defined": { "type": "boolean" },
+            "respond_criteria": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "When to respond"
+            },
+            "ignore_criteria": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "When to ignore"
+            }
+          }
+        },
+        "pre_drafted_responses": { "type": "boolean" },
+        "spokesperson_designated": { "type": "boolean" },
+        "legal_review_process": { "type": "boolean" },
+        "platform_reporting_knowledge": {
+          "type": "object",
+          "properties": {
+            "twitter_x": { "type": "boolean" },
+            "facebook": { "type": "boolean" },
+            "instagram": { "type": "boolean" },
+            "youtube": { "type": "boolean" },
+            "tiktok": { "type": "boolean" },
+            "other": { "type": "string" }
+          }
+        },
+        "documentation_process": {
+          "type": "object",
+          "properties": {
+            "exists": { "type": "boolean" },
+            "includes_screenshots": { "type": "boolean" },
+            "includes_archiving": { "type": "boolean" },
+            "tool_used": { "type": "string" }
+          }
+        },
+        "external_support": {
+          "type": "object",
+          "properties": {
+            "pr_communications": { "type": "boolean" },
+            "legal": { "type": "boolean" },
+            "digital_security": { "type": "boolean" },
+            "peer_organizations": { "type": "boolean" },
+            "platform_contacts": { "type": "boolean" }
+          }
+        },
+        "staff_support": {
+          "type": "object",
+          "properties": {
+            "harassment_protocol": { "type": "boolean" },
+            "mental_health_support": { "type": "boolean" },
+            "time_off_policy": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "resilience_assessment": {
+      "type": "object",
+      "properties": {
+        "narrative_resilience": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"],
+          "description": "Ability to counter false narratives"
+        },
+        "harassment_resilience": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"],
+          "description": "Ability to support staff through harassment"
+        },
+        "platform_resilience": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"],
+          "description": "Ability to respond to platform manipulation"
+        },
+        "overall_info_ops_resilience": {
+          "type": "string",
+          "enum": ["strong", "adequate", "weak", "none"]
+        },
+        "priority_gaps": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "recommendation": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["monitoring", "prevention", "response", "staff_support", "documentation"]
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "effort": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "addresses_threats": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "narrative_attacks",
+                "impersonation",
+                "harassment",
+                "doxing",
+                "amplification",
+                "platform_manipulation",
+                "document_operations"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

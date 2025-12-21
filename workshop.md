@@ -429,187 +429,633 @@ List quick wins with owners.
 
 ## Modules
 
+Each module provides depth in a specific area. Select modules based on what emerged from the core session and organizational context.
+
+---
+
 ### Module: Deep Adversary Profiling (45 min)
 
-**When to use:** Confirmed or highly likely targeted threats, need to anticipate adversary behavior.
+**When to use:** 
+- Confirmed or highly suspected targeted threats
+- A specific adversary has targeted similar organizations
+- Need to anticipate adversary behavior, not just react
+- Core session identified nation-state or persistent threat actors
 
-**Process:**
+**Facilitator Notes:**
+- This module goes deep on 1-3 adversaries, not all of them
+- Focus on adversaries marked "confirmed" or "likely" in core session
+- The goal is actionable intelligence, not academic analysis
 
-For each primary adversary, complete:
+### Process
 
-**Who They Are**
-- Specific identification (if known)
-- Organizational structure
-- Motivation and objectives
-- Resources available
-- Historical behavior patterns
+**1. Select Adversaries for Deep Dive (5 min)**
 
-**What They Can Do**
-- Technical capability (Advanced/Moderate/Basic)
-- Social engineering capability
-- Information operations capability
-- Physical capability
-- Legal capability
-- Known tools and techniques
+> "Based on our core session, which adversaries should we analyze in detail? I'd recommend focusing on [highest relevance ones]."
 
-**What They Use**
-- Types of infrastructure
-- Known indicators
-- Operational patterns
+Select 1-3 adversaries for detailed analysis.
 
-**Why You**
-- Why your organization specifically
-- What they're after
-- How you fit their objectives
-- Your value as stepping stone to others
+**2. Adversary Identity Analysis (10 min)**
 
-**Output:** Detailed adversary profiles, anticipated attack patterns, indicators to monitor
+For each selected adversary:
+
+> "Let's build a detailed picture of who this adversary is."
+
+| Element | Analysis |
+|---------|----------|
+| Specific identification | Who specifically? (if known) |
+| Organizational structure | How are they organized? |
+| Primary motivation | What drives them? |
+| Objectives | What are they trying to achieve? |
+| Resources | What level of resources do they have? |
+| Persistence | One-time or persistent threat? |
+| History | What's their track record? |
+
+> "Have they targeted organizations like yours before? What happened?"
+
+**3. Capability Analysis (10 min)**
+
+> "What can this adversary actually do? Let's assess their capabilities across different domains."
+
+| Capability Area | Level (Advanced/Moderate/Basic/Minimal) | Known Techniques |
+|-----------------|----------------------------------------|------------------|
+| Technical (hacking, malware) | | |
+| Social Engineering (phishing, pretexting) | | |
+| Information Operations (narrative attacks, harassment) | | |
+| Physical (surveillance, intimidation) | | |
+| Legal (lawsuits, regulatory pressure) | | |
+
+> "What specific techniques have they used against similar organizations?"
+
+**4. Infrastructure Analysis (5 min)**
+
+> "What resources do they use to conduct operations?"
+
+| Infrastructure Type | Details |
+|---------------------|---------|
+| Technical infrastructure | Owned servers? Compromised? Commercial services? |
+| Social infrastructure | Fake accounts? Front organizations? Proxy actors? |
+| Physical presence | On the ground capability? |
+| Known indicators | Domains, accounts, patterns to watch for |
+
+**5. Targeting Analysis (10 min)**
+
+> "Why would they target YOUR organization specifically?"
+
+| Question | Analysis |
+|----------|----------|
+| Why you? | What about your work attracts their attention? |
+| What do they want? | Information? Disruption? Discrediting? |
+| Primary targets within org | Who/what would they go after first? |
+| Stepping stone value | Could you be used to reach others? (sources, partners, beneficiaries) |
+| Likely attack vectors | Based on capabilities, how would they most likely come at you? |
+| Targeting indicators | What would signal you're being targeted? |
+
+**6. Anticipated Scenarios (5 min)**
+
+> "Based on this analysis, what attack scenarios should we anticipate?"
+
+| Scenario | Likelihood | Primary Technique | What to Watch For |
+|----------|------------|-------------------|-------------------|
+| | High/Med/Low | | |
+
+### Output
+- [ ] Detailed profile for each selected adversary
+- [ ] Anticipated attack scenarios
+- [ ] Targeting indicators to monitor
+- [ ] Priority defensive measures for each adversary
 
 ---
 
 ### Module: Information Operations (45 min)
 
-**When to use:** Currently experiencing or anticipating information attacks, public-facing work on contentious issues, staff experiencing harassment.
+**When to use:**
+- Public-facing work (advocacy, journalism, research)
+- Experienced or anticipate coordinated online attacks
+- Staff have been targeted with harassment
+- Work is politically contentious or opposes powerful interests
+- Reputation is a strategic asset requiring protection
 
-**Process:**
+**Facilitator Notes:**
+- This is often highly relevant but overlooked
+- Be sensitive—harassment discussion can be difficult
+- Focus on organizational resilience, not individual blame
 
-**1. Current Exposure Assessment (10 min)**
-- Social media presence and engagement
-- Media coverage and public profile
-- Known opposition narratives
+### Process
 
-**2. Threat Assessment (20 min)**
+**1. Exposure Assessment (10 min)**
 
-Walk through information operations categories:
+> "Let's understand your organization's exposure to information operations."
 
-| Category | Relevant? | Current Evidence | Anticipated? |
-|----------|-----------|------------------|--------------|
-| Narrative Attacks | | | |
-| Impersonation | | | |
-| Harassment | | | |
-| Amplification | | | |
-| Platform Manipulation | | | |
-| Document Leaks | | | |
+**Public Profile:**
 
-**3. Response Planning (15 min)**
-- What to monitor
-- When to respond vs. ignore
-- Pre-drafted responses
-- Platform reporting procedures
-- Documentation protocols
+| Factor | Assessment |
+|--------|------------|
+| Overall visibility | High / Medium / Low |
+| Social media presence | Platforms: _____ Followers: _____ |
+| Media coverage | Frequent / Occasional / Rare |
+| Contentious positions | What positions attract opposition? |
+| Known opposition | Who actively opposes your work? |
 
-**Output:** Info ops threat assessment, monitoring plan, response playbook
+**Staff Exposure:**
+
+> "Who on your team is most visible? Has anyone experienced online harassment?"
+
+| Role | Public Visibility | Personal Social Media | Harassment History |
+|------|-------------------|----------------------|-------------------|
+| | High/Med/Low | Y/N | Y/N |
+
+**2. Threat Category Assessment (15 min)**
+
+> "Let's walk through specific types of information operations and assess your exposure to each."
+
+**Narrative Attacks:**
+> "Have you seen false claims about your organization—funding, motives, foreign connections, conspiracies?"
+
+| Assessment | Response |
+|------------|----------|
+| Currently experiencing? | Y/N |
+| Examples of current narratives | |
+| Anticipated future narratives | |
+| Vulnerability level | High / Medium / Low |
+
+**Impersonation:**
+> "Have you seen fake accounts using your organization's name or posing as staff?"
+
+| Assessment | Response |
+|------------|----------|
+| Known impersonation accounts/sites | |
+| Brand monitoring in place? | Y/N |
+| Vulnerability level | High / Medium / Low |
+
+**Harassment & Doxing:**
+> "Have staff experienced coordinated harassment, pile-ons, or threats? Has personal information been exposed?"
+
+| Assessment | Response |
+|------------|----------|
+| Harassment incidents | |
+| Doxing incidents | |
+| Staff personal info exposure | High / Medium / Low |
+| Support resources available? | Y/N |
+| Vulnerability level | High / Medium / Low |
+
+**Amplification & Coordination:**
+> "Have you seen bot activity or coordinated inauthentic behavior targeting you?"
+
+| Assessment | Response |
+|------------|----------|
+| Bot activity observed | Y/N |
+| Coordinated pile-ons | Y/N |
+| Vulnerability level | High / Medium / Low |
+
+**Platform Manipulation:**
+> "Have you experienced mass reporting of your content or accounts? SEO attacks?"
+
+| Assessment | Response |
+|------------|----------|
+| Mass reporting experienced | Y/N |
+| Content/accounts removed | Y/N |
+| Platform contacts established? | Y/N |
+| Vulnerability level | High / Medium / Low |
+
+**Document Operations:**
+> "Are you concerned about internal documents being stolen and leaked, possibly altered?"
+
+| Assessment | Response |
+|------------|----------|
+| Leak risk | High / Medium / Low |
+| Most sensitive documents | |
+| Vulnerability level | High / Medium / Low |
+
+**3. Monitoring Capability (5 min)**
+
+> "Can you detect when these attacks are happening?"
+
+| Monitoring Type | In Place? | Tool/Method | Who Monitors? |
+|-----------------|-----------|-------------|---------------|
+| Social media mentions | | | |
+| News/media mentions | | | |
+| Staff name monitoring | | | |
+| Domain monitoring | | | |
+| Hashtag monitoring | | | |
+
+> "What are the gaps in your monitoring?"
+
+**4. Response Capability (10 min)**
+
+> "If an attack happens, are you ready to respond?"
+
+| Element | In Place? | Notes |
+|---------|-----------|-------|
+| Response decision framework (when to respond vs. ignore) | | |
+| Pre-drafted responses | | |
+| Designated spokesperson | | |
+| Platform reporting knowledge | | |
+| Documentation process (screenshots, archives) | | |
+| Legal support available | | |
+| PR/comms support available | | |
+| Staff harassment support protocol | | |
+| Mental health resources | | |
+
+**5. Recommendations (5 min)**
+
+> "Based on this assessment, here are the priority improvements..."
+
+| Recommendation | Category | Priority | Effort |
+|----------------|----------|----------|--------|
+| | Monitoring/Prevention/Response/Staff Support | High/Med/Low | Low/Med/High |
+
+### Output
+- [ ] Info ops exposure assessment
+- [ ] Threat category vulnerability ratings
+- [ ] Monitoring gaps identified
+- [ ] Response capability gaps identified
+- [ ] Priority recommendations
+- [ ] Staff support needs identified
 
 ---
 
 ### Module: OPSEC Analysis (45 min)
 
-**When to use:** Protecting sensitive sources or beneficiaries, operating in hostile environments, staff at elevated personal risk.
+**When to use:**
+- Protecting sensitive sources or beneficiaries
+- Operating in hostile environments (authoritarian contexts, conflict zones)
+- Investigating powerful actors who might counter-investigate
+- Staff travel to high-risk locations
+- Work requires operational secrecy
 
-**Process:**
+**Facilitator Notes:**
+- Think like an adversary—what would they find?
+- OPSEC failures enable other attacks
+- Balance security with mission (some exposure may be necessary)
+
+### Process
 
 **1. Public Exposure Audit (15 min)**
 
-| Exposure Type | What's Public? | Concern Level |
-|---------------|----------------|---------------|
-| Website (staff, addresses, partners) | | |
-| Social media | | |
-| Regulatory filings | | |
-| Media coverage | | |
+> "Let's see what an adversary could learn about you through open-source research."
 
-**2. Operational Patterns (15 min)**
+**Website Exposure:**
 
-| Pattern | Predictable? | Exploitable? |
-|---------|--------------|--------------|
-| Regular meetings | | |
-| Travel | | |
-| Communication | | |
-| Financial cycles | | |
+| Element | Public? | Concern Level |
+|---------|---------|---------------|
+| Staff names listed | Y/N | High/Med/Low |
+| Staff contact info | Y/N | |
+| Office address | Y/N | |
+| Partner organizations | Y/N | |
+| Donor list | Y/N | |
+| Program/activity details | Y/N | |
 
-**3. Trust Relationships (10 min)**
+**Social Media Exposure:**
 
-| Relationship | Could Be Exploited? | How? |
-|--------------|---------------------|------|
-| | | |
+| Element | Assessment |
+|---------|------------|
+| Organization accounts | List: |
+| Staff personal accounts linked to org? | Y/N |
+| Location sharing visible | Y/N |
+| Activity patterns visible (posting times, locations) | Y/N |
 
-**4. Recommendations (5 min)**
+**Regulatory/Public Filings:**
 
-List OPSEC improvements with priority.
+| Filing Type | Public? | What It Reveals |
+|-------------|---------|-----------------|
+| 990 (US nonprofits) | Y/N | |
+| Corporate registration | Y/N | |
+| Other | | |
 
-**Output:** OPSEC vulnerability list, prioritized remediation steps
+**Media Coverage:**
+
+| Element | Assessment |
+|---------|------------|
+| Staff quoted by name | Y/N |
+| Activities/locations covered | Y/N |
+| What could adversary learn from media? | |
+
+**2. Digital Footprint (10 min)**
+
+> "What does your technical footprint reveal?"
+
+| Element | Assessment | Reveals |
+|---------|------------|---------|
+| Domain WHOIS | Private/Public | |
+| Email infrastructure (MX records) | | Provider, setup |
+| Third-party services | List: | |
+| Data broker presence | Checked? | |
+
+**3. Operational Patterns (10 min)**
+
+> "What predictable patterns could an adversary exploit?"
+
+| Pattern Type | Predictable? | Publicly Known? | Exploitable? |
+|--------------|--------------|-----------------|--------------|
+| Regular meetings (timing, location) | | | |
+| Travel patterns | | | |
+| Communication patterns | | | |
+| Funding cycles | | | |
+| Event schedules | | | |
+
+**4. Trust Relationships (5 min)**
+
+> "Which relationships could be exploited through impersonation or infiltration?"
+
+| Relationship | Could Be Exploited? | How? | Mitigation |
+|--------------|---------------------|------|------------|
+| | Y/N | | |
+
+**5. OPSEC Vulnerabilities Summary (5 min)**
+
+For each finding, apply OPSEC thinking:
+- Does an adversary want this information?
+- Can they collect it?
+- What can they do with it?
+- What's the potential harm?
+- Can we reduce exposure without harming mission?
+
+| Vulnerability | What Adversary Learns | Severity | Remediation | Priority |
+|---------------|----------------------|----------|-------------|----------|
+| | | High/Med/Low | | High/Med/Low |
+
+### Output
+- [ ] Public exposure audit complete
+- [ ] Digital footprint assessed
+- [ ] Operational patterns identified
+- [ ] Trust relationships assessed
+- [ ] OPSEC vulnerabilities prioritized
+- [ ] Remediation recommendations
 
 ---
 
 ### Module: Incident Response Capability (45 min)
 
-**When to use:** High-risk environment, history of incidents, limited current readiness.
+**When to use:**
+- High-risk environment where incidents are likely
+- History of security incidents
+- Limited current incident response capability
+- Want to establish protocols before they're needed
 
-**Process:**
+**Facilitator Notes:**
+- Preparation is 80% of incident response
+- Don't overwhelm—focus on minimum viable capability first
+- Include information operations incidents, not just technical
 
-**1. Preparation Assessment (15 min)**
+### Process
 
-| Element | In Place? | Notes |
-|---------|-----------|-------|
-| Incident response plan | | |
-| Incident definition | | |
-| Response team & roles | | |
-| Contact lists | | |
-| Communication channels | | |
-| Training | | |
+**1. Define "Incident" (5 min)**
 
-**2. Detection Capability (10 min)**
+> "First, let's define what constitutes a security incident for YOUR organization."
 
-| Monitoring Type | In Place? | Who Monitors? |
-|-----------------|-----------|---------------|
-| Email security | | |
-| Account alerts | | |
-| Social media | | |
-| News/mentions | | |
+| Question | Response |
+|----------|----------|
+| What's an incident? | |
+| Examples that would trigger response | |
+| Examples that wouldn't | |
 
-**3. Response Capability (10 min)**
+**2. Preparation Assessment (15 min)**
+
+> "Let's assess your preparation—what's in place before an incident happens?"
+
+| Element | In Place? | Current State | Priority Gap? |
+|---------|-----------|---------------|---------------|
+| Incident response plan documented | Y/N/Partial | | |
+| Response team defined | Y/N | | |
+| Roles and decision authority clear | Y/N | | |
+| Contact lists (internal) | Y/N | | |
+| Contact lists (legal counsel) | Y/N | | |
+| Contact lists (IT support) | Y/N | | |
+| Contact lists (digital security help) | Y/N | | |
+| Contact lists (platform contacts) | Y/N | | |
+| Contact lists (peer organizations) | Y/N | | |
+| Primary communication channel | Y/N | What: | |
+| Backup/secure communication channel | Y/N | What: | |
+| Staff trained on incident reporting | Y/N | | |
+| Tabletop exercises conducted | Y/N | When: | |
+| Documentation templates ready | Y/N | | |
+
+**3. Detection Capability (10 min)**
+
+> "Would you know if something was happening?"
+
+| Monitoring Type | In Place? | Tool/Method | Who Monitors? | Gap? |
+|-----------------|-----------|-------------|---------------|------|
+| Email security alerts | | | | |
+| Account login alerts | | | | |
+| Endpoint protection | | | | |
+| Social media monitoring | | | | |
+| News/mention monitoring | | | | |
+| Domain monitoring | | | | |
+| Data breach monitoring | | | | |
+
+> "Do staff know what to report and how?"
+
+| Question | Response |
+|----------|----------|
+| Staff know how to report incidents? | Y/N |
+| Reporting method | |
+
+**4. Response Capability (10 min)**
+
+> "If something happens, can you respond effectively?"
 
 | Capability | In Place? | Notes |
 |------------|-----------|-------|
-| Can isolate systems | | |
-| Can revoke access | | |
-| Backups exist & tested | | |
-| External support available | | |
+| Can isolate compromised systems | Y/N | |
+| Can revoke/reset credentials quickly | Y/N | |
+| Can block accounts/access | Y/N | |
+| Backups exist | Y/N | Frequency: |
+| Backups tested | Y/N | Last test: |
+| Recovery time estimate | | |
+| IT support available | Y/N | Contact: |
+| Digital security support available | Y/N | Contact: |
+| Legal support available | Y/N | Contact: |
+| PR/comms support available | Y/N | Contact: |
 
-**4. Gap Identification (10 min)**
+**5. Post-Incident Learning (5 min)**
 
-List priority gaps with owners.
+> "After an incident, how do you learn and improve?"
 
-**Output:** Response readiness assessment, priority improvements
+| Element | In Place? |
+|---------|-----------|
+| Post-incident review process | Y/N |
+| Lessons learned documented | Y/N |
+| Threat model updated after incidents | Y/N |
+
+**6. Incident History Review**
+
+> "Have you experienced incidents before? What happened and what did you learn?"
+
+| Date | Type | Summary | Lessons |
+|------|------|---------|---------|
+| | | | |
+
+**7. Gap Prioritization**
+
+> "Based on this assessment, here are the priority gaps..."
+
+| Gap | Priority | Owner | Target Date |
+|-----|----------|-------|-------------|
+| | Critical/High/Med/Low | | |
+
+**Minimum Viable Incident Response Checklist:**
+- [ ] Incident definition exists
+- [ ] Someone responsible for coordinating response
+- [ ] Contact list (internal + key external)
+- [ ] Secure communication channel identified
+- [ ] Basic documentation template
+- [ ] Post-incident review process
+
+### Output
+- [ ] Incident definition documented
+- [ ] Preparation gaps identified
+- [ ] Detection gaps identified
+- [ ] Response capability gaps identified
+- [ ] Contact lists verified/created
+- [ ] Priority improvements with owners
 
 ---
 
 ### Module: Technical Deep-Dive (60 min)
 
-**When to use:** Complex IT infrastructure, specific technical concerns, preparing for audit.
+**When to use:**
+- Complex IT infrastructure requiring detailed assessment
+- Preparing for a technical security audit
+- Specific technical concerns emerged from core session
+- Want to assess specific control areas
+- Have technical staff who can implement findings
 
-**Process:**
+**Facilitator Notes:**
+- Need someone technical in the room
+- Focus on fundamentals before advanced measures
+- Quick wins matter—identify easy improvements
+
+### Process
 
 **1. Infrastructure Mapping (20 min)**
-- Systems inventory
-- Data flows
-- Access controls
-- Third-party services
+
+> "Let's map your technical infrastructure—what systems and services do you use?"
+
+**Systems Inventory:**
+
+| System/Service | Type | Owner | Criticality | Managed By |
+|----------------|------|-------|-------------|------------|
+| | Endpoint/Server/Cloud/Mobile | | Critical/High/Med/Low | Internal/Third-party |
+
+**Third-Party Services:**
+
+| Service | Provider | Purpose | Data Shared | Security Reviewed? |
+|---------|----------|---------|-------------|-------------------|
+| | | | | Y/N |
+
+**Data Flows:**
+
+> "How does sensitive data move through your systems?"
+
+| Data Type | Source | Destination | Encrypted? |
+|-----------|--------|-------------|------------|
+| | | | Y/N |
 
 **2. Technical Assessment (25 min)**
 
-| Area | Current State | Gaps |
-|------|---------------|------|
-| Authentication | | |
-| Encryption | | |
-| Patching | | |
-| Backups | | |
-| Monitoring | | |
+> "Let's assess security controls in key areas."
 
-**3. Prioritization (15 min)**
+**Authentication:**
 
-List technical improvements by priority and effort.
+| Question | Response | Gap? |
+|----------|----------|------|
+| MFA enabled on critical accounts? | Y/N/Partial | |
+| MFA coverage (% of accounts) | | |
+| Password manager in use? | Y/N | |
+| Password policy exists? | Y/N | |
+| SSO implemented? | Y/N | |
 
-**Output:** Technical vulnerability list, prioritized roadmap
+**Encryption:**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Device encryption (laptops)? | Y/N/Partial | |
+| Device encryption (mobile)? | Y/N/Partial | |
+| Data at rest encrypted? | Y/N/Partial | |
+| Data in transit encrypted? | Y/N | |
+| Email encryption available? | Y/N | |
+
+**Patching & Updates:**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Auto-updates enabled (endpoints)? | Y/N/Partial | |
+| Server/infrastructure patching? | Regular/Irregular/None | |
+| Patch timeline for critical vulns? | | |
+
+**Backups:**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Critical data backed up? | Y/N | |
+| Backup frequency | | |
+| Backups tested? | Y/N | Last: |
+| Offsite/offline backup? | Y/N | |
+| Recovery time estimate | | |
+
+**Monitoring & Logging:**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Logging enabled? | Y/N/Partial | |
+| Alerts configured? | Y/N | |
+| Who monitors? | | |
+| Log retention | | |
+
+**Access Control:**
+
+| Question | Response | Gap? |
+|----------|----------|------|
+| Least privilege implemented? | Y/N/Partial | |
+| Access reviews conducted? | Y/N | Frequency: |
+| Offboarding process defined? | Y/N | |
+| Admin access limited? | Y/N | # of admins: |
+
+**Quick Assessment Questions:**
+- [ ] Is MFA enabled on all critical accounts?
+- [ ] Are all devices encrypted?
+- [ ] Are systems set to auto-update?
+- [ ] When were backups last tested?
+- [ ] Who has admin access, and is it necessary?
+- [ ] What happens to access when someone leaves?
+
+**3. Vulnerability Summary (10 min)**
+
+> "Let's summarize the technical vulnerabilities we've identified."
+
+| Vulnerability | Area | Severity | Exploitability | Remediation |
+|---------------|------|----------|----------------|-------------|
+| | Auth/Encryption/Patching/Backups/Monitoring/Access | Critical/High/Med/Low | Easy/Moderate/Difficult | |
+
+**4. Prioritized Roadmap (5 min)**
+
+> "Let's prioritize improvements by impact and effort."
+
+| Priority | Improvement | Area | Effort | Impact | Owner | Target |
+|----------|-------------|------|--------|--------|-------|--------|
+| 1 | | | Low/Med/High | Critical/High/Med/Low | | |
+| 2 | | | | | | |
+| 3 | | | | | | |
+
+**Overall Assessment:**
+
+| Area | Score |
+|------|-------|
+| Authentication | Strong / Adequate / Weak / None |
+| Encryption | Strong / Adequate / Weak / None |
+| Patching | Strong / Adequate / Weak / None |
+| Backups | Strong / Adequate / Weak / None |
+| Monitoring | Strong / Adequate / Weak / None |
+| Access Control | Strong / Adequate / Weak / None |
+| **Overall Technical Posture** | Strong / Adequate / Weak / None |
+
+### Output
+- [ ] Infrastructure inventory
+- [ ] Technical assessment by area
+- [ ] Vulnerabilities identified and prioritized
+- [ ] Improvement roadmap with owners
+- [ ] Overall technical posture rating
 
 ---
 

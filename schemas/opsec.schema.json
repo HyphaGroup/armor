@@ -168,6 +168,47 @@
         }
       }
     },
+    "human_sources": {
+      "type": "object",
+      "description": "Protection of sensitive sources and beneficiaries",
+      "properties": {
+        "has_sensitive_sources": {
+          "type": "boolean",
+          "description": "Does organization work with sensitive sources/beneficiaries"
+        },
+        "contact_methods": {
+          "type": "object",
+          "properties": {
+            "initial_contact": { "type": "string" },
+            "ongoing_communication": { "type": "string" },
+            "security_of_channels": {
+              "type": "string",
+              "enum": ["strong", "adequate", "weak", "none"]
+            }
+          }
+        },
+        "data_trails": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "What trails exist that could identify sources"
+        },
+        "information_protection": {
+          "type": "object",
+          "properties": {
+            "data_minimization": { "type": "boolean" },
+            "pseudonymization": { "type": "boolean" },
+            "secure_storage": { "type": "boolean" },
+            "retention_policy": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "vulnerabilities": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Identified vulnerabilities in source protection"
+        }
+      }
+    },
     "opsec_vulnerabilities": {
       "type": "array",
       "items": {
