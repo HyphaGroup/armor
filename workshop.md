@@ -6,7 +6,7 @@ A facilitation guide for running threat modeling sessions using the Civil Societ
 
 ## Overview
 
-**Total time:** 3.5-4 hours (core) + 45-60 min per module
+**Total time:** ~3.5 hours (210 min) for core + 45-60 min per module
 
 **Structure:**
 - Core Session 1: Mission & Impact (30 min)
