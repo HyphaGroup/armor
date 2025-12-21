@@ -46,7 +46,12 @@
           "value": {
             "type": "string",
             "enum": ["critical", "high", "medium", "low"],
-            "description": "How valuable/sensitive is this asset"
+            "description": "How valuable/sensitive is this asset (critical=3, high=2, medium=2, low=1 for risk scoring)"
+          },
+          "risk_score_value": {
+            "type": "integer",
+            "enum": [1, 2, 3],
+            "description": "Numeric value for risk scoring: critical→3, high→2, medium→2, low→1"
           },
           "owner": {
             "type": "string",

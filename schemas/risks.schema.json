@@ -55,7 +55,7 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 3,
-            "description": "Asset value: 1=Low, 2=Medium, 3=High/Critical"
+            "description": "Asset value from asset identification: 1=Low, 2=Medium or High, 3=Critical"
           },
           "likelihood_score": {
             "type": "integer",

@@ -65,9 +65,9 @@ Rather than defending against all possible threats equally, this methodology ide
 - **Information assets**: Data, documents, communications, credentials
 - **Containers**: Where assets live (technical systems, physical locations, people's knowledge)
 - **Security requirements**: Confidentiality, integrity, availability needs
-- **Value**: How critical each asset is to mission
+- **Value**: How critical each asset is to mission (Critical/High/Medium/Low → maps to 3/2/2/1 in risk scoring)
 
-**Why it matters:** You can't protect everything equally. Asset identification focuses attention on what actually matters—often information about people (beneficiaries, sources, staff) rather than generic "data."
+**Why it matters:** You can't protect everything equally. Asset identification focuses attention on what actually matters—often information about people (beneficiaries, sources, staff) rather than generic "data." Asset values established here carry forward into risk scoring.
 
 ### 3. Adversary Profiling
 
@@ -107,7 +107,7 @@ Rather than defending against all possible threats equally, this methodology ide
 | **Physical** | Intrusion, surveillance, intimidation |
 | **Operational** | Human error, technical failure, natural disaster, third-party failure |
 
-**Why it matters:** Civil society faces threats across multiple domains—not just "cyber." Information operations (narrative attacks, harassment) and physical threats are often as significant as technical attacks. This methodology covers all domains.
+**Why it matters:** Civil society faces threats across multiple domains—not just "cyber." Information operations (narrative attacks, harassment) and physical threats are often as significant as technical attacks. This methodology covers all domains. Threat likelihood assessed here carries forward into risk scoring.
 
 ### 5. Risk Assessment
 
@@ -127,9 +127,9 @@ Each factor captures something distinct:
 > "There is a risk that [adversary] could [threat action] affecting [asset], which would impact [mission area]."
 
 **Scoring:**
-- **Asset Value** (1-3): Low (1), Medium (2), High/Critical (3)
-- **Likelihood** (1-3): Unlikely (1), Possible (2), Expected/Active (3)
-- **Vulnerability** (1-3): Well-protected (1), Some gaps (2), Exposed (3)
+- **Asset Value** (1-3): From asset identification—Low (1), Medium/High (2), Critical (3)
+- **Likelihood** (1-3): From threat mapping—Unlikely (1), Possible (2), Expected/Active (3)
+- **Vulnerability** (1-3): Assessed per risk—Well-protected (1), Some gaps (2), Exposed (3)
 - **Risk Score** (1-27): Asset Value × Likelihood × Vulnerability
 - **Priority**: Critical (18-27), High (10-17), Moderate (4-9), Low (1-3)
 

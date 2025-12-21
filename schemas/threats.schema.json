@@ -62,7 +62,12 @@
           "likelihood": {
             "type": "string",
             "enum": ["high", "medium", "low"],
-            "description": "How likely is this threat to materialize"
+            "description": "How likely is this threat to materialize (high=3, medium=2, low=1 for risk scoring)"
+          },
+          "likelihood_score": {
+            "type": "integer",
+            "enum": [1, 2, 3],
+            "description": "Numeric likelihood for risk scoring: high→3, medium→2, low→1"
           },
           "likelihood_rationale": {
             "type": "string",

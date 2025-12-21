@@ -151,16 +151,22 @@ Note any third-party services that hold critical data.
 
 For top 5-10 assets:
 
-| Asset | Value | Primary Requirement |
-|-------|-------|---------------------|
-| | Critical/High/Medium/Low | Confidentiality/Integrity/Availability |
+| Asset | Value | Risk Score Value | Primary Requirement |
+|-------|-------|------------------|---------------------|
+| | Critical/High/Medium/Low | 3/2/2/1 | Confidentiality/Integrity/Availability |
 
-> "For each asset—is the main concern keeping it secret (confidentiality), keeping it accurate (integrity), or keeping it accessible (availability)?"
+> "For each asset—how critical is it? And is the main concern keeping it secret (confidentiality), keeping it accurate (integrity), or keeping it accessible (availability)?"
+
+**Value mapping for risk scoring:**
+- **Critical** → 3 (highest risk weight)
+- **High** → 2
+- **Medium** → 2
+- **Low** → 1 (lowest risk weight)
 
 ### Output
 - [ ] Asset list with descriptions
 - [ ] Container mapping for critical assets
-- [ ] Value ratings
+- [ ] Value ratings (will be used in Session 5 risk scoring)
 - [ ] Primary security requirements
 
 ---
@@ -288,11 +294,20 @@ For relevant threats, assign likelihood:
 
 > "How likely is each of these? HIGH means you expect it or it's already happening. MEDIUM means it could happen. LOW means it's possible but unlikely."
 
+| Threat | Likelihood | Risk Score Value |
+|--------|------------|------------------|
+| | High/Medium/Low | 3/2/1 |
+
+**Likelihood mapping for risk scoring:**
+- **High** (Expected/Active) → 3
+- **Medium** (Possible) → 2
+- **Low** (Unlikely) → 1
+
 ### Output
 - [ ] Relevant threats identified
 - [ ] Examples documented
 - [ ] Threats linked to adversaries
-- [ ] Likelihood ratings
+- [ ] Likelihood ratings (will be used in Session 5 risk scoring)
 
 ---
 
@@ -351,9 +366,9 @@ For each scenario, combine three factors:
 | 2 | | | | | |
 
 **Scoring guide:**
-- **Asset Value**: 1=Low, 2=Medium, 3=High/Critical (from Session 2)
-- **Likelihood**: 1=Unlikely, 2=Possible, 3=Expected/Active (from Session 4)
-- **Vulnerability**: 1=Well-protected, 2=Some gaps, 3=Exposed (from step 2 above)
+- **Asset Value**: Use values from Session 2 (Critical=3, High/Medium=2, Low=1)
+- **Likelihood**: Use ratings from Session 4 (Expected/Active=3, Possible=2, Unlikely=1)
+- **Vulnerability**: From step 2 above (Exposed=3, Some gaps=2, Well-protected=1)
 - **Score**: Asset Value × Likelihood × Vulnerability (1-27)
 - **Priority**: Critical (18-27), High (10-17), Moderate (4-9), Low (1-3)
 
