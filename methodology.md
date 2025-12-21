@@ -65,9 +65,17 @@ Rather than defending against all possible threats equally, this methodology ide
 - **Information assets**: Data, documents, communications, credentials
 - **Containers**: Where assets live (technical systems, physical locations, people's knowledge)
 - **Security requirements**: Confidentiality, integrity, availability needs
-- **Value**: How critical each asset is to mission (Critical/High/Medium/Low → maps to 3/2/2/1 in risk scoring)
+- **Value**: How critical each asset is to mission
 
-**Why it matters:** You can't protect everything equally. Asset identification focuses attention on what actually matters—often information about people (beneficiaries, sources, staff) rather than generic "data." Asset values established here carry forward into risk scoring.
+**Asset value mapping for risk scoring:**
+| Value | Risk Score | Meaning |
+|-------|------------|---------|
+| Critical | 3 | Loss would severely impact mission or cause serious harm |
+| High | 2 | Loss would significantly disrupt operations |
+| Medium | 2 | Loss would cause moderate disruption |
+| Low | 1 | Loss would be inconvenient but manageable |
+
+**Why it matters:** You can't protect everything equally. Asset identification focuses attention on what actually matters—often information about people (beneficiaries, sources, staff) rather than generic "data." Asset values established here carry forward into risk scoring (Session 5).
 
 ### 3. Adversary Profiling
 
@@ -107,7 +115,14 @@ Rather than defending against all possible threats equally, this methodology ide
 | **Physical** | Intrusion, surveillance, intimidation |
 | **Operational** | Human error, technical failure, natural disaster, third-party failure |
 
-**Why it matters:** Civil society faces threats across multiple domains—not just "cyber." Information operations (narrative attacks, harassment) and physical threats are often as significant as technical attacks. This methodology covers all domains. Threat likelihood assessed here carries forward into risk scoring.
+**Threat likelihood mapping for risk scoring:**
+| Likelihood | Risk Score | Meaning |
+|------------|------------|---------|
+| High (Expected/Active) | 3 | Threat is active or expected within the year |
+| Medium (Possible) | 2 | Threat could occur, some indicators exist |
+| Low (Unlikely) | 1 | Threat is possible but no current indicators |
+
+**Why it matters:** Civil society faces threats across multiple domains—not just "cyber." Information operations (narrative attacks, harassment) and physical threats are often as significant as technical attacks. This methodology covers all domains. Threat likelihood assessed here carries forward into risk scoring (Session 5).
 
 ### 5. Risk Assessment
 
@@ -127,13 +142,24 @@ Each factor captures something distinct:
 > "There is a risk that [adversary] could [threat action] affecting [asset], which would impact [mission area]."
 
 **Scoring:**
-- **Asset Value** (1-3): From asset identification—Low (1), Medium/High (2), Critical (3)
-- **Likelihood** (1-3): From threat mapping—Unlikely (1), Possible (2), Expected/Active (3)
-- **Vulnerability** (1-3): Assessed per risk—Well-protected (1), Some gaps (2), Exposed (3)
-- **Risk Score** (1-27): Asset Value × Likelihood × Vulnerability
-- **Priority**: Critical (18-27), High (10-17), Moderate (4-9), Low (1-3)
 
-**Why it matters:** Three-factor scoring distinguishes between risks that are serious because of asset value vs. likelihood vs. exposure. This helps prioritize action—vulnerability is what you can actually change through mitigation.
+| Factor | 1 | 2 | 3 | Source |
+|--------|---|---|---|--------|
+| **Asset Value** | Low | Medium or High | Critical | From Session 2 (Asset Identification) |
+| **Likelihood** | Unlikely | Possible | Expected/Active | From Session 4 (Threat Mapping) |
+| **Vulnerability** | Well-protected | Some gaps | Exposed | Assessed in Session 5 |
+
+- **Risk Score** (1-27): Asset Value × Likelihood × Vulnerability
+- **Priority Bands**: Critical (18-27), High (10-17), Moderate (4-9), Low (1-3)
+
+**Vulnerability assessment guide:**
+| Score | Level | Indicators |
+|-------|-------|------------|
+| 1 | Well-protected | Strong controls exist, regularly tested, few gaps |
+| 2 | Some gaps | Partial controls, known weaknesses, or untested |
+| 3 | Exposed | Minimal controls, significant gaps, or no protection |
+
+**Why it matters:** Three-factor scoring distinguishes between risks that are serious because of asset value vs. likelihood vs. exposure. This helps prioritize action—vulnerability is the factor you can most directly change through mitigation.
 
 ### 6. Mitigation Planning
 
@@ -166,8 +192,9 @@ Every organization completes the core:
 | Adversary Selection | Identify who might target you | 30 min |
 | Threat Mapping | Map relevant threats | 45 min |
 | Risk Prioritization | Assess vulnerability, score, prioritize | 45 min |
+| Closing & Next Steps | Identify quick wins, plan modules, assign follow-up | 15 min |
 
-**Total core time:** ~3.5 hours
+**Total core time:** ~3.5 hours (210 min)
 
 ### Modules (As Needed)
 
@@ -412,15 +439,20 @@ The methodology produces a structured **threat model profile** containing:
 
 ```
 profile/
-├── Organization metadata
-├── Mission & impact framework
-├── Asset inventory
-├── Adversary profiles
-├── Threat mapping
-├── Risk register
-├── OPSEC assessment (if module completed)
-├── Response capability (if module completed)
-└── Mitigation plan
+├── meta                    # Organization metadata, versioning
+├── mission                 # Mission & impact framework  
+├── assets                  # Asset inventory with values
+├── adversaries             # Adversary profiles
+├── threats                 # Threat mapping with likelihood
+├── risks                   # Risk register with scores
+├── mitigations             # Mitigation plans
+│
+└── modules/ (as completed)
+    ├── deep-adversary-profiling    # Detailed adversary analysis
+    ├── information-operations      # Info ops assessment
+    ├── opsec                       # OPSEC vulnerability assessment
+    ├── incident-response           # Response capability assessment
+    └── technical-deep-dive         # Technical assessment
 ```
 
 ### Structured Data
