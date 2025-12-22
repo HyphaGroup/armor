@@ -165,6 +165,70 @@
           "description": "Narrative summary of risk posture"
         }
       }
+    },
+    "security_indicators": {
+      "type": "object",
+      "description": "Early warning indicators to monitor for threat environment changes",
+      "properties": {
+        "indicators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "indicator_type": {
+                "type": "string",
+                "enum": [
+                  "peer_incidents",
+                  "sector_targeting",
+                  "online_hostility",
+                  "legal_regulatory",
+                  "adversary_activity",
+                  "staff_reports",
+                  "technical_alerts",
+                  "other"
+                ]
+              },
+              "description": {
+                "type": "string",
+                "description": "What specifically to monitor"
+              },
+              "monitoring_owner": {
+                "type": "string",
+                "description": "Who is responsible for monitoring this"
+              },
+              "frequency": {
+                "type": "string",
+                "enum": ["daily", "weekly", "monthly", "ongoing", "triggered"]
+              },
+              "data_source": {
+                "type": "string",
+                "description": "Where to look for this indicator"
+              }
+            }
+          }
+        },
+        "review_triggers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "trigger": {
+                "type": "string",
+                "description": "What event or threshold triggers a review"
+              },
+              "action": {
+                "type": "string",
+                "enum": ["full_review", "targeted_review", "immediate_response", "monitor_closely"]
+              }
+            }
+          },
+          "description": "What indicator levels should trigger threat model review"
+        },
+        "last_indicator_review": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     }
   }
 }

@@ -43,6 +43,17 @@ Security frameworks should be usable by the people who need them. Plain language
 
 Security is not a one-time project. Outputs should be maintainable over time, with clear ownership, regular review cycles, and integration into existing organizational processes.
 
+### Well-Being as Security Foundation
+
+Security work that burns out staff is not sustainable security. The stress of working under threat, responding to incidents, and maintaining vigilance takes a toll. Effective security strategies acknowledge this by:
+
+- Recognizing that staff well-being is a security asset (exhausted people make mistakes)
+- Building support systems before they're needed (mental health resources, peer support)
+- Distributing security responsibilities rather than concentrating them
+- Celebrating security wins, not just responding to failures
+
+This framework focuses on threat modeling, not well-being programming. For organizations seeking deeper integration of well-being and security, see [Holistic Security](https://holistic-security.tacticaltech.org/) by Tactical Tech.
+
 ---
 
 ## The Threat Modeling Chain

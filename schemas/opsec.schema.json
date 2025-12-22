@@ -209,6 +209,62 @@
         }
       }
     },
+    "personal_safety": {
+      "type": "object",
+      "description": "Personal safety assessment for at-risk staff",
+      "properties": {
+        "staff_assessed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": { "type": "string", "description": "Role/position (not name for privacy)" },
+              "risk_level": {
+                "type": "string",
+                "enum": ["high", "medium", "low"],
+                "description": "Personal risk level based on visibility and targeting"
+              },
+              "data_broker_check": {
+                "type": "object",
+                "properties": {
+                  "completed": { "type": "boolean" },
+                  "exposure_found": { "type": "boolean" },
+                  "removal_initiated": { "type": "boolean" }
+                }
+              },
+              "social_media_audit": {
+                "type": "object",
+                "properties": {
+                  "completed": { "type": "boolean" },
+                  "privacy_hardened": { "type": "boolean" }
+                }
+              },
+              "credit_freeze": { "type": "boolean" },
+              "monitoring_active": {
+                "type": "object",
+                "properties": {
+                  "google_alerts": { "type": "boolean" },
+                  "have_i_been_pwned": { "type": "boolean" }
+                }
+              },
+              "notes": { "type": "string" }
+            }
+          }
+        },
+        "family_protocols": {
+          "type": "object",
+          "properties": {
+            "code_word_established": { "type": "boolean" },
+            "family_briefed": { "type": "boolean" },
+            "secure_comms_with_family": { "type": "boolean" }
+          }
+        },
+        "recommendations": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
     "opsec_vulnerabilities": {
       "type": "array",
       "items": {

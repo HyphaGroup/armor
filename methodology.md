@@ -82,10 +82,31 @@ For the top 3 priority impact areas, define what HIGH/MEDIUM/LOW impact means:
 - MEDIUM: Credible threats requiring security changes
 - LOW: General increase in hostile attention
 
+**Step 4: Map Support Network**
+
+Identify who you can turn to for help when security issues arise:
+
+| Support Type | Contact/Resource | Relationship Status |
+|--------------|------------------|---------------------|
+| **Peer Organizations** | Orgs facing similar threats, can share intel | |
+| **Legal Support** | Lawyer/firm for security-related legal issues | |
+| **Digital Security** | Helpline, consultant, or trained staff | |
+| **IT Support** | Technical response capability | |
+| **Physical Security** | If relevant to your context | |
+| **Communications/PR** | For incident response communications | |
+| **Mental Health** | Support for staff dealing with incidents | |
+| **Platform Contacts** | Direct contacts at social media platforms | |
+
+**Key questions:**
+- Do you have named contacts, or just "we'd find someone"?
+- Are relationships established BEFORE you need them?
+- Do peer organizations know to alert you about threats in your sector?
+
 ### Outputs
 - Mission statement captured
 - Impact areas ranked 1-6
 - Impact thresholds defined for top 3 areas
+- Support network mapped with contact status
 
 ### Schema Reference
 `mission.schema.json`
@@ -380,11 +401,34 @@ Select top 5 risks for immediate focus. Note which factor is driving each:
 - High likelihood → Address the adversary/threat
 - High vulnerability → Fix the gaps (most actionable)
 
+**Step 5: Establish Security Indicators**
+
+Identify early warning signs that your threat environment is changing:
+
+| Indicator Type | What to Monitor | Who Monitors | How Often |
+|----------------|-----------------|--------------|-----------|
+| **Peer Incidents** | Security incidents at similar organizations | | Monthly |
+| **Sector Targeting** | Reports of adversary activity in your sector | | Ongoing |
+| **Online Hostility** | Increase in negative mentions, harassment | | Weekly |
+| **Legal/Regulatory** | New laws, investigations affecting civil society | | Monthly |
+| **Adversary Activity** | Known adversaries becoming more active | | Ongoing |
+| **Staff Reports** | Staff noticing surveillance, unusual contacts | | Ongoing |
+| **Technical Alerts** | Unusual login attempts, phishing increase | | Daily |
+
+**Trigger thresholds:**
+Define what level of indicator activity should trigger a threat model review:
+- Any confirmed incident at peer organization in same region/sector
+- Significant increase in online hostility or harassment
+- New legal threats to organizational type
+- Staff report of physical surveillance
+- Successful phishing attempt or account compromise
+
 ### Outputs
 - Risk scenarios documented
 - Vulnerability assessed for each
 - Risk scores calculated
 - Top 5 priority risks identified
+- Security indicators defined with monitoring owners
 
 ### Schema Reference
 `risks.schema.json`
@@ -701,11 +745,42 @@ For each finding, ask:
 - What's the potential harm?
 - Can we reduce exposure without harming mission?
 
+**Step 7: Assess Personal Safety Exposure** (for at-risk individuals)
+
+For staff who may be personally targeted:
+
+| Assessment Area | Status | Action Needed |
+|-----------------|--------|---------------|
+| **Data Broker Presence** | Check if personal info is on data broker sites | Consider removal service |
+| **Social Media Privacy** | Review personal account privacy settings | Audit and lock down |
+| **Home Address Exposure** | Is home address findable online? | Remove from public records if possible |
+| **Family Exposure** | Are family members identifiable/contactable? | Discuss family security |
+| **Financial Exposure** | Credit monitoring in place? | Consider credit freeze |
+| **Personal Device Security** | Personal devices secured? | Ensure MFA, encryption |
+
+**Personal safety measures to consider:**
+
+| Measure | Purpose | Priority |
+|---------|---------|----------|
+| Data broker removal service | Remove personal info from aggregator sites | High for public-facing staff |
+| Credit freeze (all bureaus) | Prevent identity theft and info gathering | Medium |
+| Google Alerts on name | Monitor for new exposure | Low effort, high value |
+| "Have I Been Pwned" checks | Monitor for credential exposure | Regular check |
+| Family code word | Verify identity in unusual situations | For high-risk contexts |
+| Separate work/personal devices | Limit exposure if work device compromised | Medium |
+
+**For high-risk individuals:**
+- PimEyes or similar reverse image search to find photo exposure
+- Regular review of what's findable via search
+- Consider pseudonym for public-facing work
+- Physical security assessment of residence
+
 ### Outputs
 - Public exposure audit
 - Digital footprint assessment
 - Operational patterns identified
 - OPSEC vulnerabilities prioritized
+- Personal safety assessment (for at-risk staff)
 - Remediation recommendations
 
 ### Schema Reference

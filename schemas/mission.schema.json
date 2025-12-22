@@ -110,6 +110,92 @@
         }
       },
       "description": "Key external relationships the organization depends on"
+    },
+    "support_network": {
+      "type": "object",
+      "description": "Security support resources available to the organization",
+      "properties": {
+        "peer_organizations": {
+          "type": "object",
+          "properties": {
+            "identified": { "type": "boolean" },
+            "contact_established": { "type": "boolean" },
+            "intel_sharing_active": { "type": "boolean" },
+            "notes": { "type": "string" }
+          },
+          "description": "Peer orgs facing similar threats who can share information"
+        },
+        "legal_support": {
+          "type": "object",
+          "properties": {
+            "identified": { "type": "boolean" },
+            "contact_established": { "type": "boolean" },
+            "retainer_or_agreement": { "type": "boolean" },
+            "contact_info": { "type": "string" }
+          },
+          "description": "Legal support for security-related issues"
+        },
+        "digital_security_support": {
+          "type": "object",
+          "properties": {
+            "identified": { "type": "boolean" },
+            "type": {
+              "type": "string",
+              "enum": ["internal_staff", "consultant", "helpline", "none"]
+            },
+            "contact_info": { "type": "string" }
+          },
+          "description": "Digital security expertise available"
+        },
+        "it_support": {
+          "type": "object",
+          "properties": {
+            "identified": { "type": "boolean" },
+            "type": {
+              "type": "string",
+              "enum": ["internal_staff", "contractor", "volunteer", "none"]
+            },
+            "response_time": { "type": "string" }
+          },
+          "description": "Technical IT support capability"
+        },
+        "communications_support": {
+          "type": "object",
+          "properties": {
+            "identified": { "type": "boolean" },
+            "crisis_comms_capability": { "type": "boolean" },
+            "notes": { "type": "string" }
+          },
+          "description": "PR/comms support for incident response"
+        },
+        "mental_health_support": {
+          "type": "object",
+          "properties": {
+            "identified": { "type": "boolean" },
+            "type": {
+              "type": "string",
+              "enum": ["eap", "therapist", "peer_support", "none"]
+            },
+            "notes": { "type": "string" }
+          },
+          "description": "Mental health resources for staff"
+        },
+        "platform_contacts": {
+          "type": "object",
+          "properties": {
+            "have_direct_contacts": { "type": "boolean" },
+            "platforms_covered": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "description": "Direct contacts at social media platforms for escalation"
+        },
+        "emergency_contacts_documented": {
+          "type": "boolean",
+          "description": "Is there a documented list of who to call for different incident types?"
+        }
+      }
     }
   }
 }
