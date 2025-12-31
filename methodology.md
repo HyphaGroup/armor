@@ -1,6 +1,6 @@
-# Threat Modeling Methodology
+# ARMOR Methodology
 
-Detailed instructions for conducting civil society threat modeling. This document describes *what* to do at each step, regardless of delivery format (workshop, self-guided, agent-assisted).
+Detailed instructions for conducting ARMOR threat modeling. This document describes *what* to do at each step, regardless of delivery format (workshop, self-guided, agent-assisted).
 
 For conceptual background, see `framework.md`. For format-specific guidance, see the implementation guides.
 

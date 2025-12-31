@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Adversary Profile Templates",
-  "description": "Pre-built adversary profiles for civil society threat modeling",
+  "description": "Pre-built adversary profiles for ARMOR threat modeling",
   "version": "1.0.0",
   "templates": [
     {

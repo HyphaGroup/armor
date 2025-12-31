@@ -1,6 +1,6 @@
 # Threat Modeling Workshop Guide
 
-A facilitation guide for running threat modeling sessions using the Civil Society Threat Modeling Methodology.
+A facilitation guide for running threat modeling sessions using the ARMOR methodology.
 
 ---
 

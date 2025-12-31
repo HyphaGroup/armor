@@ -1,6 +1,6 @@
 # Analysis: External Guides vs. Our Methodology
 
-Comparative analysis of civil society security guides and recommendations for refinements to our threat modeling framework.
+Comparative analysis of civil society security guides and recommendations for refinements to the ARMOR framework.
 
 ---
 

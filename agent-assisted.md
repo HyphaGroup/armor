@@ -82,7 +82,7 @@ Before starting, prepare to share:
 **Initial prompt example:**
 
 ```
-I want to conduct a threat model for my organization using the civil society threat modeling methodology.
+I want to conduct a threat model for my organization using the ARMOR methodology.
 
 About us:
 - [Organization type]: [description]

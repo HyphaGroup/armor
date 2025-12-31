@@ -1,4 +1,4 @@
-# Civil Society Threat Modeling Framework
+# ARMOR: Adversary Risk Modeling for Organizational Resilience
 
 A security framework for civil society organizations to systematically identify, assess, and address threats across digital, physical, and information domains.
 
