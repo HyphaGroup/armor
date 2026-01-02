@@ -88,8 +88,48 @@ armor/
 │   ├── go.mod
 │   └── go.sum
 │
-├── web/                        # Frontend (TBD - React/Vue/Svelte)
-│   └── ...
+├── web/                        # Frontend (SvelteKit)
+│   ├── src/
+│   │   ├── lib/
+│   │   │   ├── components/     # Reusable UI components
+│   │   │   │   ├── forms/      # Form components per section
+│   │   │   │   ├── ui/         # Generic UI (buttons, modals, etc.)
+│   │   │   │   └── layout/     # Nav, sidebar, etc.
+│   │   │   ├── api.ts          # REST API client
+│   │   │   ├── stores/         # Svelte stores (auth, org context)
+│   │   │   └── types.ts        # TypeScript types (from schemas)
+│   │   ├── routes/
+│   │   │   ├── +layout.svelte
+│   │   │   ├── +page.svelte                    # Landing / login
+│   │   │   ├── [org]/
+│   │   │   │   ├── +layout.svelte              # Org context wrapper
+│   │   │   │   ├── +page.svelte                # Dashboard
+│   │   │   │   ├── profile/
+│   │   │   │   │   ├── +page.svelte            # Profile overview
+│   │   │   │   │   ├── mission/+page.svelte
+│   │   │   │   │   ├── assets/+page.svelte
+│   │   │   │   │   ├── adversaries/+page.svelte
+│   │   │   │   │   ├── threats/+page.svelte
+│   │   │   │   │   ├── risks/+page.svelte
+│   │   │   │   │   └── mitigations/+page.svelte
+│   │   │   │   ├── modules/
+│   │   │   │   │   └── [module]/+page.svelte
+│   │   │   │   ├── proposals/+page.svelte      # Review agent proposals
+│   │   │   │   ├── incidents/
+│   │   │   │   │   ├── +page.svelte            # Incident log
+│   │   │   │   │   └── [id]/+page.svelte       # Incident detail
+│   │   │   │   ├── conversations/
+│   │   │   │   │   ├── +page.svelte            # Agent conversation history
+│   │   │   │   │   └── [id]/+page.svelte       # Conversation detail
+│   │   │   │   ├── history/+page.svelte        # Profile change log
+│   │   │   │   └── settings/+page.svelte       # Org settings, members
+│   │   │   └── api/                            # API routes (if needed for BFF)
+│   │   └── app.html
+│   ├── static/
+│   ├── package.json
+│   ├── svelte.config.js
+│   ├── tsconfig.json
+│   └── vite.config.ts
 │
 ├── schemas/                    # JSON schemas (existing)
 │   ├── mission.schema.json
@@ -217,6 +257,45 @@ interface ProfileChange {
   previousValue: any;
   newValue: any;
   source: 'web' | 'agent' | 'api' | 'import';
+}
+```
+
+#### Incident
+
+Security incidents logged by the organization.
+
+```typescript
+interface Incident {
+  id: string;
+  organizationId: string;
+  title: string;
+  description: string;
+  type: 'phishing' | 'account_compromise' | 'data_breach' | 'malware' | 
+        'physical' | 'harassment' | 'disinformation' | 'other';
+  severity: 'critical' | 'high' | 'medium' | 'low';
+  status: 'open' | 'investigating' | 'resolved' | 'closed';
+  occurredAt: DateTime;
+  discoveredAt: DateTime;
+  resolvedAt: DateTime | null;
+  createdAt: DateTime;
+  createdBy: string;             // User ID
+  
+  // Optional links
+  affectedAssets: string[];      // Asset IDs from profile
+  relatedThreats: string[];      // Threat IDs from profile
+  linkedProposals: string[];     // Proposals generated from this incident
+  
+  // Response tracking
+  responseActions: ResponseAction[];
+  lessonsLearned: string | null;
+}
+
+interface ResponseAction {
+  id: string;
+  description: string;
+  assignedTo: string | null;
+  status: 'pending' | 'in_progress' | 'completed';
+  completedAt: DateTime | null;
 }
 ```
 
@@ -413,6 +492,72 @@ interface ValidationError {
 }
 ```
 
+### Incident Functions
+
+```typescript
+// Create a new incident
+createIncident(params: {
+  organizationId: string;
+  title: string;
+  description: string;
+  type: IncidentType;
+  severity: Severity;
+  occurredAt: DateTime;
+  discoveredAt: DateTime;
+  createdBy: string;
+  affectedAssets?: string[];
+  relatedThreats?: string[];
+}): Promise<Incident>
+
+// Get incident by ID
+getIncident(params: {
+  id: string;
+}): Promise<Incident | null>
+
+// List incidents for organization
+listIncidents(params: {
+  organizationId: string;
+  status?: IncidentStatus[];
+  severity?: Severity[];
+  since?: DateTime;
+  limit?: number;
+}): Promise<Incident[]>
+
+// Update incident
+updateIncident(params: {
+  id: string;
+  title?: string;
+  description?: string;
+  severity?: Severity;
+  status?: IncidentStatus;
+  resolvedAt?: DateTime;
+  lessonsLearned?: string;
+  affectedAssets?: string[];
+  relatedThreats?: string[];
+}): Promise<Incident>
+
+// Add response action to incident
+addResponseAction(params: {
+  incidentId: string;
+  description: string;
+  assignedTo?: string;
+}): Promise<ResponseAction>
+
+// Update response action
+updateResponseAction(params: {
+  incidentId: string;
+  actionId: string;
+  status?: ActionStatus;
+  completedAt?: DateTime;
+}): Promise<ResponseAction>
+
+// Link proposal to incident
+linkProposalToIncident(params: {
+  incidentId: string;
+  proposalId: string;
+}): Promise<void>
+```
+
 ### Analysis Functions
 
 Functions that analyze profile data (primarily for agent use).
@@ -498,6 +643,20 @@ POST   /api/organizations/:slug/profile/:section/validate  # Validate without sa
 GET    /api/organizations/:slug/proposals                  # List pending proposals
 POST   /api/organizations/:slug/proposals/:id/accept       # Accept proposal
 POST   /api/organizations/:slug/proposals/:id/reject       # Reject proposal
+```
+
+### Incidents
+
+```
+GET    /api/organizations/:slug/incidents            # List incidents
+POST   /api/organizations/:slug/incidents            # Create incident
+GET    /api/organizations/:slug/incidents/:id        # Get incident
+PATCH  /api/organizations/:slug/incidents/:id        # Update incident
+DELETE /api/organizations/:slug/incidents/:id        # Delete incident
+
+POST   /api/organizations/:slug/incidents/:id/actions          # Add response action
+PATCH  /api/organizations/:slug/incidents/:id/actions/:aid     # Update action
+POST   /api/organizations/:slug/incidents/:id/link-proposal    # Link proposal
 ```
 
 ### Export/Import
@@ -621,6 +780,45 @@ returns: {
 }
 ```
 
+#### Incident Tools
+
+```typescript
+// List incidents
+tool: armor_list_incidents
+params: {
+  status?: IncidentStatus[];     // Filter by status
+  severity?: Severity[];         // Filter by severity
+  limit?: number;
+}
+returns: {
+  incidents: Incident[];
+  openCount: number;
+  recentCount: number;           // Last 30 days
+}
+
+// Get incident details
+tool: armor_get_incident
+params: {
+  id: string;
+}
+returns: Incident
+
+// Suggest profile updates based on incident
+tool: armor_suggest_incident_updates
+params: {
+  incidentId: string;
+}
+returns: {
+  suggestions: Array<{
+    section: ProfileSection;
+    field: string;
+    currentValue: any;
+    suggestedChange: string;
+    rationale: string;
+  }>;
+}
+```
+
 #### Guidance Tools
 
 ```typescript
@@ -693,62 +891,205 @@ resource: armor://templates/adversaries  # Pre-built adversary profiles
 
 ---
 
-## Web Application
+## Web Application (SvelteKit)
 
-### Pages/Views
+### Tech Stack
+
+- **SvelteKit** - Full-stack Svelte framework
+- **TypeScript** - Type safety, types generated from JSON schemas
+- **TailwindCSS** - Utility-first styling
+- **Superforms** - Form handling with validation
+- **Zod** - Runtime validation (generated from JSON schemas)
+
+### Routes
 
 ```
-/                                    # Landing / marketing
-/login                               # Auth
-/dashboard                           # Org selector (if multiple)
-
-/[org-slug]/                         # Org overview + profile summary
-/[org-slug]/profile                  # Full profile view
-/[org-slug]/profile/mission          # Mission section form
-/[org-slug]/profile/assets           # Assets section form
-/[org-slug]/profile/adversaries      # Adversaries section form
-/[org-slug]/profile/threats          # Threats section form
-/[org-slug]/profile/risks            # Risks section form
-/[org-slug]/profile/mitigations      # Mitigations section form
-
-/[org-slug]/modules/                 # Optional modules list
-/[org-slug]/modules/deep-adversary   # Deep adversary profiling
-/[org-slug]/modules/info-ops         # Information operations
-/[org-slug]/modules/opsec            # OPSEC analysis
-/[org-slug]/modules/incident         # Incident response
-/[org-slug]/modules/technical        # Technical deep-dive
-
-/[org-slug]/history                  # Profile change history
-/[org-slug]/proposals                # Pending agent proposals
-/[org-slug]/settings                 # Org settings, members
-/[org-slug]/export                   # Export options
+/                                    # Landing / login
+/[org]/                              # Dashboard
+/[org]/profile                       # Profile overview + completeness
+/[org]/profile/[section]             # Section form (mission, assets, etc.)
+/[org]/modules/[module]              # Optional module forms
+/[org]/proposals                     # Review agent proposals
+/[org]/incidents                     # Incident log
+/[org]/incidents/[id]                # Incident detail
+/[org]/incidents/new                 # Log new incident
+/[org]/conversations                 # Agent conversation history
+/[org]/conversations/[id]            # Conversation detail + linked proposals
+/[org]/history                       # Profile change log
+/[org]/settings                      # Org settings, members, API keys
+/[org]/export                        # Export options
 ```
 
-### UI Components
+### Key Views
 
-#### Profile Overview
+#### Dashboard (`/[org]/`)
 
-- Visual completeness indicator (progress rings per section)
-- Quick stats (# assets, # risks, # open mitigations)
-- Recent changes
-- Pending proposals alert
-- "Continue where you left off" prompt
+Overview of organization's security posture:
 
-#### Section Forms
+- **Completeness ring** - Visual progress for overall profile
+- **Section cards** - Status per section with quick-edit links
+- **Recent activity** - Timeline of changes (user and agent)
+- **Pending proposals** - Alert badge, quick review
+- **Open mitigations** - Count and link to track
+- **Upcoming reviews** - Next scheduled threat model review
 
-- Guided form matching methodology structure
-- Inline validation against schema
-- Help text pulled from methodology
-- "Examples" expandable sections
-- Auto-save drafts
-- Visual diff when reviewing agent proposals
+#### Profile Section Form (`/[org]/profile/[section]`)
 
-#### Proposal Review
+Guided editing for each ARMOR section:
 
-- Side-by-side diff view
-- Agent's rationale displayed
-- Accept/Reject with optional comment
-- Batch accept/reject for multiple proposals
+- **Progress indicator** - Fields completed vs required
+- **Form fields** - Mapped from JSON schema
+- **Inline validation** - Real-time schema validation
+- **Help tooltips** - Methodology guidance per field
+- **Examples drawer** - Expandable examples from templates
+- **Auto-save** - Draft saved locally, explicit "Save" to commit
+- **History sidebar** - Recent changes to this section
+
+#### Proposals Review (`/[org]/proposals`)
+
+Queue of agent-proposed changes:
+
+- **Proposal cards** - Section, summary, timestamp, agent session
+- **Diff viewer** - Side-by-side or inline diff
+- **Rationale display** - Agent's explanation for the change
+- **Accept/Reject** - With optional comment
+- **Batch actions** - Select multiple, accept/reject all
+- **Link to conversation** - Jump to agent session context
+
+#### Incidents (`/[org]/incidents`)
+
+Security incident tracking:
+
+- **Incident list** - Date, type, severity, status
+- **Log new incident** - Quick form: what happened, when, who involved
+- **Incident detail** - Full description, timeline, response actions
+- **Link to profile** - "Update threat model" button
+- **Suggested updates** - Agent-proposed profile changes based on incident
+
+#### Conversations (`/[org]/conversations`)
+
+History of agent interactions:
+
+- **Session list** - Date, duration, tool calls, proposals created
+- **Conversation view** - Full message history (if stored)
+- **Linked proposals** - Proposals generated in this session
+- **Profile changes** - What was updated as result
+
+#### Settings (`/[org]/settings`)
+
+Organization configuration:
+
+- **General** - Name, slug
+- **Members** - Invite, roles, remove
+- **API Keys** - Create, revoke, permissions
+- **Review schedule** - Set reminder cadence
+- **Export/Import** - Backup, restore
+- **Danger zone** - Delete organization
+
+### Components
+
+#### Forms (`/lib/components/forms/`)
+
+Per-section form components:
+
+```
+MissionForm.svelte
+AssetsForm.svelte
+  └── AssetItemForm.svelte      # Repeatable item
+AdversariesForm.svelte
+  └── AdversaryItemForm.svelte
+ThreatsForm.svelte
+RisksForm.svelte
+  └── RiskScenarioForm.svelte
+MitigationsForm.svelte
+  └── MitigationItemForm.svelte
+```
+
+#### UI (`/lib/components/ui/`)
+
+Generic reusable components:
+
+```
+Button.svelte
+Input.svelte
+Select.svelte
+Textarea.svelte
+Modal.svelte
+Dropdown.svelte
+Badge.svelte
+Card.svelte
+ProgressRing.svelte
+DiffViewer.svelte
+Timeline.svelte
+Toast.svelte
+```
+
+#### Layout (`/lib/components/layout/`)
+
+```
+Nav.svelte               # Top navigation
+Sidebar.svelte           # Section navigation within org
+OrgSwitcher.svelte       # Switch between organizations
+UserMenu.svelte          # Profile, logout
+```
+
+### State Management
+
+Svelte stores for global state:
+
+```typescript
+// stores/auth.ts
+export const user = writable<User | null>(null);
+export const isAuthenticated = derived(user, $user => !!$user);
+
+// stores/org.ts
+export const currentOrg = writable<Organization | null>(null);
+export const orgSlug = derived(currentOrg, $org => $org?.slug);
+
+// stores/profile.ts
+export const profile = writable<Profile | null>(null);
+export const completeness = derived(profile, $p => calculateCompleteness($p));
+
+// stores/proposals.ts
+export const pendingProposals = writable<Proposal[]>([]);
+export const proposalCount = derived(pendingProposals, $p => $p.length);
+```
+
+### API Client
+
+Typed API client for REST endpoints:
+
+```typescript
+// lib/api.ts
+class ArmorAPI {
+  constructor(private baseUrl: string) {}
+  
+  // Organizations
+  async getOrganizations(): Promise<Organization[]>
+  async getOrganization(slug: string): Promise<Organization>
+  
+  // Profile
+  async getProfile(orgSlug: string): Promise<Profile>
+  async getProfileSection(orgSlug: string, section: Section): Promise<SectionData>
+  async updateProfileSection(orgSlug: string, section: Section, data: SectionData): Promise<Profile>
+  async getCompleteness(orgSlug: string): Promise<Completeness>
+  
+  // Proposals
+  async getProposals(orgSlug: string): Promise<Proposal[]>
+  async acceptProposal(orgSlug: string, proposalId: string): Promise<void>
+  async rejectProposal(orgSlug: string, proposalId: string, reason?: string): Promise<void>
+  
+  // Incidents
+  async getIncidents(orgSlug: string): Promise<Incident[]>
+  async createIncident(orgSlug: string, data: CreateIncident): Promise<Incident>
+  async updateIncident(orgSlug: string, id: string, data: UpdateIncident): Promise<Incident>
+  
+  // History
+  async getHistory(orgSlug: string, options?: HistoryOptions): Promise<ProfileChange[]>
+}
+
+export const api = new ArmorAPI(PUBLIC_API_URL);
+```
 
 ---
 
@@ -1001,6 +1342,33 @@ CREATE TABLE agent_sessions (
 );
 
 CREATE INDEX idx_agent_sessions_org ON agent_sessions(organization_id);
+
+-- Incidents
+CREATE TABLE incidents (
+  id TEXT PRIMARY KEY,              -- UUID
+  organization_id TEXT NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  type TEXT NOT NULL CHECK (type IN ('phishing', 'account_compromise', 'data_breach', 
+    'malware', 'physical', 'harassment', 'disinformation', 'other')),
+  severity TEXT NOT NULL CHECK (severity IN ('critical', 'high', 'medium', 'low')),
+  status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'investigating', 'resolved', 'closed')),
+  occurred_at TEXT NOT NULL,
+  discovered_at TEXT NOT NULL,
+  resolved_at TEXT,
+  created_at TEXT NOT NULL,
+  created_by TEXT NOT NULL REFERENCES users(id),
+  
+  affected_assets TEXT,             -- JSON array of asset IDs
+  related_threats TEXT,             -- JSON array of threat IDs
+  linked_proposals TEXT,            -- JSON array of proposal IDs
+  response_actions TEXT,            -- JSON array of ResponseAction objects
+  lessons_learned TEXT
+);
+
+CREATE INDEX idx_incidents_org ON incidents(organization_id);
+CREATE INDEX idx_incidents_status ON incidents(organization_id, status);
+CREATE INDEX idx_incidents_occurred ON incidents(occurred_at);
 ```
 
 ### Schema Validation
