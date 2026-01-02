@@ -746,21 +746,171 @@ Agent: [calls armor_get_section(threats)]
 
 ## Technical Implementation Notes
 
-### Data Store Options
+### Data Store: SQLite with Encryption
 
-**Option A: PostgreSQL with JSONB**
+SQLite with SQLCipher for encryption at rest. Simple, portable, no separate database server.
+
+**Why SQLite:**
+- Single-file database, easy backup and portability
+- No server process to manage
+- Sufficient for expected scale (single org, handful of users)
+- JSON1 extension for JSON column queries
+- Battle-tested, reliable
+
+**Encryption: SQLCipher**
+- Transparent 256-bit AES encryption of entire database file
+- Key derived from user-provided passphrase or environment variable
+- Encryption at rest protects against disk/backup theft
+- Open source, audited implementation
+
+**Schema approach:**
 - Organizations, Users, Memberships as regular tables
-- Profile sections as JSONB columns
-- Good balance of structure and flexibility
-- JSON schema validation in application layer
+- Profile sections stored as JSON text columns
+- JSON schema validation in application layer (not database)
+- Indexes on JSON fields via SQLite's JSON1 `json_extract()`
 
-**Option B: Document Database (MongoDB, etc.)**
-- More natural fit for JSON schemas
-- Profile as single document
-- Easier schema evolution
-- Less relational integrity
+**Libraries:**
+- Node.js: `better-sqlite3` + `@journeyapps/sqlcipher` or `sql.js` with SQLCipher build
+- Python: `sqlcipher3` or `pysqlcipher3`
 
-**Recommended: Option A** - PostgreSQL provides better tooling, transactions, and the JSONB support is mature.
+**Key management:**
+```
+# Key passed via environment variable
+ARMOR_DB_KEY=<256-bit-key-base64>
+
+# Or derived from passphrase at startup
+ARMOR_DB_PASSPHRASE=<user-passphrase>
+```
+
+**Database file location:**
+```
+~/.armor/armor.db           # Default local
+/var/lib/armor/armor.db     # Server deployment
+./data/armor.db             # Development
+```
+
+### SQL Schema
+
+```sql
+-- Organizations
+CREATE TABLE organizations (
+  id TEXT PRIMARY KEY,              -- UUID
+  name TEXT NOT NULL,
+  slug TEXT NOT NULL UNIQUE,
+  created_at TEXT NOT NULL,         -- ISO 8601
+  updated_at TEXT NOT NULL
+);
+
+CREATE INDEX idx_organizations_slug ON organizations(slug);
+
+-- Users
+CREATE TABLE users (
+  id TEXT PRIMARY KEY,              -- UUID
+  email TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  last_login_at TEXT
+);
+
+CREATE INDEX idx_users_email ON users(email);
+
+-- Organization Memberships
+CREATE TABLE organization_memberships (
+  organization_id TEXT NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  role TEXT NOT NULL CHECK (role IN ('owner', 'admin', 'editor', 'viewer')),
+  created_at TEXT NOT NULL,
+  PRIMARY KEY (organization_id, user_id)
+);
+
+-- Profiles (one per organization)
+CREATE TABLE profiles (
+  organization_id TEXT PRIMARY KEY REFERENCES organizations(id) ON DELETE CASCADE,
+  version INTEGER NOT NULL DEFAULT 1,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,                  -- User ID or 'agent'
+  
+  -- Core components (JSON text, validated in application)
+  mission TEXT,                     -- JSON matching mission.schema.json
+  assets TEXT,                      -- JSON matching assets.schema.json
+  adversaries TEXT,                 -- JSON matching adversaries.schema.json
+  threats TEXT,                     -- JSON matching threats.schema.json
+  risks TEXT,                       -- JSON matching risks.schema.json
+  mitigations TEXT,                 -- JSON matching mitigations.schema.json
+  
+  -- Optional modules
+  deep_adversary_profiling TEXT,
+  information_operations TEXT,
+  opsec TEXT,
+  response_capability TEXT,
+  technical_deep_dive TEXT
+);
+
+-- Profile Change History
+CREATE TABLE profile_changes (
+  id TEXT PRIMARY KEY,              -- UUID
+  organization_id TEXT NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  version INTEGER NOT NULL,         -- Profile version after this change
+  timestamp TEXT NOT NULL,
+  user_id TEXT REFERENCES users(id),
+  agent_session_id TEXT,
+  change_type TEXT NOT NULL CHECK (change_type IN ('create', 'update', 'delete')),
+  section TEXT NOT NULL,
+  path TEXT NOT NULL,               -- JSON path within section
+  previous_value TEXT,              -- JSON
+  new_value TEXT,                   -- JSON
+  source TEXT NOT NULL CHECK (source IN ('web', 'agent', 'api', 'import'))
+);
+
+CREATE INDEX idx_profile_changes_org ON profile_changes(organization_id);
+CREATE INDEX idx_profile_changes_timestamp ON profile_changes(timestamp);
+
+-- Agent Proposals (pending changes awaiting approval)
+CREATE TABLE proposals (
+  id TEXT PRIMARY KEY,              -- UUID
+  organization_id TEXT NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  agent_session_id TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'accepted', 'rejected')),
+  resolved_at TEXT,
+  resolved_by TEXT REFERENCES users(id),
+  rejection_reason TEXT,
+  
+  section TEXT NOT NULL,
+  changes TEXT NOT NULL,            -- JSON patch
+  rationale TEXT NOT NULL,          -- Agent's explanation
+  preview TEXT NOT NULL             -- JSON: what section would look like
+);
+
+CREATE INDEX idx_proposals_org_status ON proposals(organization_id, status);
+
+-- API Keys (for programmatic access)
+CREATE TABLE api_keys (
+  id TEXT PRIMARY KEY,              -- UUID
+  organization_id TEXT NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,               -- Human-readable label
+  key_hash TEXT NOT NULL,           -- SHA-256 hash of key
+  permissions TEXT NOT NULL CHECK (permissions IN ('read', 'read-propose', 'read-write')),
+  created_at TEXT NOT NULL,
+  created_by TEXT NOT NULL REFERENCES users(id),
+  last_used_at TEXT,
+  expires_at TEXT                   -- NULL = never expires
+);
+
+CREATE INDEX idx_api_keys_hash ON api_keys(key_hash);
+
+-- Agent Sessions (for audit trail)
+CREATE TABLE agent_sessions (
+  id TEXT PRIMARY KEY,              -- UUID
+  organization_id TEXT NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  api_key_id TEXT REFERENCES api_keys(id),
+  started_at TEXT NOT NULL,
+  ended_at TEXT,
+  tool_calls INTEGER DEFAULT 0      -- Count of MCP tool invocations
+);
+
+CREATE INDEX idx_agent_sessions_org ON agent_sessions(organization_id);
+```
 
 ### Schema Validation
 
