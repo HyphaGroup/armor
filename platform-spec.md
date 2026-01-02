@@ -20,25 +20,115 @@ Both interfaces share a common backend function layer and data store.
 └─────────┬──────────┘     └─────────┬──────────┘
           │                          │
           ▼                          ▼
-┌────────────────────┐     ┌────────────────────┐
-│   REST API         │     │   MCP Server       │
-│   (HTTP/JSON)      │     │   (Tool Protocol)  │
-└─────────┬──────────┘     └─────────┬──────────┘
-          │                          │
-          └────────────┬─────────────┘
-                       ▼
-          ┌────────────────────────┐
-          │   Function Layer       │
-          │   (Core Operations)    │
-          └───────────┬────────────┘
-                      │
-                      ▼
-          ┌────────────────────────┐
-          │   Data Store           │
-          │   (Organizations,      │
-          │    Users, Profiles)    │
-          └────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│                 armor-server (Go)               │
+│  ┌──────────────────┐  ┌──────────────────────┐ │
+│  │   REST API       │  │   MCP Server         │ │
+│  │   (HTTP/JSON)    │  │   (mcp-go SDK)       │ │
+│  └────────┬─────────┘  └───────────┬──────────┘ │
+│           │                        │            │
+│           └───────────┬────────────┘            │
+│                       ▼                         │
+│          ┌────────────────────────┐             │
+│          │   Function Layer       │             │
+│          │   (Core Operations)    │             │
+│          └───────────┬────────────┘             │
+│                      │                          │
+│                      ▼                          │
+│          ┌────────────────────────┐             │
+│          │   SQLite + SQLCipher   │             │
+│          └────────────────────────┘             │
+└─────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────┐
+│                 armor-web                       │
+│            (static SPA / frontend)              │
+│              talks to REST API                  │
+└─────────────────────────────────────────────────┘
+
+             ┌─────────────────────┐
+             │    cloudflared      │
+             │  (tunnel exposure)  │
+             └─────────────────────┘
 ```
+
+---
+
+## Project Structure
+
+```
+armor/
+├── server/                     # Go backend
+│   ├── cmd/
+│   │   └── armor-server/
+│   │       └── main.go         # Entry point
+│   ├── internal/
+│   │   ├── db/                 # SQLite/SQLCipher wrapper
+│   │   │   ├── db.go
+│   │   │   ├── migrations.go
+│   │   │   └── schema.sql
+│   │   ├── core/               # Function layer (business logic)
+│   │   │   ├── organizations.go
+│   │   │   ├── users.go
+│   │   │   ├── profiles.go
+│   │   │   ├── proposals.go
+│   │   │   └── analysis.go
+│   │   ├── api/                # REST API handlers
+│   │   │   ├── router.go
+│   │   │   ├── auth.go
+│   │   │   ├── organizations.go
+│   │   │   ├── profiles.go
+│   │   │   └── middleware.go
+│   │   ├── mcp/                # MCP server implementation
+│   │   │   ├── server.go
+│   │   │   ├── tools.go
+│   │   │   └── resources.go
+│   │   └── validation/         # JSON schema validation
+│   │       └── validator.go
+│   ├── go.mod
+│   └── go.sum
+│
+├── web/                        # Frontend (TBD - React/Vue/Svelte)
+│   └── ...
+│
+├── schemas/                    # JSON schemas (existing)
+│   ├── mission.schema.json
+│   ├── assets.schema.json
+│   └── ...
+│
+└── docs/                       # Documentation
+    ├── framework.md
+    ├── methodology.md
+    └── platform-spec.md
+```
+
+### Build & Run
+
+```bash
+# Build server
+cd server
+go build -o armor-server ./cmd/armor-server
+
+# Run (development)
+ARMOR_DB_PATH=./data/armor.db \
+ARMOR_DB_KEY=<key> \
+./armor-server
+
+# Expose via cloudflared (if needed)
+cloudflared tunnel --url http://localhost:8080
+```
+
+### Configuration
+
+Environment variables:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ARMOR_DB_PATH` | Path to SQLite database file | `./armor.db` |
+| `ARMOR_DB_KEY` | SQLCipher encryption key (base64) | Required |
+| `ARMOR_API_PORT` | REST API port | `8080` |
+| `ARMOR_MCP_PORT` | MCP server port | `8081` |
+| `ARMOR_LOG_LEVEL` | Log level (debug/info/warn/error) | `info` |
 
 ---
 
@@ -769,9 +859,10 @@ SQLite with SQLCipher for encryption at rest. Simple, portable, no separate data
 - JSON schema validation in application layer (not database)
 - Indexes on JSON fields via SQLite's JSON1 `json_extract()`
 
-**Libraries:**
-- Node.js: `better-sqlite3` + `@journeyapps/sqlcipher` or `sql.js` with SQLCipher build
-- Python: `sqlcipher3` or `pysqlcipher3`
+**Go Libraries:**
+- `github.com/mattn/go-sqlite3` with SQLCipher build tags
+- Or `github.com/mutecomm/go-sqlcipher` (SQLCipher bindings)
+- `github.com/mark3labs/mcp-go` for MCP server
 
 **Key management:**
 ```
