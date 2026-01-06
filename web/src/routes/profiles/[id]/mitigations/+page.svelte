@@ -12,13 +12,11 @@
 			mitigation_id: string;
 			title: string;
 			description: string;
-			type: string;
+			mitigation_type: string;
 			priority: string;
 			effort: string;
-			owner: string;
 			status: string;
-			target_date: string;
-			addresses_risks: string[];
+			risk_ids: string[];
 		}>,
 	});
 
@@ -26,11 +24,15 @@
 	let risks = $state<Array<{ risk_id: string; scenario: string; status: string }>>([]);
 
 	const typeOptions = [
-		{ value: 'technical', label: 'Technical Control' },
-		{ value: 'policy', label: 'Policy/Procedure' },
-		{ value: 'training', label: 'Training/Awareness' },
-		{ value: 'physical', label: 'Physical Control' },
-		{ value: 'organizational', label: 'Organizational' },
+		{ value: 'technical_control', label: 'Technical Control' },
+		{ value: 'policy_procedure', label: 'Policy/Procedure' },
+		{ value: 'training_awareness', label: 'Training/Awareness' },
+		{ value: 'physical_control', label: 'Physical Control' },
+		{ value: 'organizational_change', label: 'Organizational Change' },
+		{ value: 'third_party_service', label: 'Third Party Service' },
+		{ value: 'monitoring_detection', label: 'Monitoring/Detection' },
+		{ value: 'response_capability', label: 'Response Capability' },
+		{ value: 'other', label: 'Other' },
 	];
 
 	const priorityOptions = [
@@ -70,10 +72,10 @@
 			]);
 			
 			if (mitigationsRes.data) {
-				// Ensure addresses_risks array exists on all mitigations
+				// Ensure risk_ids array exists on all mitigations
 				const mitigations = (mitigationsRes.data.mitigations || []).map((m: any) => ({
 					...m,
-					addresses_risks: m.addresses_risks || [],
+					risk_ids: m.risk_ids || [],
 				}));
 				data = { mitigations };
 			}
@@ -107,13 +109,11 @@
 			mitigation_id: `mit-${Date.now()}`,
 			title: '',
 			description: '',
-			type: 'technical',
+			mitigation_type: 'technical_control',
 			priority: 'medium',
 			effort: 'medium',
-			owner: '',
 			status: 'planned',
-			target_date: '',
-			addresses_risks: [],
+			risk_ids: [],
 		}];
 	}
 
@@ -123,10 +123,10 @@
 
 	function toggleRisk(mitIndex: number, riskId: string) {
 		const mit = data.mitigations[mitIndex];
-		if (mit.addresses_risks.includes(riskId)) {
-			data.mitigations[mitIndex].addresses_risks = mit.addresses_risks.filter(id => id !== riskId);
+		if (mit.risk_ids.includes(riskId)) {
+			data.mitigations[mitIndex].risk_ids = mit.risk_ids.filter(id => id !== riskId);
 		} else {
-			data.mitigations[mitIndex].addresses_risks = [...mit.addresses_risks, riskId];
+			data.mitigations[mitIndex].risk_ids = [...mit.risk_ids, riskId];
 		}
 	}
 
@@ -221,14 +221,14 @@
 							{#if risks.length > 0}
 								<div class="bg-gray-50 rounded-lg p-4">
 									<div class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-										Addresses Risks ({mit.addresses_risks.length} selected)
+										Addresses Risks ({mit.risk_ids.length} selected)
 									</div>
 									<div class="flex flex-wrap gap-2">
 										{#each risks as risk}
 											<button
 												type="button"
 												onclick={() => toggleRisk(i, risk.risk_id)}
-												class="px-3 py-1 text-xs rounded-full border transition {mit.addresses_risks.includes(risk.risk_id) ? 'bg-blue-100 border-blue-300 text-blue-700' : 'bg-white border-gray-300 text-gray-600 hover:border-gray-400'}"
+												class="px-3 py-1 text-xs rounded-full border transition {mit.risk_ids.includes(risk.risk_id) ? 'bg-blue-100 border-blue-300 text-blue-700' : 'bg-white border-gray-300 text-gray-600 hover:border-gray-400'}"
 												title={risk.scenario}
 											>
 												{getRiskLabel(risk)}
@@ -241,7 +241,7 @@
 							<div class="grid grid-cols-4 gap-3">
 								<div>
 									<label for="type-{i}" class="block text-xs text-gray-500 mb-1">Type</label>
-									<select id="type-{i}" bind:value={mit.type} class="w-full px-3 py-2 border rounded-lg text-sm">
+									<select id="type-{i}" bind:value={mit.mitigation_type} class="w-full px-3 py-2 border rounded-lg text-sm">
 										{#each typeOptions as opt}
 											<option value={opt.value}>{opt.label}</option>
 										{/each}
@@ -270,28 +270,6 @@
 											<option value={opt.value}>{opt.label}</option>
 										{/each}
 									</select>
-								</div>
-							</div>
-
-							<div class="grid grid-cols-2 gap-3">
-								<div>
-									<label for="owner-{i}" class="block text-xs text-gray-500 mb-1">Owner</label>
-									<input
-										id="owner-{i}"
-										type="text"
-										bind:value={mit.owner}
-										placeholder="Who is responsible?"
-										class="w-full px-3 py-2 border rounded-lg text-sm"
-									/>
-								</div>
-								<div>
-									<label for="date-{i}" class="block text-xs text-gray-500 mb-1">Target Date</label>
-									<input
-										id="date-{i}"
-										type="date"
-										bind:value={mit.target_date}
-										class="w-full px-3 py-2 border rounded-lg text-sm"
-									/>
 								</div>
 							</div>
 						</div>
