@@ -1,3 +1,2 @@
 .DS_Store
-reference/disarm/DISARMframeworks/
-reference/mitre-attack/attack-website/
+reference/*
