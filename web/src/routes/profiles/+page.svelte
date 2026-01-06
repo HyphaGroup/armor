@@ -10,9 +10,9 @@
 	onMount(async () => {
 		try {
 			profiles = await api.listProfiles();
-			// Hide intro if user has profiles
-			if (profiles.length > 0) {
-				showIntro = localStorage.getItem('hideIntro') === 'true';
+			// Hide intro only if user explicitly dismissed it
+			if (localStorage.getItem('hideIntro') === 'true') {
+				showIntro = false;
 			}
 		} catch (e) {
 			error = e instanceof Error ? e.message : 'Failed to load profiles';
@@ -52,8 +52,6 @@
 					</svg>
 				</button>
 			{/if}
-			<h1 class="text-2xl font-bold mb-3">ARMOR</h1>
-			<p class="text-slate-300 text-sm mb-4">Adversary Risk Modeling for Organizational Resilience</p>
 			<p class="text-slate-200 text-sm leading-relaxed mb-4">
 				A security framework for organizations to systematically identify, assess, and address threats across digital, physical, and information domains.
 			</p>

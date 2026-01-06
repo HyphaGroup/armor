@@ -65,11 +65,13 @@
 	}
 
 	async function save() {
+		const id = $page.params.id;
+		if (!id) return;
 		saving = true;
 		error = '';
 		success = '';
 		try {
-			await api.updateSection($page.params.id, 'assets', data);
+			await api.updateSection(id, 'assets', data);
 			success = 'Saved successfully';
 			setTimeout(() => success = '', 3000);
 		} catch (e) {

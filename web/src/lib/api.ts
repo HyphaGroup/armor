@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = '/api';
 
 function getPassword(): string | null {
   if (typeof window === 'undefined') return null;

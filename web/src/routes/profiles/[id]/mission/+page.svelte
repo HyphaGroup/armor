@@ -55,11 +55,13 @@
 	}
 
 	async function save() {
+		const id = $page.params.id;
+		if (!id) return;
 		saving = true;
 		error = '';
 		success = '';
 		try {
-			await api.updateSection($page.params.id, 'mission', data);
+			await api.updateSection(id, 'mission', data);
 			success = 'Saved successfully';
 			setTimeout(() => success = '', 3000);
 		} catch (e: any) {

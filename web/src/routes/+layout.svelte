@@ -71,7 +71,10 @@
 	<div class="min-h-screen">
 		<nav class="bg-white shadow-sm border-b">
 			<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-				<a href="/profiles" class="text-xl font-bold text-gray-900">ARMOR</a>
+				<a href="/profiles" class="flex items-baseline gap-2">
+					<span class="text-xl font-bold text-gray-900">ARMOR</span>
+					<span class="text-sm text-gray-500 hidden sm:inline">Adversary Risk Modeling for Organizational Resilience</span>
+				</a>
 				<button
 					onclick={logout}
 					class="text-gray-600 hover:text-gray-900 text-sm"
